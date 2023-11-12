@@ -1,16 +1,20 @@
-import React from 'react'
-import Header from './components/ui/Header'
-import Hero from './components/home/Hero'
+import React from "react";
+import Header from "./components/ui/Header";
+import Hero from "./components/home/Hero";
+import Heading from "./utils/Heading";
 
-type Props = {}
-
+type Props = {};
 const page = (props: Props) => {
   return (
     <>
-    <Header />
+      <Heading
+        title="BLeaner"
+        description="BLeaner is online learning platform"
+        keywords="development,arts,finance"
+      />
       <Hero />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

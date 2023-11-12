@@ -9,6 +9,14 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        dark: {
+          primary: "#e8eaeb"
+        },
+        light: {
+          primary: "#0b1014",
+        },
+      },
       fontFamily: {
         Poppins: ["var(--font-poppins)"],
         Josefin: ["var(--font-josefin)"],
