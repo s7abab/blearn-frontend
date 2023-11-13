@@ -7,10 +7,12 @@ import {
   AiOutlineEyeInvisible,
   AiFillGithub,
 } from "react-icons/ai";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "../../../styles/style";
 import Link from "next/link";
-import OtpModal from "@/app/components/modals/OtpModal";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -23,18 +25,34 @@ const schema = Yup.object().shape({
 
 const Login = (props: Props) => {
   const [show, setShow] = useState(false);
+  const [login, { isLoading, isSuccess, error }] = useLoginMutation();
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      console.log(email, password);
+      await login({ email, password });
     },
   });
+
+  // login api
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/");
+      toast.success("Login Successfully");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+      }
+    }
+  }, [router, error, isSuccess]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
-      <OtpModal />
       <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
         <h1 className={`${styles.title} mb-3`}>Login</h1>
         <form onSubmit={handleSubmit}>

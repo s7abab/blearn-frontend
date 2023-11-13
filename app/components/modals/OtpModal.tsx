@@ -1,6 +1,10 @@
 "use client";
+import { useSelector } from "react-redux";
 import { styles } from "../../styles/style";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useActivationMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface Props {}
 
@@ -13,6 +17,27 @@ type VerifyNumber = {
 
 const OtpModal = (props: Props) => {
   const [invalidError, setInvalidError] = useState<boolean>(false);
+  const { token } = useSelector((state: any) => state.auth);
+  const [activation, { isSuccess, error }] = useActivationMutation();
+  const route = useRouter();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Account activated successfully");
+      route.push("/auth/login");
+      
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+        setInvalidError(true);
+      } else {
+        console.log(error);
+      }
+    }
+  }, [isSuccess, error, route]);
+
   const [verifyNumber, setVerifyNumber] = useState<VerifyNumber>({
     "0": "",
     "1": "",
@@ -25,9 +50,16 @@ const OtpModal = (props: Props) => {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
   ];
-
   const verificationHandler = async () => {
-    console.log("test");
+    const verificationNumber = Object.values(verifyNumber).join("");
+    if (verificationNumber.length !== 4) {
+      setInvalidError(true);
+      return;
+    }
+    await activation({
+      activation_token: token,
+      activation_code: verificationNumber,
+    });
   };
 
   const handleInputChange = (index: number, value: string) => {
