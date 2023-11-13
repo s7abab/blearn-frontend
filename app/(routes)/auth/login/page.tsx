@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import { styles } from "../../../styles/style";
 import Link from "next/link";
+import OtpModal from "@/app/components/modals/OtpModal";
 
 type Props = {};
 
@@ -22,7 +23,6 @@ const schema = Yup.object().shape({
 
 const Login = (props: Props) => {
   const [show, setShow] = useState(false);
-
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
@@ -34,7 +34,8 @@ const Login = (props: Props) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
-      <div className="max-w-md mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
+      <OtpModal />
+      <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
         <h1 className={`${styles.title} mb-3`}>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -61,7 +62,6 @@ const Login = (props: Props) => {
               <span className="text-sm text-red-500">{errors.email}</span>
             )}
           </div>
-
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -101,7 +101,6 @@ const Login = (props: Props) => {
               <span className="text-sm text-red-500">{errors.password}</span>
             )}
           </div>
-
           <div className="mb-4 mt-8">
             <button type="submit" className={`${styles.primary} w-full`}>
               Submit
@@ -112,9 +111,8 @@ const Login = (props: Props) => {
               <FcGoogle size={30} />
             </div>
           </div>
-
           <h5 className="text-sm mt-3 text-center">
-            Don't have an account? <Link href={"/auth/signup"}>Sign up</Link>
+            Not have an account? <Link href={"/auth/signup"}>Sign up</Link>
           </h5>
         </form>
       </div>

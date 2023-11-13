@@ -3,13 +3,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { styles } from "../../../styles/style";
+import { useRegisterMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 const schema = Yup.object().shape({
+  name: Yup.string().required("Please enter your name!"),
   email: Yup.string()
     .email("Invalid Email!")
     .required("Please enter your email!"),
@@ -18,22 +21,65 @@ const schema = Yup.object().shape({
 
 const Signup = (props: Props) => {
   const [show, setShow] = useState(false);
+  const [register, { isLoading, isSuccess, data, error }] =
+    useRegisterMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = data?.message || "Registration successfull";
+      toast.success(message);
+    }
+
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+      }
+    }
+  }, [isSuccess, error, data]);
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { name: "", email: "", password: "" },
     validationSchema: schema,
-    onSubmit: async ({ email, password }) => {
-      console.log(email, password);
+    onSubmit: async ({ name, email, password }) => {
+      const data = {
+        name,
+        email,
+        password,
+      };
+      await register(data);
     },
   });
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
-      <div className="max-w-md mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
+      <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <h1 className={`${styles.title} mb-3`}>Create account</h1>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={values.name}
+              onChange={handleChange}
+              id="name"
+              placeholder="Jhon"
+              className={`mt-1 p-2 w-full border ${
+                errors.name && touched.name
+                  ? "border-red-500"
+                  : "border-gray-300"
+              } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
+            />
+            {errors.name && touched.name && (
+              <span className="text-sm text-red-500">{errors.email}</span>
+            )}
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-600 dark:text-gray-400"
