@@ -2,13 +2,31 @@
 import NavItems from "@/app/utils/NavItems";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { styles } from "../../styles/style";
+import { useSession } from "next-auth/react";
+import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import { useSelector } from "react-redux";
+import { CgProfile } from "react-icons/cg";
 
 type Props = {};
 
 const Header = (props: Props) => {
-  const [modal, setModal] = useState(true);
+  const { data } = useSession();
+  const { user } = useSelector((state: any) => state.auth);
+  const [socialAuth, { isSuccess }] = useSocialAuthMutation();
+
+  useEffect(() => {
+    if (!user) {
+      if (data) {
+        socialAuth({
+          email: data?.user?.email,
+          name: data?.user?.name,
+          avatar: data?.user?.image,
+        });
+      }
+    }
+  }, [data, user, isSuccess, socialAuth]);
   return (
     <nav className="sticky top-0 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl">
       <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -21,9 +39,14 @@ const Header = (props: Props) => {
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <div className={`${styles.primary} w-20`}>
-            <Link href={"/auth/login"}>Login</Link>
-          </div>
+          {user ? (
+            <div className={`${styles.primary} w-20`}>
+              <Link href={"/auth/login"}>Login</Link>
+            </div>
+          ) : (
+            <CgProfile className="cursor-pointer hover:scale-105 transition duration-100 ease-in-out" size={30} />
+          )}
+
           <button
             data-collapse-toggle="navbar-cta"
             type="button"

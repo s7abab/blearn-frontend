@@ -9,6 +9,8 @@ import { styles } from "../../../styles/style";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import OtpModal from "@/app/components/modals/OtpModal";
+import { signIn } from "next-auth/react";
+import Protected from "@/app/hooks/useProtected";
 
 type Props = {};
 
@@ -25,16 +27,16 @@ const Signup = (props: Props) => {
   const [verification, setVerification] = useState(false);
   const [register, { isLoading, isSuccess, data, error }] =
     useRegisterMutation();
-
+    
   useEffect(() => {
     if (isSuccess) {
       const message = data?.message || "Registration successfull";
       toast.success(message);
       setVerification(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setVerification(false);
         setShow(false);
-      },120000)
+      }, 120000);
     }
 
     if (error) {
@@ -61,11 +63,7 @@ const Signup = (props: Props) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
-      {
-        verification && (
-          <OtpModal />
-        )
-      }
+      {verification && <OtpModal />}
       <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -115,7 +113,6 @@ const Signup = (props: Props) => {
               <span className="text-sm text-red-500">{errors.email}</span>
             )}
           </div>
-
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -155,7 +152,6 @@ const Signup = (props: Props) => {
               <span className="text-sm text-red-500">{errors.password}</span>
             )}
           </div>
-
           <div className="mb-4 mt-8">
             <button type="submit" className={`${styles.primary} w-full`}>
               Submit
@@ -163,10 +159,15 @@ const Signup = (props: Props) => {
           </div>
           <div className="flex justify-center  items-center mt-3">
             <div>
-              <FcGoogle size={30} />
+              <FcGoogle
+                onClick={() => {
+                  signIn("google");
+                }}
+                className="cursor-pointer"
+                size={30}
+              />
             </div>
           </div>
-
           <h5 className="text-sm mt-3 text-center">
             Already have an account? <Link href={"/auth/login"}>Login</Link>
           </h5>

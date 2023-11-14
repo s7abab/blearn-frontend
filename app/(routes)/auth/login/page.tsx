@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Props = {};
 
@@ -35,7 +36,6 @@ const Login = (props: Props) => {
       await login({ email, password });
     },
   });
-
   // login api
   useEffect(() => {
     if (isSuccess) {
@@ -126,7 +126,13 @@ const Login = (props: Props) => {
           </div>
           <div className="flex justify-center  items-center mt-3">
             <div>
-              <FcGoogle size={30} />
+              <FcGoogle
+                className="cursor-pointer"
+                size={30}
+                onClick={() => {
+                  signIn("google");
+                }}
+              />
             </div>
           </div>
           <h5 className="text-sm mt-3 text-center">
