@@ -12,6 +12,7 @@ const page = (props: Props) => {
         description="BLeaner is online learning platform"
         keywords="development,arts,finance"
       />
+      <Header />
       <Hero />
     </>
   );

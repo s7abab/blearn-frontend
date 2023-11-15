@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
-import { userLoggerIn, userRegistration } from "./authSlice";
+import { userLoggedOut, userLoggerIn, userRegistration } from "./authSlice";
 
 type RegistrationResponse = {
   message: string;
@@ -47,9 +47,10 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          localStorage.setItem("token", result.data.accessToken);
           dispatch(
             userLoggerIn({
-              accessToken: result.data.activationToken,
+              accessToken: result.data.accessToken,
               user: result.data.user,
             })
           );
@@ -79,8 +80,36 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    logout: builder.query({
+      query: () => ({
+        url: "logout",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          dispatch(userLoggedOut());
+        } catch (error: any) {
+          console.log(error);
+        }
+      },
+    }),
+    updateAvatar: builder.mutation({
+      query: (avatar) => ({
+        url: "update-user-avatar",
+        method: "PUT",
+        body: { avatar },
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useActivationMutation, useLoginMutation, useSocialAuthMutation } =
-  authApi;
+export const {
+  useRegisterMutation,
+  useActivationMutation,
+  useLoginMutation,
+  useSocialAuthMutation,
+  useUpdateAvatarMutation,
+  useLogoutQuery,
+} = authApi;

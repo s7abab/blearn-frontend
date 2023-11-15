@@ -2,19 +2,34 @@
 import NavItems from "@/app/utils/NavItems";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "../../styles/style";
-import { useSession } from "next-auth/react";
-import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import { signOut, useSession } from "next-auth/react";
+import {
+  useLogoutQuery,
+  useSocialAuthMutation,
+} from "@/redux/features/auth/authApi";
 import { useSelector } from "react-redux";
 import { CgProfile } from "react-icons/cg";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 const Header = (props: Props) => {
   const { data } = useSession();
   const { user } = useSelector((state: any) => state.auth);
+  const [logout, setLogout] = useState(false);
   const [socialAuth, { isSuccess }] = useSocialAuthMutation();
+  const {} = useLogoutQuery(undefined, {
+    skip: !logout ? true : false,
+  });
+
+  const logoutHandler = async () => {
+    await signOut();
+    setLogout(true);
+    toast.success("Logout successfull")
+  };
 
   useEffect(() => {
     if (!user) {
@@ -39,12 +54,18 @@ const Header = (props: Props) => {
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <h1 onClick={logoutHandler}>Logout</h1>
           {user ? (
+            <Link href={"/profile"}>
+              <CgProfile
+                className="cursor-pointer hover:scale-105 transition duration-100 ease-in-out"
+                size={30}
+              />
+            </Link>
+          ) : (
             <div className={`${styles.primary} w-20`}>
               <Link href={"/auth/login"}>Login</Link>
             </div>
-          ) : (
-            <CgProfile className="cursor-pointer hover:scale-105 transition duration-100 ease-in-out" size={30} />
           )}
 
           <button
