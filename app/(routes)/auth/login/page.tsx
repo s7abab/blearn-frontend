@@ -5,7 +5,6 @@ import { FcGoogle } from "react-icons/fc";
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
-  AiFillGithub,
 } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import { styles } from "../../../styles/style";
@@ -26,7 +25,7 @@ const schema = Yup.object().shape({
 
 const Login = (props: Props) => {
   const [show, setShow] = useState(false);
-  const [login, { isLoading, isSuccess, error }] = useLoginMutation();
+  const [login, { isSuccess, error }] = useLoginMutation();
   const router = useRouter();
 
   const formik = useFormik({
@@ -53,13 +52,13 @@ const Login = (props: Props) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
-      <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-white dark:bg-gray-800 rounded-md shadow-md ">
+      <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-gray-800 rounded-md shadow-md ">
         <h1 className={`${styles.title} mb-3`}>Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
+              className="block text-sm font-medium text-gray-400"
             >
               Email
             </label>
@@ -74,7 +73,7 @@ const Login = (props: Props) => {
                 errors.email && touched.email
                   ? "border-red-500"
                   : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
+              } rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-gray-700 text-white`}
             />
             {errors.email && touched.email && (
               <span className="text-sm text-red-500">{errors.email}</span>
@@ -83,7 +82,7 @@ const Login = (props: Props) => {
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
+              className="block text-sm font-medium text-gray-400"
             >
               Password
             </label>
@@ -99,7 +98,7 @@ const Login = (props: Props) => {
                   errors.password && touched.password
                     ? "border-red-500"
                     : "border-gray-300"
-                } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
+                } rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-gray-700 text-white`}
               />
               {show ? (
                 <AiOutlineEye

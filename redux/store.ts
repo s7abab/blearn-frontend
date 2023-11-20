@@ -1,26 +1,31 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./features/api/apiSlice";
+import { authServiceApi, courseServiceApi } from "./features/api/apiSlice";
 import authSlice from "./features/auth/authSlice";
+import courseSlice from "./features/course/courseSlice";
 
 export const store = configureStore({
   reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    [authServiceApi.reducerPath]: authServiceApi.reducer,
+    [courseServiceApi.reducerPath]: courseServiceApi.reducer,
     auth: authSlice,
+    course: courseSlice,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware().concat(
+      authServiceApi.middleware,
+      courseServiceApi.middleware
+    ),
 });
 
 // call functions on every page load or refresh
 const initializeApp = async () => {
   await store.dispatch(
-    apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
-  );
-
-  await store.dispatch(
-    apiSlice.endpoints.loadCurrentUser.initiate({}, { forceRefetch: true })
+    authServiceApi.endpoints.loadCurrentUser.initiate(
+      {},
+      { forceRefetch: true }
+    )
   );
 };
 

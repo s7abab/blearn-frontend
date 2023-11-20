@@ -29,7 +29,7 @@ const NavItems = (props: Props) => {
     <>
       {navLinks.map((link, index) => (
         <Link href={`${link.url}`} key={index}>
-          <div className="cursor-pointer inline-block mr-4">
+          <div className="cursor-pointer inline-block mr-4 font-Poppins">
             <motion.div
               className="cursor-pointer inline-block mr-4"
               variants={linkVariants}

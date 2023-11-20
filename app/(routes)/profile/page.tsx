@@ -1,6 +1,7 @@
 "use client";
 import ProfileInfo from "@/app/components/profile/Profile";
 import Header from "@/app/components/ui/Header";
+import Loader from "@/app/components/spinners/Loader";
 import Protected from "@/app/hooks/useProtected";
 import Heading from "@/app/utils/Heading";
 import React from "react";
@@ -13,15 +14,14 @@ const Profile = (props: Props) => {
 
   return (
     <>
-      <Protected>
-        <Heading
-          title={`${user?.name} Profile`}
-          description="BLeaner is online learning platform"
-          keywords="development,arts,finance"
-        />
+      {user ? (
+        <>
         <Header />
-        <ProfileInfo user={user} />
-      </Protected>
+          <ProfileInfo user={user} />
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };

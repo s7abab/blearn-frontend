@@ -1,32 +1,35 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggerIn } from "../auth/authSlice";
+import endpoints from "@/app/utils/endpoints";
 
-export const apiSlice = createApi({
-  reducerPath: "api",
+// course service api slice
+export const courseServiceApi = createApi({
+  reducerPath: "courseApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_COURSE_SRV_URL,
+  }),
+  endpoints: (builder) => ({}),
+});
+
+// auth service api slice
+export const authServiceApi = createApi({
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_AUTH_SRV_URL,
   }),
   endpoints: (builder) => ({
-    refreshToken: builder.query({
-      query: (data) => ({
-        url: "refresh-token",
-        method: "GET",
-        credentials: "include" as const,
-      }),
-    }),
     loadCurrentUser: builder.query({
-      query: (data) => ({
-        url: "current-user",
+      query: () => ({
+        url: endpoints.auth.get_current_user,
         method: "GET",
         credentials: "include" as const,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log(result.data.accessToken)
           dispatch(
             userLoggerIn({
-              accessToken: result.data.accessToken,
+              token: result.data.token,
               user: result.data.user,
             })
           );
@@ -37,5 +40,3 @@ export const apiSlice = createApi({
     }),
   }),
 });
-
-export const { useRefreshTokenQuery, useLoadCurrentUserQuery } = apiSlice;
