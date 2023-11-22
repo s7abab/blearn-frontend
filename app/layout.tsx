@@ -3,9 +3,10 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Josefin_Sans } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
+import Loader from "./components/spinners/Loader";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,7 +32,7 @@ export default function RootLayout({
       >
         <Provider store={store}>
           <SessionProvider>
-            {children}
+            <Custom>{children}</Custom>
             <Toaster position="top-center" reverseOrder={false} />
           </SessionProvider>
         </Provider>
@@ -39,3 +40,8 @@ export default function RootLayout({
     </html>
   );
 }
+
+const Custom = ({ children }: any) => {
+  const session = useSession();
+  return session.status === "loading" ? <Loader /> : children;
+};

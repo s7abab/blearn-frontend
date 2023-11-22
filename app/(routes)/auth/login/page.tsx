@@ -2,17 +2,14 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FcGoogle } from "react-icons/fc";
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-} from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import { styles } from "../../../styles/style";
 import Link from "next/link";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 type Props = {};
 
@@ -27,7 +24,12 @@ const Login = (props: Props) => {
   const [show, setShow] = useState(false);
   const [login, { isSuccess, error }] = useLoginMutation();
   const router = useRouter();
-
+  const session = useSession();
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.replace("/profile");
+    }
+  }, [session, router]);
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,

@@ -33,7 +33,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     activation: builder.mutation({
       query: ({ activation_token, activation_code }) => ({
-        url: "activate-user",
+        url: endpoints.auth.activate_user,
         method: "POST",
         body: { activation_token, activation_code },
       }),
@@ -104,6 +104,7 @@ export const authApi = authServiceApi.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
   }),
 });
 

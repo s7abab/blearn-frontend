@@ -1,11 +1,9 @@
 "use client";
 import ProfileInfo from "@/app/components/profile/Profile";
 import Header from "@/app/components/ui/Header";
-import Loader from "@/app/components/spinners/Loader";
-import Protected from "@/app/hooks/useProtected";
-import Heading from "@/app/utils/Heading";
 import React from "react";
 import { useSelector } from "react-redux";
+import Protected from "@/app/hooks/useProtected";
 
 type Props = {};
 
@@ -14,14 +12,10 @@ const Profile = (props: Props) => {
 
   return (
     <>
-      {user ? (
-        <>
+      <Protected>
         <Header />
-          <ProfileInfo user={user} />
-        </>
-      ) : (
-        <Loader />
-      )}
+        <ProfileInfo user={user} />
+      </Protected>
     </>
   );
 };

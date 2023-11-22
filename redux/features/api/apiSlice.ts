@@ -40,3 +40,5 @@ export const authServiceApi = createApi({
     }),
   }),
 });
+
+export const {useLoadCurrentUserQuery} = authServiceApi

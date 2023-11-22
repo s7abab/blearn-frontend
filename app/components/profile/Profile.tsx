@@ -9,7 +9,6 @@ import { CiCamera } from "react-icons/ci";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { firebaseDB } from "@/app/utils/firebase";
-import { useRouter } from "next/navigation";
 
 type Props = {
   user: { name: string; email: string };
@@ -19,14 +18,12 @@ const ProfileInfo = ({ user }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [logout, setLogout] = useState(false);
-  const router = useRouter()
   const {} = useLogoutQuery(undefined, {
     skip: !logout ? true : false,
   });
   const logoutHandler = async () => {
-    router.push("/");
-    await signOut();
     setLogout(true);
+    await signOut();
     toast.success("Logout successfull");
   };
 

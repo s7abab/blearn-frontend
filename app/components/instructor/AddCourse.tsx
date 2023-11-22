@@ -1,6 +1,9 @@
 "use client";
 import { firebaseDB } from "@/app/utils/firebase";
-import { useAddCourseMutation } from "@/redux/features/course/courseApi";
+import {
+  useAddCourseMutation,
+  useGetAllCategoryQuery,
+} from "@/redux/features/course/courseApi";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,11 +21,14 @@ interface CourseDetails {
 }
 
 const AddCourse = () => {
-  const [AddCourse, { isSuccess, isLoading, data }] = useAddCourseMutation();
+  const [AddCourse, { isSuccess, isLoading }] = useAddCourseMutation();
+  const { data: categoriesData, isLoading: categoryLoading } =
+    useGetAllCategoryQuery({});
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
 
+  const categories: ICategories[] = categoriesData?.categories;
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course published");
@@ -38,7 +44,6 @@ const AddCourse = () => {
     thumbnail: "",
     demoUrl: "",
   });
-
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -86,6 +91,7 @@ const AddCourse = () => {
     if (image) {
       handleImageUpload();
     }
+    //eslint-disable-next-line
   }, [image]);
 
   const handleVideoUpload = async () => {
@@ -94,11 +100,10 @@ const AddCourse = () => {
       const videoRef = ref(firebaseDB, `videos/${v4()}`);
       if (video) {
         const snapshot = await uploadBytes(videoRef, video);
-
         const downloadURL = await getDownloadURL(videoRef);
         setCourseDetails((prevDetails) => ({
           ...prevDetails,
-          videoURL: downloadURL,
+          demoUrl: downloadURL,
         }));
         setUploading(false);
         console.log("Video uploaded successfully:", snapshot);
@@ -120,18 +125,11 @@ const AddCourse = () => {
     if (video) {
       handleVideoUpload();
     }
+    //eslint-disable-next-line
   }, [video]);
 
   const handlePublish = () => {
-    AddCourse({
-      title: "Test",
-      description: "jhon ss",
-      price: "1000",
-      discountPrice: "1000",
-      category: "car",
-      thumbnail: "ads",
-      demoUrl: "dasd",
-    });
+    AddCourse(courseDetails);
   };
   return (
     <>
@@ -202,8 +200,11 @@ const AddCourse = () => {
               value={courseDetails.category}
               onChange={handleCategoryChange}
             >
-              <option value="">SELECT CATEGORY</option>
-              <option value="Web Development">Web Development</option>
+              {categories?.map((category, index) => (
+                <option key={index} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="mb-3">
