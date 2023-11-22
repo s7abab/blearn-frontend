@@ -3,10 +3,10 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Josefin_Sans } from "next/font/google";
-import { SessionProvider, useSession } from "next-auth/react";
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
 import Loader from "./components/spinners/Loader";
+import { SessionProvider, useSession } from "next-auth/react";
 
 const poppins = Poppins({
   subsets: ["latin"],

@@ -1,6 +1,8 @@
 import endpoints from "@/app/utils/endpoints";
 import { authServiceApi } from "../api/apiSlice";
 import { userLoggedOut, userLoggerIn, userRegistration } from "./authSlice";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 type RegistrationResponse = {
   message: string;
@@ -48,7 +50,7 @@ export const authApi = authServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          localStorage.setItem("token", result.data.token);
+          Cookies.set("token", result.data.token);
           dispatch(
             userLoggerIn({
               token: result.data.token,
@@ -70,7 +72,7 @@ export const authApi = authServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          localStorage.setItem("token", result.data.token);
+          Cookies.set("token", result.data.token);
           dispatch(
             userLoggerIn({
               token: result.data.token,
@@ -97,14 +99,31 @@ export const authApi = authServiceApi.injectEndpoints({
       },
     }),
     updateAvatar: builder.mutation({
-      query: (avatar) => ({
+      query: (imageUrl) => ({
         url: endpoints.auth.update_user_avatar,
         method: "PUT",
-        body: { avatar },
+        body: { imageUrl },
         credentials: "include" as const,
       }),
+      invalidatesTags: ["User"],
     }),
-
+    updateUser: builder.mutation({
+      query: ({ email, name }) => ({
+        url: endpoints.auth.update_user,
+        method: "PUT",
+        body: { email, name },
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["User"],
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        const result = queryFulfilled;
+        if ((await result).data.success) {
+          toast.success("Profile updated");
+        } else {
+          toast.error("An issue occured, Please try again !");
+        }
+      },
+    }),
   }),
 });
 
@@ -115,4 +134,5 @@ export const {
   useSocialAuthMutation,
   useUpdateAvatarMutation,
   useLogoutQuery,
+  useUpdateUserMutation,
 } = authApi;

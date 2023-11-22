@@ -7,6 +7,7 @@ const endpoints = {
     logout: "/api/v1/logout",
     update_user_avatar: "/api/v1/update-user-avatar",
     get_current_user: "/api/v1/current-user",
+    update_user: "/api/v1/update-user",
   },
   courses: {
     add_course: "/api/v1/course/create-course",

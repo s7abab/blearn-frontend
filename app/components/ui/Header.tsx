@@ -6,7 +6,7 @@ import { styles } from "../../styles/style";
 import { useSession } from "next-auth/react";
 import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
 import { useSelector } from "react-redux";
-import { CgProfile } from "react-icons/cg";
+import ProfileImage from "../profile/ProfileImage";
 
 type Props = {};
 
@@ -41,17 +41,15 @@ const Header = (props: Props) => {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {user ? (
               <Link href={"/profile"}>
-                <CgProfile
-                  className="cursor-pointer hover:scale-105 transition duration-100 ease-in-out"
-                  size={30}
-                />
+                <div className="w-[48px] h-[48px] relative overflow-hidden rounded-full">
+                  <ProfileImage />
+                </div>
               </Link>
             ) : (
               <div className={`${styles.primary} w-20`}>
-                <Link href={"/auth/login"}>Login</Link>
+                <Link href={"/login"}>Login</Link>
               </div>
             )}
-
             <button
               data-collapse-toggle="navbar-cta"
               type="button"

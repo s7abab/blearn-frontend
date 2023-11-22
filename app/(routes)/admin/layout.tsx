@@ -14,24 +14,18 @@ export default function InstructorLayout({
 
   return (
     <>
-      {user ? (
-        <>
-          <Heading
-            title="courses"
-            description="Create read and update courses"
-            keywords="courses,development,commerce"
-          />
-          <Header />
-          <div className="grid grid-cols-12">
-            <div className="col-span-2">
-              <AdminSidebar />
-            </div>
-            <div className="col-span-10 m-5">{children}</div>
-          </div>
-        </>
-      ) : (
-        <Loader />
-      )}
+      <Heading
+        title="courses"
+        description="Create read and update courses"
+        keywords="courses,development,commerce"
+      />
+      <Header />
+      <div className="grid grid-cols-12">
+        <div className="col-span-2">
+          <AdminSidebar />
+        </div>
+        <div className="col-span-10 m-5">{children}</div>
+      </div>
     </>
   );
 }

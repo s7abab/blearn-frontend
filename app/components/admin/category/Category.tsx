@@ -16,8 +16,8 @@ const Category = (props: Props) => {
   const [categoryId, setCategoryId] = useState("");
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const { data, refetch } = useGetAllCategoryQuery({});
-  const [unlist, { isSuccess: listSuccess }] = useUnListCategoryMutation();
+  const { data } = useGetAllCategoryQuery({});
+  const [unlist, { }] = useUnListCategoryMutation();
   const categories: ICategories[] = data?.categories;
 
   const openAddModal = (): void => {
@@ -25,7 +25,6 @@ const Category = (props: Props) => {
   };
   const closeAddModal = (): void => {
     setAddModal(false);
-    refetch();
   };
   const openEditModal = (categoryId:string): void => {
     setCategoryId(categoryId)
@@ -33,17 +32,11 @@ const Category = (props: Props) => {
   };
   const closeEditModal = (): void => {
     setEditModal(false);
-    refetch();
   };
 
   const handleUnlist = (categoryId: string) => {
     unlist({ categoryId });
   };
-  useEffect(() => {
-    if (listSuccess) {
-      refetch();
-    }
-  }, [listSuccess, refetch]);
 
   return (
     <>

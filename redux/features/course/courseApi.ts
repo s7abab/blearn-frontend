@@ -36,6 +36,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
         },
         credentials: "include" as const,
       }),
+      invalidatesTags: ["Categories"],
     }),
     getAllCategory: builder.query({
       query: () => ({
@@ -43,6 +44,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
         method: "GET",
         credentials: "include" as const,
       }),
+      providesTags: ["Categories"],
     }),
     unListCategory: builder.mutation({
       query: ({ categoryId }) => ({
@@ -51,14 +53,16 @@ export const courseApi = courseServiceApi.injectEndpoints({
         body: { categoryId },
         credentials: "include" as const,
       }),
+      invalidatesTags: ["Categories"],
     }),
     editCategory: builder.mutation({
-      query: ({ categoryId,name }) => ({
+      query: ({ categoryId, name }) => ({
         url: endpoints.category.edit_category,
         method: "PUT",
-        body: { categoryId,name },
+        body: { categoryId, name },
         credentials: "include" as const,
       }),
+      invalidatesTags: ["Categories"],
     }),
     getSingleCategory: builder.query({
       query: ({ categoryId }) => ({
@@ -77,5 +81,5 @@ export const {
   useGetAllCategoryQuery,
   useGetSingleCategoryQuery,
   useEditCategoryMutation,
-  useUnListCategoryMutation
+  useUnListCategoryMutation,
 } = courseApi;
