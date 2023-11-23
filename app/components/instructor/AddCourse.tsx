@@ -9,16 +9,12 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { v4 } from "uuid";
 import Uploading from "../spinners/Uploading";
-
-interface CourseDetails {
-  title: string;
-  description: string;
-  price: string;
-  discountPrice: string;
-  category: string;
-  thumbnail: string;
-  demoUrl: string;
-}
+import {
+  validateCourseName,
+  validateDiscription,
+  validatePrice,
+} from "@/app/utils/validations/course.validation";
+import { CourseDetails } from "@/@types/course.types";
 
 const AddCourse = () => {
   const [AddCourse, { isSuccess, isLoading }] = useAddCourseMutation();
@@ -38,8 +34,8 @@ const AddCourse = () => {
   const [courseDetails, setCourseDetails] = useState<CourseDetails>({
     title: "",
     description: "",
-    price: "",
-    discountPrice: "",
+    price: 0,
+    discountPrice: 0,
     category: "",
     thumbnail: "",
     demoUrl: "",
@@ -129,114 +125,143 @@ const AddCourse = () => {
   }, [video]);
 
   const handlePublish = () => {
+    validateCourseName({ name: courseDetails.title });
+    validatePrice({
+      price: courseDetails.price,
+      discountPrice: courseDetails.discountPrice,
+    });
+    validateDiscription({ discription: courseDetails.description });
+    if (!courseDetails.category) {
+      return toast.error("Category is required");
+    }
+    if (!courseDetails.demoUrl) {
+      return toast.error("Video is required");
+    }
+    if (!courseDetails.thumbnail) {
+      return toast.error("Image is required");
+    }
     AddCourse(courseDetails);
   };
   return (
     <>
-      {uploading ? (
-        <Uploading />
-      ) : (
-        <div>
-          <h1 className="text-3xl font-semibold mb-4 ">Course Details</h1>
-          <div className="mb-4">
-            <label htmlFor="title" className="text-lg font-Poppins">
-              Title
+      <div>
+        <h1 className="text-3xl font-semibold mb-4 ">Course Details</h1>
+        <div className="mb-4">
+          <label htmlFor="title" className="text-lg font-Poppins">
+            Title
+          </label>
+          <input
+            required
+            type="text"
+            name="title"
+            value={courseDetails.title}
+            onChange={handleInputChange}
+            placeholder="Course Title"
+            className="border rounded-lg p-2 w-full bg-gray-900"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="description" className="text-lg font-Poppins">
+            Description
+          </label>
+          <textarea
+            required
+            name="description"
+            value={courseDetails.description}
+            onChange={handleInputChange}
+            placeholder="Course Description"
+            className="border rounded-lg p-2 h-28 resize-none w-full bg-gray-900"
+          ></textarea>
+        </div>
+        <div className="flex">
+          <div className="mb-3 ">
+            <label htmlFor="price" className="text-lg font-semibold">
+              Price
             </label>
             <input
-              type="text"
-              name="title"
-              value={courseDetails.title}
+              required
+              type="number"
+              name="price"
+              value={courseDetails.price}
               onChange={handleInputChange}
-              placeholder="Course Title"
+              placeholder="Course Price"
               className="border rounded-lg p-2 w-full bg-gray-900"
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="description" className="text-lg font-Poppins">
-              Description
+          <div className="mb-3 mx-10">
+            <label htmlFor="discountPrice" className="text-lg font-semibold">
+              Discount Price
             </label>
-            <textarea
-              name="description"
-              value={courseDetails.description}
-              onChange={handleInputChange}
-              placeholder="Course Description"
-              className="border rounded-lg p-2 h-28 resize-none w-full bg-gray-900"
-            ></textarea>
-          </div>
-          <div className="flex">
-            <div className="mb-3 ">
-              <label htmlFor="price" className="text-lg font-semibold">
-                Price
-              </label>
-              <input
-                type="number"
-                name="price"
-                value={courseDetails.price}
-                onChange={handleInputChange}
-                placeholder="Course Price"
-                className="border rounded-lg p-2 w-full bg-gray-900"
-              />
-            </div>
-            <div className="mb-3 mx-10">
-              <label htmlFor="discountPrice" className="text-lg font-semibold">
-                Discount Price
-              </label>
-              <input
-                type="number"
-                name="discountPrice"
-                value={courseDetails.discountPrice}
-                onChange={handleInputChange}
-                placeholder="Discounted Price"
-                className="border rounded-lg p-2 w-full bg-gray-900"
-              />
-            </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="category" className="text-lg font-semibold block">
-              Category
-            </label>
-            <select
-              className="border rounded-lg p-2 w-full bg-gray-900"
-              value={courseDetails.category}
-              onChange={handleCategoryChange}
-            >
-              {categories?.map((category, index) => (
-                <option key={index} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-3">
-            <h1 className="text-lg font-Poppins ">Course Thumbnail</h1>
             <input
+              required
+              type="number"
+              name="discountPrice"
+              value={courseDetails.discountPrice}
+              onChange={handleInputChange}
+              placeholder="Discounted Price"
+              className="border rounded-lg p-2 w-full bg-gray-900"
+            />
+          </div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="category" className="text-lg font-semibold block">
+            Category
+          </label>
+          <select
+            required
+            className="border rounded-lg p-2 w-full bg-gray-900"
+            value={courseDetails.category}
+            onChange={handleCategoryChange}
+          >
+            <option value="">Select a category</option>
+            {categories?.map((category, index) => (
+              <option key={index} value={category._id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-3">
+          <h1 className="text-lg font-Poppins ">Course Thumbnail</h1>
+          <div>
+            <input
+              required
               type="file"
               id="imageUpload"
               accept="image/*"
               onChange={handleImageChange}
               className="border rounded-lg p-2 w-full"
             />
-          </div>
-          <div>
-            <h1 className="text-lg font-Poppins ">Preview Video</h1>
-            <input
-              type="file"
-              id="videoUpload"
-              accept="video/*"
-              onChange={handleVideoChange}
-              className="border rounded-lg p-2 w-full"
-            />
-          </div>
-          <div>
-            <button
-              onClick={handlePublish}
-              className="border rounded-lg p-2 w-full mt-5 bg-slate-600 hover:bg-slate-800"
-            >
-              PUBLISH COURSE
-            </button>
+            {image && <span>✅ Image Added</span>}
           </div>
         </div>
-      )}
+        <div>
+          <h1 className="text-lg font-Poppins ">Preview Video</h1>
+          {uploading ? (
+            <Uploading />
+          ) : (
+            <div>
+              <input
+                required
+                type="file"
+                id="videoUpload"
+                accept="video/*"
+                onChange={handleVideoChange}
+                className="border rounded-lg p-2 w-full"
+              />
+              {video && <span>✅ Video Added</span>}
+            </div>
+          )}
+        </div>
+        <div>
+          <button
+            onClick={handlePublish}
+            className="border rounded-lg p-2 w-full mt-5 bg-slate-600 hover:bg-slate-800"
+          >
+            PUBLISH COURSE
+          </button>
+        </div>
+      </div>
     </>
   );
 };

@@ -2,7 +2,6 @@
 import Header from "@/app/components/ui/Header";
 import Loader from "@/app/components/spinners/Loader";
 import Heading from "@/app/utils/Heading";
-import { useSelector } from "react-redux";
 import AdminSidebar from "@/app/components/ui/AdminSidebar";
 
 export default function InstructorLayout({
@@ -10,7 +9,6 @@ export default function InstructorLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useSelector((state: any) => state.auth);
 
   return (
     <>

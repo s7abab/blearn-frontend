@@ -24,7 +24,7 @@ const OtpModal = (props: Props) => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Account activated successfully");
-      route.push("/auth/login");
+      route.push("/login");
       
     }
     if (error) {

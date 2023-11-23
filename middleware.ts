@@ -29,4 +29,17 @@ export default function Middleware(req: any) {
     const absoluteUrl = new URL("/login", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }
+  
+  // redirect to dashboard
+  if (jwt.role === "admin" && req.nextUrl.pathname.startsWith("/profile")) {
+    const absoluteUrl = new URL("/admin/profile", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteUrl.toString());
+  }
+  if (
+    jwt.role === "instructor" &&
+    req.nextUrl.pathname.startsWith("/profile")
+  ) {
+    const absoluteUrl = new URL("/instructor/profile", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteUrl.toString());
+  }
 }

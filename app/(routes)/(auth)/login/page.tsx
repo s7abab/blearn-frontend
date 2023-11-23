@@ -1,6 +1,5 @@
 "use client";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
@@ -10,19 +9,10 @@ import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
+import { schema } from "@/app/utils/validations/login.validation";
+import BackButton from "@/app/components/common/BackButton";
 
 type Props = {};
-
-const schema = Yup.object().shape({
-  email: Yup.string()
-    .matches(/^\S*$/, "Email must not contain spaces")
-    .email("Invalid Email!")
-    .required("Please enter your email!"),
-  password: Yup.string()
-    .required("Please enter your password!")
-    .matches(/^\S*$/, "Password must not contain spaces")
-    .min(6, "Password must be at least 6 characters"),
-});
 
 const Login = (props: Props) => {
   const [show, setShow] = useState(false);
@@ -58,6 +48,7 @@ const Login = (props: Props) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
+    <BackButton location="/" />
       <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-gray-800 rounded-md shadow-md ">
         <h1 className={`${styles.title} mb-3`}>Login</h1>
         <form onSubmit={handleSubmit}>

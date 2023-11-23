@@ -4,6 +4,7 @@ import { styles } from "@/app/styles/style";
 import { useAddCategoryMutation } from "@/redux/features/course/courseApi";
 import toast from "react-hot-toast";
 import Loader from "../../spinners/Loader";
+import { validateCategoryName } from "@/app/utils/validations/category.validation";
 
 type Props = {
   onClose: ()=> void
@@ -19,7 +20,9 @@ const AddCategory = ({onClose}: Props) => {
   };
 
   const handleAddCategory = async () => {
-    await addCategory({ name });
+    if(validateCategoryName({name})){
+      await addCategory({ name });
+    }
   };
 
   useEffect(() => {

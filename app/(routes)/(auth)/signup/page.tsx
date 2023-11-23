@@ -1,6 +1,5 @@
 "use client";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
@@ -10,22 +9,10 @@ import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import OtpModal from "@/app/components/modals/OtpModal";
 import { signIn } from "next-auth/react";
+import { schema } from "@/app/utils/validations/register.validation";
+import BackButton from "@/app/components/common/BackButton";
 
 type Props = {};
-
-const schema = Yup.object().shape({
-  name: Yup.string()
-    .matches(/^\S*$/, "Name must not contain spaces")
-    .required("Please enter your name!"),
-  email: Yup.string()
-    .matches(/^\S*$/, "Email must not contain spaces")
-    .email("Invalid Email!")
-    .required("Please enter your email!"),
-  password: Yup.string()
-    .required("Please enter your password!")
-    .matches(/^\S*$/, "Password must not contain spaces")
-    .min(6, "Password must be at least 6 characters"),
-});
 
 const Signup = (props: Props) => {
   const [show, setShow] = useState(false);
@@ -68,6 +55,7 @@ const Signup = (props: Props) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <div className="flex items-center h-screen">
+      <BackButton location="/" />
       {verification && <OtpModal />}
       <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-gray-800 rounded-md shadow-md ">
         <form onSubmit={handleSubmit}>
