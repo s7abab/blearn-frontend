@@ -13,7 +13,7 @@ const endpoints = {
     add_course: "/api/v1/course/create-course",
     get_all_courses: "/api/v1/course/get-all-courses",
     get_single_course: "/api/v1/course/get-single-course/:courseId",
-    edit_course: "/api/v1/course/edit-course"
+    edit_course: "/api/v1/course/edit-course",
   },
   category: {
     add_category: "/api/v1/category/create-category",
@@ -21,6 +21,10 @@ const endpoints = {
     unlist_category: "/api/v1/category/unlist-category",
     get_all_category: "/api/v1/category/get-all-category",
     get_single_category: "/api/v1/category/get-single-category",
+  },
+  admin: {
+    get_users: "/api/v1/admin/users",
+    get_instructors: "/api/v1/admin/instructors",
   },
 };
 

@@ -2,11 +2,16 @@
 import { useSelector } from "react-redux";
 import { styles } from "../../styles/style";
 import React, { useState, useRef, useEffect } from "react";
-import { useActivationMutation } from "@/redux/features/auth/authApi";
+import {
+  useActivationMutation,
+  useRegisterMutation,
+} from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-interface Props {}
+interface Props {
+  data: any;
+}
 
 type VerifyNumber = {
   "0": string;
@@ -15,17 +20,18 @@ type VerifyNumber = {
   "3": string;
 };
 
-const OtpModal = (props: Props) => {
+const OtpModal = ({ data }: Props) => {
   const [invalidError, setInvalidError] = useState<boolean>(false);
   const { token } = useSelector((state: any) => state.auth);
   const [activation, { isSuccess, error }] = useActivationMutation();
+  const [time, setTime] = useState(60);
+  const [register, {}] = useRegisterMutation();
   const route = useRouter();
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("Account activated successfully");
       route.push("/login");
-      
     }
     if (error) {
       if ("data" in error) {
@@ -78,6 +84,24 @@ const OtpModal = (props: Props) => {
     }
   };
 
+  // Resend OTP
+  const resendOTPHandler = async () => {
+    await register(data);
+    setTime(60);
+    toast.success("Your otp has been sent");
+  };
+  // Countdown timer effect
+  useEffect(() => {
+    if (time > 0) {
+      const timerInterval = setInterval(() => {
+        setTime(time - 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(timerInterval);
+      };
+    }
+  }, [time]);
   return (
     <div className="800px:w-[380px] 400px:w-[320px] mx-auto p-10 bg-gray-400 dark:bg-gray-900 rounded-md shadow-md absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-10 ">
       <h1 className={`${styles.title}`}>Verify Your Account</h1>
@@ -101,10 +125,17 @@ const OtpModal = (props: Props) => {
         ))}
       </div>
       <br />
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center flex-col">
         <button className={`${styles.primary}`} onClick={verificationHandler}>
           Verify OTP
         </button>
+        <h1 className="mt-2 text-gray-900 cursor-pointer font-semibold">
+          {time <= 0 ? (
+            <span onClick={resendOTPHandler}>Resend OTP</span>
+          ) : (
+            `Resend otp in ${time}`
+          )}
+        </h1>
       </div>
     </div>
   );

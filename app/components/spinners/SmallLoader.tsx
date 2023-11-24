@@ -1,6 +1,6 @@
 import React from "react";
 
-const Uploading = () => {
+const SmallLoader = () => {
   return (
     <div className="flex justify-center items-center h-10">
       <div className="loader"></div>
@@ -8,4 +8,4 @@ const Uploading = () => {
   );
 };
 
-export default Uploading;
+export default SmallLoader;

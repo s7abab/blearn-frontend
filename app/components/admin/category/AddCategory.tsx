@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import { styles } from "@/app/styles/style";
 import { useAddCategoryMutation } from "@/redux/features/course/courseApi";
 import toast from "react-hot-toast";
-import Loader from "../../spinners/Loader";
 import { validateCategoryName } from "@/app/utils/validations/category.validation";
+import SmallLoader from "../../spinners/SmallLoader";
 
 type Props = {
-  onClose: ()=> void
+  onClose: () => void;
 };
 
-const AddCategory = ({onClose}: Props) => {
+const AddCategory = ({ onClose }: Props) => {
   const [name, setName] = useState("");
-  const [addCategory, { isSuccess, isError, isLoading }] =
+  const [addCategory, { isSuccess, error, isLoading }] =
     useAddCategoryMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,16 +20,23 @@ const AddCategory = ({onClose}: Props) => {
   };
 
   const handleAddCategory = async () => {
-    if(validateCategoryName({name})){
+    if (validateCategoryName({ name })) {
       await addCategory({ name });
     }
   };
-
+  let errMsg;
+  if (error) {
+    if ("status" in error) {
+      errMsg = errMsg =
+        "error" in error
+          ? error.error
+          : JSON.stringify((error.data as any)?.message);
+    }
+  }
   useEffect(() => {
     if (isSuccess) {
       toast.success("Category added");
       onClose();
-      
     }
   }, [isSuccess, onClose]);
   return (
@@ -43,18 +50,14 @@ const AddCategory = ({onClose}: Props) => {
           placeholder="Category name"
           className="p-2 rounded-md mt-4 mb-2 bg-slate-200 text-light-primary"
         />
-        {isLoading && (
-          <Loader />
-        )}
+        {isLoading && <SmallLoader />}
         <button
           onClick={handleAddCategory}
           className={`${styles.secondary_Btn} mt-4`}
         >
           ADD
         </button>
-        {isError && (
-          <p className="text-red-500 mt-2">Error: Failed to add category.</p>
-        )}
+        {error && <p className="text-red-600 mt-2">{errMsg}</p>}
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 "use client";
 import { useFormik } from "formik";
 import { FcGoogle } from "react-icons/fc";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { styles } from "../../../styles/style";
@@ -17,6 +16,7 @@ type Props = {};
 const Signup = (props: Props) => {
   const [show, setShow] = useState(false);
   const [verification, setVerification] = useState(false);
+  const [formData, setFormData] = useState<any>({});
   const [register, { isLoading, isSuccess, data, error }] =
     useRegisterMutation();
 
@@ -48,6 +48,7 @@ const Signup = (props: Props) => {
         email,
         password,
       };
+      setFormData(data);
       await register(data);
     },
   });
@@ -56,7 +57,7 @@ const Signup = (props: Props) => {
   return (
     <div className="flex items-center h-screen">
       <BackButton location="/" />
-      {verification && <OtpModal />}
+      {verification && <OtpModal data={formData} />}
       <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-gray-800 rounded-md shadow-md ">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -115,7 +116,6 @@ const Signup = (props: Props) => {
             </label>
             <div className="relative">
               <input
-                type={!show ? "password" : "text"}
                 name="password"
                 id="password"
                 onChange={handleChange}
@@ -127,19 +127,6 @@ const Signup = (props: Props) => {
                     : "border-gray-300"
                 } rounded-md focus:outline-none focus:ring focus:border-blue-300 bg-gray-700 text-white`}
               />
-              {show ? (
-                <AiOutlineEye
-                  size={20}
-                  className="absolute  cursor-pointer right-2 bottom-2"
-                  onClick={() => setShow(!show)}
-                />
-              ) : (
-                <AiOutlineEyeInvisible
-                  size={20}
-                  className="absolute  cursor-pointer right-2 bottom-2"
-                  onClick={() => setShow(!show)}
-                />
-              )}
             </div>
             {errors.password && touched.password && (
               <span className="text-sm text-red-500">{errors.password}</span>

@@ -4,10 +4,10 @@ import React from "react";
 type Props = {};
 
 const sidebarItems = [
-  { title: "Dashboard", url: "/admin/courses" },
+  { title: "Dashboard", url: "/admin/dashboard" },
   { title: "Courses", url: "/admin/courses" },
-  { title: "Instructors", url: "/admin/courses" },
-  { title: "Users", url: "/admin/courses" },
+  { title: "Instructors", url: "/admin/instructors" },
+  { title: "Users", url: "/admin/users" },
   { title: "Payments", url: "/admin/courses" },
   { title: "Category", url: "/admin/category" },
 ];

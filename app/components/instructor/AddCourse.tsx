@@ -8,7 +8,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { v4 } from "uuid";
-import Uploading from "../spinners/Uploading";
+import Uploading from "../spinners/SmallLoader";
 import {
   validateCourseName,
   validateDiscription,

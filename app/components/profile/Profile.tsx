@@ -13,7 +13,7 @@ import { CiCamera } from "react-icons/ci";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { firebaseDB } from "@/app/utils/firebase";
-import Uploading from "../spinners/Uploading";
+import Uploading from "../spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
 
 type Props = {

@@ -6,7 +6,7 @@ type Props = {};
 
 const CategoryPage = (props: Props) => {
   return (
-    <div className="h-screen">
+    <div className="h-screen mt-5">
       <h1 className={styles.title}>Manage Categories</h1>
       <Category />
     </div>

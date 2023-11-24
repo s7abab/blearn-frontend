@@ -50,7 +50,7 @@ const Category = (props: Props) => {
           <EditCategory onClose={closeEditModal} categoryId={categoryId} />
         </CustomModal>
       )}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <button onClick={openAddModal} className={`${styles.primary} mt-5`}>
           Create Category
         </button>

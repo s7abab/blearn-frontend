@@ -124,6 +124,23 @@ export const authApi = authServiceApi.injectEndpoints({
         }
       },
     }),
+    // admin
+    getUsers: builder.query({
+      query: () => ({
+        url: endpoints.admin.get_users,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Users"],
+    }),
+    getInstructors: builder.query({
+      query: () => ({
+        url: endpoints.admin.get_instructors,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Instructors"],
+    }),
   }),
 });
 
@@ -135,4 +152,6 @@ export const {
   useUpdateAvatarMutation,
   useLogoutQuery,
   useUpdateUserMutation,
+  useGetUsersQuery,
+  useGetInstructorsQuery,
 } = authApi;
