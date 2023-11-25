@@ -2,18 +2,18 @@
 import Image from "next/image";
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-import { useSelector } from "react-redux";
 
-type Props = {};
+type Props = {
+  avatar:string
+};
 
-const ProfileImage = (props: Props) => {
-  const { user } = useSelector((state: any) => state.auth);
+const ProfileImage = ({avatar}: Props) => {
   return (
     <>
-      {user.avatar ? (
+      {avatar ? (
         <Image
           alt="Profile"
-          src={user.avatar}
+          src={avatar}
           layout="fill"
           objectFit="cover"
         />

@@ -17,7 +17,7 @@ import Uploading from "../spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
 
 type Props = {
-  user: { name: string; email: string };
+  user: { name: string; email: string; avatar: string };
 };
 
 const ProfileInfo = ({ user }: Props) => {
@@ -82,7 +82,7 @@ const ProfileInfo = ({ user }: Props) => {
     <div className="flex flex-col items-center h-screen">
       <h1 className={`${styles.title} mt-8`}>Profile</h1>
       <div className="mt-5 relative w-[120px] h-[120px] rounded-full overflow-hidden">
-        {uploading ? <Uploading /> : <ProfileImage />}
+        {uploading ? <Uploading /> : <ProfileImage avatar={user?.avatar} />}
         <label
           htmlFor="fileInput"
           className="cursor-pointer absolute bottom-1 right-0"

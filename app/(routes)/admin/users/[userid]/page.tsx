@@ -1,11 +1,21 @@
-import React from 'react'
+"use client";
+import UserDetails from "@/app/components/admin/UserDetails";
+import { useGetSingleUserQuery } from "@/redux/features/auth/authApi";
+import { useParams } from "next/navigation";
+import React from "react";
 
-type Props = {}
+type Params = {
+  userid: string;
+};
 
-const page = (props: Props) => {
+const UserProfile = () => {
+  const params = useParams<Params>();
+  const { data, isLoading } = useGetSingleUserQuery(params?.userid);
   return (
-    <div>page</div>
-  )
-}
+    <>
+      <UserDetails user={data?.user} />
+    </>
+  );
+};
 
-export default page
+export default UserProfile;

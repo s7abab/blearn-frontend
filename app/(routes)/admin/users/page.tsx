@@ -1,5 +1,5 @@
 "use client";
-import Users from "@/app/components/admin/Table";
+import Table from "@/app/components/admin/Table";
 import { useGetUsersQuery } from "@/redux/features/auth/authApi";
 import React from "react";
 
@@ -9,7 +9,7 @@ const UsersList = (props: Props) => {
   const { data } = useGetUsersQuery({});
   return (
     <div className="h-screen mt-5">
-      <Users data={data?.users} role={"Users"} isCourse={false} />
+      <Table data={data?.users} role={"users"} isCourse={false} />
     </div>
   );
 };

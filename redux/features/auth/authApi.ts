@@ -141,6 +141,31 @@ export const authApi = authServiceApi.injectEndpoints({
       }),
       providesTags: ["Instructors"],
     }),
+    getSingleUser: builder.query({
+      query: (id) => ({
+        url: `${endpoints.admin.get_single_user}/${id}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["User"],
+    }),
+    getSingleInstructor: builder.query({
+      query: (id) => ({
+        url: `${endpoints.admin.get_single_instructor}/${id}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Instructor"],
+    }),
+    blockUser: builder.mutation({
+      query: ( id ) => ({
+        url: `${endpoints.admin.block_user}/${id}`,
+        method: "PUT",
+        body: id,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["User", "Instructor"],
+    }),
   }),
 });
 
@@ -154,4 +179,7 @@ export const {
   useUpdateUserMutation,
   useGetUsersQuery,
   useGetInstructorsQuery,
+  useGetSingleUserQuery,
+  useGetSingleInstructorQuery,
+  useBlockUserMutation,
 } = authApi;

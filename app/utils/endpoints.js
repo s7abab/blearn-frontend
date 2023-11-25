@@ -25,6 +25,9 @@ const endpoints = {
   admin: {
     get_users: "/api/v1/admin/users",
     get_instructors: "/api/v1/admin/instructors",
+    get_single_user: "/api/v1/admin/single-user",
+    get_single_instructor: "/api/v1/admin/single-instructor",
+    block_user: "/api/v1/admin/block-user",
   },
 };
 

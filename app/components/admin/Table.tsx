@@ -1,11 +1,13 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 type Data = {
   name?: string;
   email?: string;
   title?: string;
+  _id?: string;
 };
 type Props = {
   data: Data[];
@@ -13,7 +15,14 @@ type Props = {
   isCourse: boolean;
 };
 
-const Users = ({ data, role, isCourse }: Props) => {
+const Table = ({ data, role, isCourse }: Props) => {
+  const router = useRouter();
+
+  const viewUserDetails = (id: string | undefined) => {
+    if (id) {
+      router.push(`/admin/${role}/${id}`);
+    }
+  };
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
       <h1 className={styles.title}>{role}</h1>
@@ -38,7 +47,12 @@ const Users = ({ data, role, isCourse }: Props) => {
               <td className="px-4 py-4 flex gap-3 cursor-pointer">
                 {isCourse ? data?.title : data?.email}
               </td>
-              <td className="px-4 py-4 cursor-pointer">View</td>
+              <td
+                onClick={() => viewUserDetails(data._id)}
+                className="px-4 py-4 cursor-pointer"
+              >
+                View
+              </td>
             </tr>
           ))}
         </tbody>
@@ -47,4 +61,4 @@ const Users = ({ data, role, isCourse }: Props) => {
   );
 };
 
-export default Users;
+export default Table;

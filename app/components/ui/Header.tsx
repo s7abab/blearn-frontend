@@ -42,7 +42,7 @@ const Header = (props: Props) => {
             {user ? (
               <Link href={"/profile"}>
                 <div className="w-[48px] h-[48px] relative overflow-hidden rounded-full">
-                  <ProfileImage />
+                  <ProfileImage avatar={user?.avatar} />
                 </div>
               </Link>
             ) : (
