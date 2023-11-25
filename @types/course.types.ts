@@ -20,3 +20,11 @@ export interface IPrice {
 export interface IDiscription {
     discription: string;
   }
+
+export interface ICourseDataForTable {
+    _id: string;
+    No: number;
+    Time: string;
+    Price: number;
+    for: string;
+}

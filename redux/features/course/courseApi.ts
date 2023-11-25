@@ -36,6 +36,13 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       providesTags: ["Courses"],
     }),
+    getSingleCourse: builder.query({
+      query: ({ courseId }) => ({
+        url: `${endpoints.courses.get_single_course}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
     addCategory: builder.mutation({
       query: ({ name }) => ({
         url: endpoints.category.add_category,
@@ -92,4 +99,5 @@ export const {
   useEditCategoryMutation,
   useUnListCategoryMutation,
   useGetAllCourseQuery,
+  useGetSingleCourseQuery,
 } = courseApi;

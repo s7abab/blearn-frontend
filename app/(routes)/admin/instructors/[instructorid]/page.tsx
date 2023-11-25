@@ -9,10 +9,10 @@ type Params = {
   instructorid: string;
 };
 
-const InstructorProfile = () => {
+const InstructorsDetailsAdmin = () => {
   const params = useParams<Params>();
   const { data, isLoading } = useGetSingleInstructorQuery(params?.instructorid);
   return <>{isLoading ? <Loader /> : <UserDetails user={data?.user} />}</>;
 };
 
-export default InstructorProfile;
+export default InstructorsDetailsAdmin;

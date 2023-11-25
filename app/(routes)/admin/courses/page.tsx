@@ -1,15 +1,27 @@
 "use client";
-import Users from "@/app/components/admin/Table";
+import { ICourseDataForTable } from "@/@types/course.types";
+import CustomTable from "@/app/components/common/CustomTable";
+import Loader from "@/app/components/spinners/Loader";
 import { useGetAllCourseQuery } from "@/redux/features/course/courseApi";
 import React from "react";
 
 type Props = {};
 
 const CoursesList = (props: Props) => {
-  const { data } = useGetAllCourseQuery({});
+  const { data, isLoading } = useGetAllCourseQuery({});
+  const courses: ICourseDataForTable[] = data?.courses;
   return (
     <div className="h-screen mt-5">
-      <Users data={data?.courses} role={"Instructors"} isCourse={true} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <CustomTable
+          data={courses}
+          tableFor={"courses"}
+          fields={["title", "price"]}
+          url="/admin/courses"
+        />
+      )}
     </div>
   );
 };

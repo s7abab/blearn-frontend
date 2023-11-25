@@ -1,17 +1,29 @@
 "use client";
-import Table from "@/app/components/admin/Table";
+import { IUserDataForTable } from "@/@types/user.types";
+import CustomTable from "@/app/components/common/CustomTable";
+import Loader from "@/app/components/spinners/Loader";
 import { useGetUsersQuery } from "@/redux/features/auth/authApi";
 import React from "react";
 
 type Props = {};
 
-const UsersList = (props: Props) => {
-  const { data } = useGetUsersQuery({});
+const UserDetailsAdmin = (props: Props) => {
+  const { data, isLoading } = useGetUsersQuery({});
+  const users: IUserDataForTable[] = data?.users;
   return (
     <div className="h-screen mt-5">
-      <Table data={data?.users} role={"users"} isCourse={false} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <CustomTable
+          data={users}
+          tableFor="user"
+          fields={["name", "email"]}
+          url="/admin/users"
+        />
+      )}
     </div>
   );
 };
 
-export default UsersList;
+export default UserDetailsAdmin;

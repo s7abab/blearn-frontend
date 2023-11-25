@@ -1,15 +1,27 @@
 "use client";
-import Table from "@/app/components/admin/Table";
+import { IUserDataForTable } from "@/@types/user.types";
+import CustomTable from "@/app/components/common/CustomTable";
+import Loader from "@/app/components/spinners/Loader";
 import { useGetInstructorsQuery } from "@/redux/features/auth/authApi";
 import React from "react";
 
 type Props = {};
 
 const InstructorsList = (props: Props) => {
-  const { data } = useGetInstructorsQuery({});
+  const { data, isLoading } = useGetInstructorsQuery({});
+  const instructors: IUserDataForTable[] = data?.instructors;
   return (
     <div className="h-screen mt-5">
-      <Table data={data?.instructors} role={"instructors"} isCourse={false} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <CustomTable
+          data={instructors}
+          fields={["name", "email"]}
+          tableFor="instructors"
+          url="/admin/instructors"
+        />
+      )}
     </div>
   );
 };

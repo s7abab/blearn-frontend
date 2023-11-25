@@ -5,3 +5,10 @@ export interface User {
   avatar: string;
   isBlock:boolean
 }
+
+export interface IUserDataForTable {
+  _id: string;
+  Name: string;
+  Email: string;
+  role: string;
+}

@@ -1,6 +1,6 @@
 "use client";
 import UserDetails from "@/app/components/admin/UserDetails";
-import { useGetSingleUserQuery } from "@/redux/features/auth/authApi";
+import { useGetSingleCourseQuery } from "@/redux/features/course/courseApi";
 import { useParams } from "next/navigation";
 import React from "react";
 
@@ -8,14 +8,15 @@ type Params = {
   userid: string;
 };
 
-const UserProfile = () => {
+const CourseDetailsAdmin = () => {
   const params = useParams<Params>();
-  const { data } = useGetSingleUserQuery(params?.userid);
+  const { data } = useGetSingleCourseQuery(params?.userid);
+
   return (
     <>
-      <UserDetails user={data?.user} />
+      <UserDetails user={data?.course} />
     </>
   );
 };
 
-export default UserProfile;
+export default CourseDetailsAdmin;
