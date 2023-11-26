@@ -4,5 +4,5 @@ export const styles = {
   secondary_Btn:
     "text-center bg-gray-900 text-white p-[6px] rounded-md hover:bg-gray-900 focus:outline-none focus:ring hover:bg-gray-700",
   title:
-    "text-[25px] text-dark-primary font-[500] font-Poppins text-center py-2",
+    "md:text-[25px] text-[18px] text-light-primary dark:text-dark-primary font-[500] font-Poppins text-center py-2",
 };

@@ -9,6 +9,15 @@ export interface ICourseDetails {
   demoUrl: string;
   entrolls: number;
 }
+export interface IAddCourse {
+  title: string;
+  description: string;
+  price: number;
+  discountPrice: number;
+  category: string;
+  thumbnail: string;
+  demoUrl: string;
+}
 
 export interface IName {
   name: string;

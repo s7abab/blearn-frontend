@@ -29,29 +29,11 @@ const CourseDetails = ({ courseData }: Props) => {
   return (
     <div>
       <h1 className={`${styles.title} mt-4`}>{courseData?.title}</h1>
-      <p className="text-center px-14 md:px-36 mt-4 text-gray-600">
+      <p className="text-center px-14 md:px-36 md:mt-4 text-gray-600 md:block hidden">
         {courseData?.description}
       </p>
-      <div className="flex justify-center gap-6 mt-10">
-        <div className="flex flex-col gap-4">
-          <div className="w-[300px] bg-gradient-to-br from-[#040e2c] to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
-            <MdOutlinePlayLesson />
-            <p>Get 16 lessons in 3 hours</p>
-          </div>
-          <div className="w-[300px] bg-gradient-to-br from-[#040e2c] to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
-            <CiChat1 />
-            <p>Active community</p>
-          </div>
-          <div className="w-[300px] bg-gradient-to-br from-[#040e2c] to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
-            <FaPeopleGroup />
-            <p>{courseData?.entrolls}+ people have joined already</p>
-          </div>
-          <div className="mt-4 bg-gray-900 w-full text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 hover:bg-gray-800 duration-100">
-            <CiPlay1 />
-            <p className="font-Poppins">Watch Preview</p>
-          </div>
-        </div>
-        <div className="flex flex-col w-1/3 border-2 border-gray-800">
+      <div className=" md:flex md:justify-center  md:gap-6 mt-10 shadow-lg md:pb-14">
+        <div className="flex flex-col w-full md:w-1/3 dark:border-2 dark:border-gray-800">
           <div className="relative w-full h-48">
             <Image
               src={courseData?.thumbnail}
@@ -61,17 +43,32 @@ const CourseDetails = ({ courseData }: Props) => {
               className="rounded-md"
             />
           </div>
-          <div className="w-full bg-gradient-to-br from-[#252f43] to-[#1d2232]  flex justify-center items-center font-Poppins font-semibold h-10 rounded-sm cursor-pointer gap-2">
-            <AiOutlineShoppingCart />
-            <p>Add to cart</p>
+          <div className="md:flex md:gap-2">
+            <button className="w-full bg-slate-400 dark:bg-gradient-to-br dark:from-[#252f43] dark:to-[#1d2232]  flex justify-center items-center font-Poppins h-10 rounded-sm cursor-pointer gap-2">
+              <AiOutlineShoppingCart />
+              <p>Add to cart</p>
+            </button>
+            <button className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer">
+              Entroll Now
+            </button>
           </div>
-          <div className="w-full bg-gradient-to-br from-[#040e2c] to-[#091336]  flex justify-center items-center font-Poppins font-semibold h-10 rounded-sm cursor-pointer mt-2">
-            <span>Buy now for</span>
-            &nbsp; {/* Adding space */}
-            <span className="line-through text-red-600">
-              ${courseData?.price}
-            </span>
-            &nbsp; {/* Adding space */}${courseData?.discountPrice}
+        </div>
+        <div className="flex flex-col md:gap-2 mt-5 md:mt-0">
+          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
+            <MdOutlinePlayLesson className="text-blue-700 font-bold" />
+            <p>Get 16 lessons in 3 hours</p>
+          </div>
+          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
+            <CiChat1 className="text-green-700 font-bold" />
+            <p>Active community</p>
+          </div>
+          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
+            <FaPeopleGroup className="text-orange-700 font-bold" />
+            <p>{courseData?.entrolls}+ people have joined already</p>
+          </div>
+          <div className="md:mt-4 bg-slate-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100">
+            <CiPlay1 className="text-orange-700 font-bold" />
+            <p className="font-Poppins">Watch Preview</p>
           </div>
         </div>
       </div>

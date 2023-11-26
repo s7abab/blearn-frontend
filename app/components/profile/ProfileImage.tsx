@@ -18,7 +18,7 @@ const ProfileImage = ({avatar}: Props) => {
           objectFit="cover"
         />
       ) : (
-        <div className="absolute inset-0 flex items-center justify-center text-white">
+        <div className="absolute inset-0 flex items-center justify-center text-white shadow-lg">
           <CgProfile size={100} />
         </div>
       )}
