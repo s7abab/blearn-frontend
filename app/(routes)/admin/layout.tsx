@@ -1,6 +1,5 @@
 "use client";
 import Header from "@/app/components/ui/Header";
-import Loader from "@/app/components/spinners/Loader";
 import Heading from "@/app/utils/Heading";
 import AdminSidebar from "@/app/components/ui/AdminSidebar";
 

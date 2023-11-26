@@ -12,7 +12,7 @@ const endpoints = {
   courses: {
     add_course: "/api/v1/course/create-course",
     get_all_courses: "/api/v1/course/get-all-courses",
-    get_single_course: "/api/v1/course/get-single-course/:courseId",
+    get_single_course: "/api/v1/course/get-single-course",
     edit_course: "/api/v1/course/edit-course",
   },
   category: {
