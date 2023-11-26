@@ -49,17 +49,17 @@ const CustomTable = ({ data, tableFor, fields, url }: Props) => {
   };
   return (
     <div className="overflow-x-auto">
-      <div className="mb-4">
+      <div className="">
         <input
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearch}
-          className=" px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#091336] text-gray-50 bg-[#040e2c]"
+          className=" px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#091336] dark:text-dark-primary text-light-primary  dark:bg-[#040e2c] bg-gray-300"
         />
       </div>
-      <table className="min-w-full shadow-md rounded-lg overflow-hidden mt-14">
-        <thead className="bg-gradient-to-br from-[#040e2c] to-[#091336] shadow-2xl text-gray-50">
+      <table className="min-w-full shadow-md rounded-lg overflow-hidden mt-6">
+        <thead className="dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336] dark:text-dark-primary bg-gray-300 shadow-2xl text-light-primary">
           <tr>
             <th className="py-3 px-4 lg:py-4 lg:px-6">no</th>
             {fields.map((header, index) => (
@@ -69,7 +69,7 @@ const CustomTable = ({ data, tableFor, fields, url }: Props) => {
             ))}
           </tr>
         </thead>
-        <tbody className="text-gray-50 bg-gradient-to-br from-[#05081b] to-[#050d2e] shadow-2xl ">
+        <tbody className="bg-gray-100 dark:text-dark-primary bg-gradient-to-br dark:from-[#05081b] dark:to-[#050d2e] shadow-2xl ">
           {currentItems.map((row, rowIndex) => (
             <tr
               key={rowIndex}
@@ -100,7 +100,7 @@ const CustomTable = ({ data, tableFor, fields, url }: Props) => {
           {Array.from({ length: totalPages }).map((_, index) => (
             <li key={index} className="mx-1">
               <button
-                className="px-3 py-1 rounded-md bg-[#091336] text-gray-50 hover:bg-gray-800 focus:outline-none"
+                className="px-3 py-1 rounded-md dark:bg-[#091336] dark:text-dark-primary dark:hover:bg-gray-800 bg-gray-500 text-light-primary focus:outline-none"
                 onClick={() => paginate(index + 1)}
               >
                 {index + 1}

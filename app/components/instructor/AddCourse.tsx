@@ -14,7 +14,7 @@ import {
   validateDiscription,
   validatePrice,
 } from "@/app/utils/validations/course.validation";
-import { CourseDetails } from "@/@types/course.types";
+import { IAddCourse} from "@/@types/course.types";
 
 const AddCourse = () => {
   const [AddCourse, { isSuccess, isLoading }] = useAddCourseMutation();
@@ -31,7 +31,7 @@ const AddCourse = () => {
     }
   }, [isSuccess]);
 
-  const [courseDetails, setCourseDetails] = useState<CourseDetails>({
+  const [courseDetails, setCourseDetails] = useState<IAddCourse>({
     title: "",
     description: "",
     price: 0,
@@ -144,7 +144,7 @@ const AddCourse = () => {
   };
   return (
     <>
-      <div>
+      <div className="mt-5">
         <h1 className="text-3xl font-semibold mb-4 ">Course Details</h1>
         <div className="mb-4">
           <label htmlFor="title" className="text-lg font-Poppins">
@@ -157,7 +157,7 @@ const AddCourse = () => {
             value={courseDetails.title}
             onChange={handleInputChange}
             placeholder="Course Title"
-            className="border rounded-lg p-2 w-full bg-gray-900"
+            className="border rounded-lg p-2 w-full dark:bg-gray-900 bg-gray-100"
           />
         </div>
         <div className="mb-3">
@@ -170,7 +170,7 @@ const AddCourse = () => {
             value={courseDetails.description}
             onChange={handleInputChange}
             placeholder="Course Description"
-            className="border rounded-lg p-2 h-28 resize-none w-full bg-gray-900"
+            className="border rounded-lg p-2 h-28 resize-none w-full dark:bg-gray-900"
           ></textarea>
         </div>
         <div className="flex">
@@ -185,7 +185,7 @@ const AddCourse = () => {
               value={courseDetails.price}
               onChange={handleInputChange}
               placeholder="Course Price"
-              className="border rounded-lg p-2 w-full bg-gray-900"
+              className="border rounded-lg p-2 w-full dark:bg-gray-900"
             />
           </div>
           <div className="mb-3 mx-10">
@@ -199,7 +199,7 @@ const AddCourse = () => {
               value={courseDetails.discountPrice}
               onChange={handleInputChange}
               placeholder="Discounted Price"
-              className="border rounded-lg p-2 w-full bg-gray-900"
+              className="border rounded-lg p-2 w-full dark:bg-gray-900"
             />
           </div>
         </div>
@@ -209,7 +209,7 @@ const AddCourse = () => {
           </label>
           <select
             required
-            className="border rounded-lg p-2 w-full bg-gray-900"
+            className="border rounded-lg p-2 w-full dark:bg-gray-900"
             value={courseDetails.category}
             onChange={handleCategoryChange}
           >
@@ -253,10 +253,10 @@ const AddCourse = () => {
             </div>
           )}
         </div>
-        <div>
+        <div className="mb-5">
           <button
             onClick={handlePublish}
-            className="border rounded-lg p-2 w-full mt-5 bg-slate-600 hover:bg-slate-800"
+            className="border rounded-lg p-2 w-full mt-5 bg-gray-500 hover:bg-gray-600 text-light-primary dark:bg-slate-600 dark:hover:bg-slate-800 dark:text-dark-primary"
           >
             PUBLISH COURSE
           </button>

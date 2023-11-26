@@ -19,7 +19,7 @@ const CourseCard = ({ title, imgUrl, entrolls }: Props) => {
         transition={{ duration: 0.5 }}
         whileHover={{ scale: 1.1 }}
       >
-        <div className="w-full bg-gradient-to-r from-gray-900 to-gray-800 h-52 rounded-md shadow-xl border-2 border-gray-900 overflow-hidden cursor-pointer relative">
+        <div className="w-full dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-800 h-52 rounded-md shadow-xl dark:border-2 dark:border-gray-900 bg-gray-600 overflow-hidden cursor-pointer relative border-gray-800">
           <div className="absolute top-0 left-0 right-0 p-4 z-10">
             <h2
               className={`${styles.title} text-sm font-bold text-white truncate`}

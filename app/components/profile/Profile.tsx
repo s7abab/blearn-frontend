@@ -99,7 +99,7 @@ const ProfileInfo = ({ user }: Props) => {
       <div className="flex flex-col gap-3 mt-5">
         <div className="relative">
           <input
-            className="p-2 w-full rounded-md bg-gray-700"
+            className="p-2 w-full rounded-md dark:bg-gray-700"
             type="text"
             defaultValue={name}
             onChange={handleNameChange}
@@ -107,7 +107,7 @@ const ProfileInfo = ({ user }: Props) => {
           <CiEdit className="absolute right-2 bottom-2" />
         </div>
         <input
-          className="p-2 w-full rounded-md bg-gray-700"
+          className="p-2 w-full rounded-md dark:bg-gray-700"
           type="text"
           defaultValue={user.email}
           readOnly

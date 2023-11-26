@@ -29,7 +29,7 @@ const Header = (props: Props) => {
   }, [data, user, isSuccess, socialAuth]);
   return (
     <>
-      <div className="sticky top-0 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl">
+      <div className="sticky top-0 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
         <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             href={"/"}
@@ -80,16 +80,16 @@ const Header = (props: Props) => {
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-cta"
           >
-            <div className="flex flex-col items-center font-medium p-4 md:p-0 mt-4 border rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  from-[#070210] to-black duration-300 ">
+            <div className="flex flex-col items-center font-medium p-4 md:p-0 mt-4 border rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:from-[#070210] dark:to-black duration-300 ">
               <NavItems />
               <input
-                className="p-2 rounded-full bg-slate-800"
+                className="p-2 rounded-full dark:bg-gray-800 bg-slate-100 text-light-primary"
                 type="text"
                 placeholder="Search a course"
               />
             </div>
-          </div>
           <ThemeSwitcher />
+          </div>
         </div>
       </div>
     </>
