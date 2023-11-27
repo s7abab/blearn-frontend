@@ -1,3 +1,4 @@
+"use client";
 import { ICourseDetails } from "@/@types/course.types";
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
@@ -7,6 +8,9 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { CiPlay1 } from "react-icons/ci";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import FeedbackCard from "../common/FeedbackCard";
+import VideoPlayer from "../video/VideoPlayer";
+import CustomModal from "../modals/CustomModal";
+import { useState } from "react";
 
 type Props = {
   courseData: ICourseDetails;
@@ -26,8 +30,21 @@ const feedback: Feedback = {
 };
 
 const CourseDetails = ({ courseData }: Props) => {
+  const [videoPlayer, setVideoPlayer] = useState(false);
+  const handleVideoPlayerModal = () => {
+    setVideoPlayer(!videoPlayer);
+  };
   return (
     <div>
+      {videoPlayer && (
+        <CustomModal
+          isOpen={videoPlayer}
+          onClose={handleVideoPlayerModal}
+          modalHeader="Preview Video"
+        >
+          <VideoPlayer url={courseData?.demoUrl} />
+        </CustomModal>
+      )}
       <h1 className={`${styles.title} mt-4`}>{courseData?.title}</h1>
       <p className="text-center px-14 md:px-36 md:mt-4 text-gray-600 md:block hidden">
         {courseData?.description}
@@ -66,7 +83,10 @@ const CourseDetails = ({ courseData }: Props) => {
             <FaPeopleGroup className="text-orange-700 font-bold" />
             <p>{courseData?.entrolls}+ people have joined already</p>
           </div>
-          <div className="md:mt-4 bg-slate-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100">
+          <div
+            onClick={handleVideoPlayerModal}
+            className="md:mt-4 bg-slate-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
+          >
             <CiPlay1 className="text-orange-700 font-bold" />
             <p className="font-Poppins">Watch Preview</p>
           </div>

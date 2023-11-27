@@ -40,8 +40,7 @@ const AddCategory = ({ onClose }: Props) => {
     }
   }, [isSuccess, onClose]);
   return (
-    <div>
-      <h1 className={styles.title}> Add Category</h1>
+    <div className="p-6 pb-8">
       <div className="flex flex-col">
         <input
           type="text"

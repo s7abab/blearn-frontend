@@ -1,6 +1,6 @@
 "use client";
 import { styles } from "@/app/styles/style";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import CustomModal from "../../modals/CustomModal";
 import AddCategory from "./AddCategory";
 import {
@@ -41,12 +41,12 @@ const Category = (props: Props) => {
   return (
     <>
       {addModal && (
-        <CustomModal isOpen={addModal} onClose={closeAddModal}>
+        <CustomModal isOpen={addModal} onClose={closeAddModal} modalHeader="Add Category">
           <AddCategory onClose={closeAddModal} />
         </CustomModal>
       )}
       {editModal && (
-        <CustomModal isOpen={editModal} onClose={closeEditModal}>
+        <CustomModal isOpen={editModal} onClose={closeEditModal} modalHeader="Edit Category">
           <EditCategory onClose={closeEditModal} categoryId={categoryId} />
         </CustomModal>
       )}

@@ -8,6 +8,7 @@ import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
 import { useSelector } from "react-redux";
 import ProfileImage from "../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
+import { FaShoppingCart } from "react-icons/fa";
 
 type Props = {};
 
@@ -40,6 +41,7 @@ const Header = (props: Props) => {
             </span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+           
             {user ? (
               <Link href={"/profile"}>
                 <div className="w-[48px] h-[48px] relative overflow-hidden rounded-full">
@@ -88,7 +90,10 @@ const Header = (props: Props) => {
                 placeholder="Search a course"
               />
             </div>
-          <ThemeSwitcher />
+            <ThemeSwitcher />
+            <Link href={"/courses"} className="flex item-center justify-center">
+              <FaShoppingCart size={20} />
+            </Link>
           </div>
         </div>
       </div>

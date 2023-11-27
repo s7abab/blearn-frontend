@@ -31,8 +31,7 @@ const EditCategory = ({ onClose, categoryId }: Props) => {
     }
   }, [isSuccess, onClose]);
   return (
-    <div>
-      <h1 className={styles.title}>Edit Category</h1>
+    <div className="p-6 pb-8">
       <div className="flex flex-col">
         <input
           type="text"
