@@ -1,10 +1,10 @@
 const endpoints = {
   auth: {
-    register: "/api/v1/register",
-    login: "/api/v1/login",
-    activate_user: "/api/v1/activate-user",
-    social_auth: "/api/v1/social-auth",
-    logout: "/api/v1/logout",
+    register: "/api/v1/auth/register",
+    login: "/api/v1/auth/login",
+    activate_user: "/api/v1/auth/activate-user",
+    social_auth: "/api/v1/auth/social-auth",
+    logout: "/api/v1/auth/logout",
     update_user_avatar: "/api/v1/update-user-avatar",
     get_current_user: "/api/v1/current-user",
     update_user: "/api/v1/update-user",
