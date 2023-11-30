@@ -41,7 +41,6 @@ const Header = (props: Props) => {
             </span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-           
             {user ? (
               <Link href={"/profile"}>
                 <div className="w-[48px] h-[48px] relative overflow-hidden rounded-full">
@@ -91,9 +90,9 @@ const Header = (props: Props) => {
               />
             </div>
             <ThemeSwitcher />
-            <Link href={"/courses"} className="flex item-center justify-center">
+            {/* <Link href={"/cart"} className="flex item-center justify-center">
               <FaShoppingCart size={20} />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

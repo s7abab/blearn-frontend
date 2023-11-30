@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "@/app/styles/style";
 import toast from "react-hot-toast";
-import Loader from "../../spinners/Loader";
 import { useEditCategoryMutation } from "@/redux/features/course/courseApi";
+import SmallLoader from "../../spinners/SmallLoader";
 
 type Props = {
   onClose: () => void;
@@ -40,7 +40,7 @@ const EditCategory = ({ onClose, categoryId }: Props) => {
           placeholder="Category name"
           className="p-2 rounded-md mt-4 mb-2 bg-slate-200 text-light-primary"
         />
-        {isLoading && <Loader />}{" "}
+        {isLoading && <SmallLoader />}{" "}
         <button
           onClick={handleEditCategory}
           className={`${styles.secondary_Btn} mt-4`}
@@ -48,7 +48,7 @@ const EditCategory = ({ onClose, categoryId }: Props) => {
           EDIT
         </button>
         {isError && (
-          <p className="text-red-800 mt-2">Error: Failed to edit category.</p>
+          <p className="text-red-800 mt-2">Error: Failed to edit category</p>
         )}
       </div>
     </div>

@@ -1,6 +1,5 @@
 "use client";
 import { styles } from "@/app/styles/style";
-import React, { useEffect } from "react";
 
 type Props = {
   isOpen: boolean;
@@ -10,17 +9,6 @@ type Props = {
 };
 
 const CustomModal = ({ isOpen, onClose, children, modalHeader }: Props) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add("body-overlay");
-    } else {
-      document.body.classList.remove("body-overlay");
-    }
-    return () => {
-      document.body.classList.remove("body-overlay");
-    };
-  }, [isOpen]);
-
   if (!isOpen) {
     return null;
   }
