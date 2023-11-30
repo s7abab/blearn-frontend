@@ -10,7 +10,7 @@ import React from "react";
 
 type Props = {};
 
-const Courses = (props: Props) => {
+const CoursesPage = (props: Props) => {
   const { data, isLoading } = useGetAllCourseQuery({});
   const router = useRouter();
   const courses: ICourseDetails[] = data?.courses;
@@ -50,4 +50,4 @@ const Courses = (props: Props) => {
   );
 };
 
-export default Courses;
+export default CoursesPage;

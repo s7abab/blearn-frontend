@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parse } from "cookie";
 import { jwtDecode } from "jwt-decode";
+import { Roles } from "./@types/roles.enum";
 
 const protectedRoute = ["/profile"];
 
@@ -12,13 +13,13 @@ export default function Middleware(req: any) {
     jwt = jwtDecode(userToken);
   }
   // admin protected route
-  if (jwt.role !== "admin" && req.nextUrl.pathname.startsWith("/admin")) {
+  if (jwt.role !== Roles.ADMIN && req.nextUrl.pathname.startsWith("/admin")) {
     const absoluteUrl = new URL("/login", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }
   // instructor protected route
   if (
-    jwt.role !== "instructor" &&
+    jwt.role !== Roles.INSTRUCTOR &&
     req.nextUrl.pathname.startsWith("/instructor")
   ) {
     const absoluteUrl = new URL("/login", req.nextUrl.origin);
@@ -29,14 +30,14 @@ export default function Middleware(req: any) {
     const absoluteUrl = new URL("/login", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }
-  
+
   // redirect to dashboard
-  if (jwt.role === "admin" && req.nextUrl.pathname.startsWith("/profile")) {
+  if (jwt.role === Roles.ADMIN && req.nextUrl.pathname.startsWith("/profile")) {
     const absoluteUrl = new URL("/admin/profile", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }
   if (
-    jwt.role === "instructor" &&
+    jwt.role === Roles.INSTRUCTOR &&
     req.nextUrl.pathname.startsWith("/profile")
   ) {
     const absoluteUrl = new URL("/instructor/profile", req.nextUrl.origin);

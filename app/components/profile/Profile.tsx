@@ -15,6 +15,7 @@ import { v4 } from "uuid";
 import { firebaseDB } from "@/app/utils/firebase";
 import Uploading from "../spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
+import Cookies from "js-cookie";
 
 type Props = {
   user: { name: string; email: string; avatar: string };
@@ -32,6 +33,7 @@ const ProfileInfo = ({ user }: Props) => {
     skip: !logout ? true : false,
   });
   const logoutHandler = async () => {
+    Cookies.remove("token")
     setLogout(true);
     await signOut();
     toast.success("Logout successfull");
