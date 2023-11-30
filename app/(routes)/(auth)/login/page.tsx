@@ -85,6 +85,7 @@ const Login = (props: Props) => {
             <div className="relative">
               <input
                 name="password"
+                type="password"
                 id="password"
                 onChange={handleChange}
                 value={values.password}
