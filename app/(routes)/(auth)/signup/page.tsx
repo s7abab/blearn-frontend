@@ -79,7 +79,7 @@ const Signup = (props: Props) => {
                 errors.name && touched.name
                   ? "border-red-500"
                   : "border-gray-300"
-              } block text-sm font-medium text-gray-600 dark:text-gray-400`}
+              } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
             />
             {errors.name && touched.name && (
               <span className="text-sm text-red-500">{errors.email}</span>
@@ -101,7 +101,7 @@ const Signup = (props: Props) => {
                 errors.email && touched.email
                   ? "border-red-500"
                   : "border-gray-300"
-              } block text-sm font-medium text-gray-600 dark:text-gray-400`}
+              } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
             />
             {errors.email && touched.email && (
               <span className="text-sm text-red-500">{errors.email}</span>
@@ -126,7 +126,7 @@ const Signup = (props: Props) => {
                   errors.password && touched.password
                     ? "border-red-500"
                     : "border-gray-300"
-                } block text-sm font-medium text-gray-600 dark:text-gray-400`}
+                } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
               />
             </div>
             {errors.password && touched.password && (

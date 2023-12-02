@@ -1,5 +1,6 @@
 import endpoints from "@/app/utils/endpoints";
 import { courseServiceApi } from "../api/apiSlice";
+import { ICreateEnrollment } from "@/@types/enrollment.types";
 
 export const courseApi = courseServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -43,6 +44,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+    // category
     addCategory: builder.mutation({
       query: ({ name }) => ({
         url: endpoints.category.add_category,
@@ -88,6 +90,15 @@ export const courseApi = courseServiceApi.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
+    // enrollment
+    getEnrolledCourses: builder.query({
+      query: () => ({
+        url: endpoints.enrollment.get_enrolled_course,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -100,4 +111,5 @@ export const {
   useUnListCategoryMutation,
   useGetAllCourseQuery,
   useGetSingleCourseQuery,
+  useGetEnrolledCoursesQuery,
 } = courseApi;

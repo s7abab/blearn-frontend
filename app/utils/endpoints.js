@@ -29,6 +29,14 @@ const endpoints = {
     get_single_instructor: "/api/v1/admin/single-instructor",
     block_user: "/api/v1/admin/block-user",
   },
+  enrollment: {
+    get_enrolled_course: "/api/v1/enrollment/enrolled-courses",
+  },
+  payments:{
+    get_stripe_publishable_key: "/api/v1/payments/stripepublishablekey",
+    create_payment_intent : "/api/v1/payments/new-payment",
+    create_order : "/api/v1/payments/create-order",
+  }
 };
 
 export default endpoints;
