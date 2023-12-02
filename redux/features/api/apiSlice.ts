@@ -2,6 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggerIn } from "../auth/authSlice";
 import endpoints from "@/app/utils/endpoints";
 
+// payment service api slice
+export const paymentServiceApi = createApi({
+  reducerPath: "paymentApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_PAYMENT_SRV_URL,
+  }),
+  endpoints: (builder) => ({}),
+});
 // course service api slice
 export const courseServiceApi = createApi({
   reducerPath: "courseApi",

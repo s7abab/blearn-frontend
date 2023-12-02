@@ -7,44 +7,70 @@ import { CiChat1 } from "react-icons/ci";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { CiPlay1 } from "react-icons/ci";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import FeedbackCard from "../common/FeedbackCard";
 import VideoPlayer from "../video/VideoPlayer";
 import CustomModal from "../modals/CustomModal";
 import { useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../payment/CheckoutForm";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 type Props = {
   courseData: ICourseDetails;
+  stripePromise: any;
+  clientSecret: any;
+  createIntent: () => void;
 };
 
-type Feedback = {
-  name: string;
-  comment: string;
-  rating: number;
-};
-
-const feedback: Feedback = {
-  name: "Jhon",
-  comment:
-    " is simply dummy text of the printing and typesetting industry. Lorem Ipsum typesetting industry typesetting industry",
-  rating: 3,
-};
-
-const CourseDetails = ({ courseData }: Props) => {
+const CourseDetails = ({
+  courseData,
+  stripePromise,
+  clientSecret,
+  createIntent,
+}: Props) => {
+  const [open, setOpen] = useState(false);
   const [videoPlayer, setVideoPlayer] = useState(false);
+  const router = useRouter();
+  const { user } = useSelector((state: any) => state.auth);
+
   const handleVideoPlayerModal = () => {
     setVideoPlayer(!videoPlayer);
   };
+
+  const handleEnrollment = async () => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    createIntent();
+    setOpen(!open);
+  };
   return (
     <div>
-      {videoPlayer && (
-        <CustomModal
-          isOpen={videoPlayer}
-          onClose={handleVideoPlayerModal}
-          modalHeader="Preview Video"
-        >
-          <VideoPlayer url={courseData?.demoUrl} />
-        </CustomModal>
-      )}
+      <>
+        {videoPlayer && (
+          <CustomModal
+            isOpen={videoPlayer}
+            onClose={handleVideoPlayerModal}
+            modalHeader="Preview Video"
+          >
+            <VideoPlayer url={courseData?.demoUrl} />
+          </CustomModal>
+        )}
+      </>
+      <>
+        {open && (
+          <CustomModal isOpen={open} onClose={handleEnrollment}>
+            <div className="w-full">
+              {stripePromise && clientSecret && (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <CheckoutForm courseData={courseData} />
+                </Elements>
+              )}
+            </div>
+          </CustomModal>
+        )}
+      </>
       <h1 className={`${styles.title} mt-4`}>{courseData?.title}</h1>
       <p className="text-center px-14 md:px-36 md:mt-4 text-gray-600 md:block hidden">
         {courseData?.description}
@@ -65,7 +91,10 @@ const CourseDetails = ({ courseData }: Props) => {
               <AiOutlineShoppingCart />
               <p>Add to cart</p>
             </button>
-            <button className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer">
+            <button
+              onClick={handleEnrollment}
+              className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer"
+            >
               Entroll Now
             </button>
           </div>
@@ -94,7 +123,6 @@ const CourseDetails = ({ courseData }: Props) => {
       </div>
       <div>
         <h2 className={`${styles.title} mt-10`}>Feedbacks</h2>
-        <FeedbackCard feedback={feedback} />
       </div>
     </div>
   );
