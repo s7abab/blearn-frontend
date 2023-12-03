@@ -1,4 +1,5 @@
 "use client";
+import { ICourseDetails } from "@/@types/course/course.types";
 import CourseCard from "@/app/components/courses/CourseCard";
 import AddCourseBtn from "@/app/components/instructor/AddCourseBtn";
 import { useGetAllCourseQuery } from "@/redux/features/course/courseApi";
@@ -23,9 +24,7 @@ const CourseManagement = () => {
         {courses?.map((course, index) => (
           <CourseCard
             key={index}
-            title={course?.title}
-            imgUrl={course?.thumbnail}
-            entrolls={course?.entrolls}
+            course={course as ICourseDetails}
           />
         ))}
       </div>

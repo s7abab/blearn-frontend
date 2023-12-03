@@ -5,11 +5,10 @@ import {
   useLogoutQuery,
   useUpdateAvatarMutation,
   useUpdateUserMutation,
-} from "@/redux/features/auth/authApi";
+} from "@/redux/features/user/userApi";
 import { signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 import ProfileImage from "./ProfileImage";
-import { CiCamera } from "react-icons/ci";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { firebaseDB } from "@/app/utils/firebase";
@@ -33,7 +32,7 @@ const ProfileInfo = ({ user }: Props) => {
     skip: !logout ? true : false,
   });
   const logoutHandler = async () => {
-    Cookies.remove("token")
+    Cookies.remove("token");
     setLogout(true);
     await signOut();
     toast.success("Logout successfull");
@@ -82,14 +81,14 @@ const ProfileInfo = ({ user }: Props) => {
   };
   return (
     <div className="flex flex-col items-center h-screen">
-      <h1 className={`${styles.title} mt-8`}>Profile</h1>
+      <h1 className={`${styles.title} mt-4`}>Profile</h1>
       <div className="mt-5 relative w-[120px] h-[120px] rounded-full overflow-hidden">
         {uploading ? <Uploading /> : <ProfileImage avatar={user?.avatar} />}
         <label
           htmlFor="fileInput"
-          className="cursor-pointer absolute bottom-1 right-0"
+          className="cursor-pointer absolute bottom-1 left-[50%] translate-x-[-50%] text-gray-100 font-semibold"
         >
-          <CiCamera size={48} className="" />
+          Change
         </label>
         <input
           id="fileInput"

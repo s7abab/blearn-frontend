@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDetails } from "@/@types/course.types";
+import { ICourseDetails } from "@/@types/course/course.types";
 import { useGetSingleCourseQuery } from "@/redux/features/course/courseApi";
 import React, { useEffect, useState } from "react";
 import Loader from "../spinners/Loader";

@@ -1,6 +1,6 @@
 "use client";
 import UserDetails from "@/app/components/admin/UserDetails";
-import { useGetSingleUserQuery } from "@/redux/features/auth/authApi";
+import { useGetSingleUserQuery } from "@/redux/features/user/userApi";
 import { useParams } from "next/navigation";
 import React from "react";
 

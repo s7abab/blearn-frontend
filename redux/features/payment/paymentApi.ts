@@ -5,7 +5,7 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     getStripePublishableKey: builder.query({
       query: () => ({
-        url: endpoints.payments.get_stripe_publishable_key,
+        url: endpoints.payment.get_stripe_publishable_key,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -13,7 +13,7 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
 
     createPaymentIntent: builder.mutation({
       query: (amount) => ({
-        url: endpoints.payments.create_payment_intent,
+        url: endpoints.payment.create_payment_intent,
         method: "POST",
         body: {
           amount,
@@ -24,7 +24,7 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
 
     createOrder: builder.mutation({
       query: ({ courseId, payment_info }) => ({
-        url: endpoints.payments.create_order,
+        url: endpoints.payment.create_order,
         method: "POST",
         body: {
           courseId,

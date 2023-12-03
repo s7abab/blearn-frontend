@@ -1,17 +1,17 @@
 "use client";
 import { configureStore } from "@reduxjs/toolkit";
 import {
-  authServiceApi,
   courseServiceApi,
   paymentServiceApi,
+  userServiceApi,
 } from "./features/api/apiSlice";
-import authSlice from "./features/auth/authSlice";
+import authSlice from "./features/user/userSlice";
 import courseSlice from "./features/course/courseSlice";
 import paymentSlice from "./features/payment/paymentSlice";
 
 export const store = configureStore({
   reducer: {
-    [authServiceApi.reducerPath]: authServiceApi.reducer,
+    [userServiceApi.reducerPath]: userServiceApi.reducer,
     [courseServiceApi.reducerPath]: courseServiceApi.reducer,
     [paymentServiceApi.reducerPath]: paymentServiceApi.reducer,
     auth: authSlice,
@@ -21,7 +21,7 @@ export const store = configureStore({
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-      authServiceApi.middleware,
+      userServiceApi.middleware,
       courseServiceApi.middleware,
       paymentServiceApi.middleware
     ),
@@ -30,7 +30,7 @@ export const store = configureStore({
 // call functions on every page load or refresh
 const initializeApp = async () => {
   await store.dispatch(
-    authServiceApi.endpoints.loadCurrentUser.initiate(
+    userServiceApi.endpoints.loadCurrentUser.initiate(
       {},
       { forceRefetch: true }
     )

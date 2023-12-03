@@ -14,21 +14,26 @@ import {
   validateDiscription,
   validatePrice,
 } from "@/app/utils/validations/course.validation";
-import { IAddCourse} from "@/@types/course.types";
+import { IAddCourse, ICourseDetails} from "@/@types/course/course.types";
+import { useRouter } from "next/navigation";
 
 const AddCourse = () => {
   const [AddCourse, { isSuccess, isLoading }] = useAddCourseMutation();
   const { data: categoriesData, isLoading: categoryLoading } =
     useGetAllCategoryQuery({});
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null)
   const [video, setVideo] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const router = useRouter()
 
   const categories: ICategories[] = categoriesData?.categories;
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course published");
+      router.push("instructor/courses")
+
     }
+    // eslint-disable-next-line
   }, [isSuccess]);
 
   const [courseDetails, setCourseDetails] = useState<IAddCourse>({
@@ -140,7 +145,7 @@ const AddCourse = () => {
     if (!courseDetails.thumbnail) {
       return toast.error("Image is required");
     }
-    AddCourse(courseDetails);
+    AddCourse(courseDetails as ICourseDetails);
   };
   return (
     <>

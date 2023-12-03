@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDataForTable } from "@/@types/course.types";
+import { ICourseDataForTable } from "@/@types/course/course.types";
 import CustomTable from "@/app/components/common/CustomTable";
 import Loader from "@/app/components/spinners/Loader";
 import { useGetAllCourseQuery } from "@/redux/features/course/courseApi";

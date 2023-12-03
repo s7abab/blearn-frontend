@@ -1,8 +1,8 @@
 "use client";
-import { IUserDataForTable } from "@/@types/user.types";
+import { IUserDataForTable } from "@/@types/user/user.types";
 import CustomTable from "@/app/components/common/CustomTable";
 import Loader from "@/app/components/spinners/Loader";
-import { useGetUsersQuery } from "@/redux/features/auth/authApi";
+import { useGetUsersQuery } from "@/redux/features/user/userApi";
 import React from "react";
 
 type Props = {};
