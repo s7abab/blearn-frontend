@@ -68,13 +68,14 @@ const Signup = (props: Props) => {
   });
 
   const formik = useFormik({
-    initialValues: { name: "", email: "", password: "" },
+    initialValues: { name: "", email: "", password: "", confirmpassword: "" },
     validationSchema: schema,
-    onSubmit: async ({ name, email, password }) => {
+    onSubmit: async ({ name, email, password, confirmpassword }) => {
       const data = {
         name,
         email,
         password,
+        confirmpassword,
       };
       setFormData(data);
       await register(data);
@@ -159,6 +160,32 @@ const Signup = (props: Props) => {
             </div>
             {errors.password && touched.password && (
               <span className="text-sm text-red-500">{errors.password}</span>
+            )}
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
+            >
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+                name="confirmpassword"
+                type="password"
+                id="confirmpassword"
+                onChange={handleChange}
+                value={values.confirmpassword}
+                placeholder="password!@%"
+                className={` mt-1 p-2 w-full border ${
+                  errors.confirmpassword && touched.confirmpassword
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
+              />
+            </div>
+            {errors.confirmpassword && touched.confirmpassword && (
+              <span className="text-sm text-red-500">{errors.confirmpassword}</span>
             )}
           </div>
           <div className="mb-4 mt-8">
