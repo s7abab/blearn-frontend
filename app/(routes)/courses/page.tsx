@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDetails } from "@/@types/course.types";
+import { ICourseDetails } from "@/@types/course/course.types";
 import CourseCard from "@/app/components/courses/CourseCard";
 import Loader from "@/app/components/spinners/Loader";
 import { styles } from "@/app/styles/style";
@@ -28,19 +28,15 @@ const CoursesPage = (props: Props) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="h-full">
+        <div className="min-h-screen">
           <h1 className={styles.title}>Courses</h1>
-          <div className="mt-5 grid grid-cols-1 400px:grid-cols-2 600px:grid-cols-3 800px:grid-cols-3 lg:grid-cols-4 xl:5 gap-5">
+          <div className="mt-5 grid grid-cols-1 400px:grid-cols-2 600px:grid-cols-3 800px:grid-cols-3 lg:grid-cols-4 gap-5">
             {courses?.map((course, index) => (
               <div
                 key={index}
                 onClick={() => ViewCourseDeatailsPage(course._id)}
               >
-                <CourseCard
-                  title={course?.title}
-                  imgUrl={course?.thumbnail}
-                  entrolls={course?.entrolls}
-                />
+                <CourseCard course={course} />
               </div>
             ))}
           </div>

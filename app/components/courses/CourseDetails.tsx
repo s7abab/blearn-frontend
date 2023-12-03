@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDetails } from "@/@types/course.types";
+import { ICourseDetails } from "@/@types/course/course.types";
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
 import { MdOutlinePlayLesson } from "react-icons/md";

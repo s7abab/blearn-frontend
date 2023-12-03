@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDetails } from "@/@types/course.types";
+import { ICourseDetails } from "@/@types/course/course.types";
 import { useLoadCurrentUserQuery } from "@/redux/features/api/apiSlice";
 import { useCreateOrderMutation } from "@/redux/features/payment/paymentApi";
 import {
@@ -47,7 +47,7 @@ const CheckoutForm = ({ courseData }: Props) => {
   useEffect(() => {
     if (orderData) {
       setLoadUser(true);
-      redirect(`course-access/${courseData._id}`);
+      redirect("/my-learnings");
     }
     if (error) {
       if ("data" in error) {

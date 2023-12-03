@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userLoggerIn } from "../auth/authSlice";
+import { userLoggerIn } from "../user/userSlice";
 import endpoints from "@/app/utils/endpoints";
 
 // payment service api slice
@@ -20,9 +20,9 @@ export const courseServiceApi = createApi({
   endpoints: (builder) => ({}),
 });
 
-// auth service api slice
-export const authServiceApi = createApi({
-  reducerPath: "authApi",
+// user service api slice
+export const userServiceApi = createApi({
+  reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_AUTH_SRV_URL,
   }),
@@ -30,7 +30,7 @@ export const authServiceApi = createApi({
   endpoints: (builder) => ({
     loadCurrentUser: builder.query({
       query: () => ({
-        url: endpoints.auth.get_current_user,
+        url: endpoints.user.get_current_user,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -52,4 +52,4 @@ export const authServiceApi = createApi({
   }),
 });
 
-export const { useLoadCurrentUserQuery } = authServiceApi;
+export const { useLoadCurrentUserQuery } = userServiceApi;

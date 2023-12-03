@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parse } from "cookie";
 import { jwtDecode } from "jwt-decode";
-import { Roles } from "./@types/roles.enum";
+import { Roles } from "./@types/user/roles.enum";
 
 const protectedRoute = ["/profile"];
 
@@ -43,4 +43,17 @@ export default function Middleware(req: any) {
     const absoluteUrl = new URL("/instructor/profile", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }
+
+  // public route
+  if (jwt.role && req.nextUrl.pathname.startsWith("/login")) {
+    const absoluteUrl = new URL("/", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteUrl.toString());
+  }
+  if (jwt.role && req.nextUrl.pathname.startsWith("/signup")) {
+    const absoluteUrl = new URL("/", req.nextUrl.origin);
+    return NextResponse.redirect(absoluteUrl.toString());
+  }
 }
+
+
+

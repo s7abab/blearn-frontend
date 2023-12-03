@@ -8,6 +8,7 @@ export interface ICourseDetails {
   thumbnail: string;
   demoUrl: string;
   entrolls: number;
+  level: number;
 }
 export interface IAddCourse {
   title: string;

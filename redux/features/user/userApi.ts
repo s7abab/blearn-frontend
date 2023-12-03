@@ -1,8 +1,8 @@
 import endpoints from "@/app/utils/endpoints";
-import { authServiceApi } from "../api/apiSlice";
-import { userLoggedOut, userLoggerIn, userRegistration } from "./authSlice";
+import { userLoggedOut, userLoggerIn, userRegistration } from "./userSlice";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { userServiceApi } from "../api/apiSlice";
 
 type RegistrationResponse = {
   message: string;
@@ -11,11 +11,11 @@ type RegistrationResponse = {
 
 type registrationData = {};
 
-export const authApi = authServiceApi.injectEndpoints({
+export const userApi = userServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation<RegistrationResponse, registrationData>({
       query: (data) => ({
-        url: endpoints.auth.register,
+        url: endpoints.user.register,
         method: "POST",
         body: data,
         credentials: "include" as const,
@@ -35,14 +35,14 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     activation: builder.mutation({
       query: ({ activation_token, activation_code }) => ({
-        url: endpoints.auth.activate_user,
+        url: endpoints.user.activate_user,
         method: "POST",
         body: { activation_token, activation_code },
       }),
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
-        url: endpoints.auth.login,
+        url: endpoints.user.login,
         method: "POST",
         body: { email, password },
         credentials: "include" as const,
@@ -64,7 +64,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     socialAuth: builder.mutation({
       query: ({ name, email, avatar }) => ({
-        url: endpoints.auth.social_auth,
+        url: endpoints.user.social_auth,
         method: "POST",
         body: { name, email, avatar },
         credentials: "include" as const,
@@ -86,7 +86,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     logout: builder.query({
       query: () => ({
-        url: endpoints.auth.logout,
+        url: endpoints.user.logout,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -100,7 +100,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     updateAvatar: builder.mutation({
       query: (imageUrl) => ({
-        url: endpoints.auth.update_user_avatar,
+        url: endpoints.user.update_user_avatar,
         method: "PUT",
         body: { imageUrl },
         credentials: "include" as const,
@@ -109,7 +109,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     updateUser: builder.mutation({
       query: ({ email, name }) => ({
-        url: endpoints.auth.update_user,
+        url: endpoints.user.update_user,
         method: "PUT",
         body: { email, name },
         credentials: "include" as const,
@@ -127,7 +127,7 @@ export const authApi = authServiceApi.injectEndpoints({
     // admin
     getUsers: builder.query({
       query: () => ({
-        url: endpoints.admin.get_users,
+        url: endpoints.user.admin.get_users,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -135,7 +135,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     getInstructors: builder.query({
       query: () => ({
-        url: endpoints.admin.get_instructors,
+        url: endpoints.user.admin.get_instructors,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -143,7 +143,7 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     getSingleUser: builder.query({
       query: (id) => ({
-        url: `${endpoints.admin.get_single_user}/${id}`,
+        url: `${endpoints.user.admin.get_single_user}/${id}`,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -151,15 +151,15 @@ export const authApi = authServiceApi.injectEndpoints({
     }),
     getSingleInstructor: builder.query({
       query: (id) => ({
-        url: `${endpoints.admin.get_single_instructor}/${id}`,
+        url: `${endpoints.user.admin.get_single_instructor}/${id}`,
         method: "GET",
         credentials: "include" as const,
       }),
       providesTags: ["Instructor"],
     }),
     blockUser: builder.mutation({
-      query: ( id ) => ({
-        url: `${endpoints.admin.block_user}/${id}`,
+      query: (id) => ({
+        url: `${endpoints.user.admin.block_user}/${id}`,
         method: "PUT",
         body: id,
         credentials: "include" as const,
@@ -182,4 +182,4 @@ export const {
   useGetSingleUserQuery,
   useGetSingleInstructorQuery,
   useBlockUserMutation,
-} = authApi;
+} = userApi;

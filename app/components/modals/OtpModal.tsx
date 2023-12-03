@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   useActivationMutation,
   useRegisterMutation,
-} from "@/redux/features/auth/authApi";
+} from "@/redux/features/user/userApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 

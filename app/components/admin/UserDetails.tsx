@@ -1,8 +1,8 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import ProfileImage from "../profile/ProfileImage";
-import { User } from "@/@types/user.types";
-import { useBlockUserMutation } from "@/redux/features/auth/authApi";
+import { User } from "@/@types/user/user.types";
+import { useBlockUserMutation } from "@/redux/features/user/userApi";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 

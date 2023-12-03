@@ -1,7 +1,7 @@
 "use client";
 import UserDetails from "@/app/components/admin/UserDetails";
 import Loader from "@/app/components/spinners/Loader";
-import { useGetSingleInstructorQuery } from "@/redux/features/auth/authApi";
+import { useGetSingleInstructorQuery } from "@/redux/features/user/userApi";
 import { useParams } from "next/navigation";
 import React from "react";
 

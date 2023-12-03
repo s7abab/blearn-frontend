@@ -4,25 +4,23 @@ import { FcGoogle } from "react-icons/fc";
 import React, { useEffect, useState } from "react";
 import { styles } from "../../../styles/style";
 import Link from "next/link";
-import { useLoginMutation } from "@/redux/features/auth/authApi";
+import {
+  useLoginMutation,
+  useSocialAuthMutation,
+} from "@/redux/features/user/userApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import { schema } from "@/app/utils/validations/login.validation";
 import BackButton from "@/app/components/common/BackButton";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 const Login = (props: Props) => {
   const [login, { isSuccess, error }] = useLoginMutation();
   const router = useRouter();
-  const session = useSession();
 
-  useEffect(() => {
-    if (session?.status === "authenticated") {
-      router.replace("/profile");
-    }
-  }, [session, router]);
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
@@ -43,6 +41,28 @@ const Login = (props: Props) => {
       }
     }
   }, [router, error, isSuccess]);
+
+  const { data: sessionData } = useSession();
+  const { user } = useSelector((state: any) => state.auth);
+  const [socialAuth, { isSuccess: sessionSuccess }] = useSocialAuthMutation();
+
+  useEffect(() => {
+    if (!user) {
+      if (sessionData) {
+        socialAuth({
+          email: sessionData?.user?.email,
+          name: sessionData?.user?.name,
+          avatar: sessionData?.user?.image,
+        });
+      }
+    }
+  }, [sessionData, user, sessionSuccess, socialAuth, router]);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/profile");
+    }
+  });
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (

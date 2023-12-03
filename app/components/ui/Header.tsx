@@ -1,10 +1,8 @@
 "use client";
 import NavItems from "@/app/utils/NavItems";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { styles } from "../../styles/style";
-import { useSession } from "next-auth/react";
-import { useSocialAuthMutation } from "@/redux/features/auth/authApi";
 import { useSelector } from "react-redux";
 import ProfileImage from "../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
@@ -13,21 +11,8 @@ import { FaShoppingCart } from "react-icons/fa";
 type Props = {};
 
 const Header = (props: Props) => {
-  const { data } = useSession();
   const { user } = useSelector((state: any) => state.auth);
-  const [socialAuth, { isSuccess }] = useSocialAuthMutation();
 
-  useEffect(() => {
-    if (!user) {
-      if (data) {
-        socialAuth({
-          email: data?.user?.email,
-          name: data?.user?.name,
-          avatar: data?.user?.image,
-        });
-      }
-    }
-  }, [data, user, isSuccess, socialAuth]);
   return (
     <>
       <div className="sticky top-0 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">

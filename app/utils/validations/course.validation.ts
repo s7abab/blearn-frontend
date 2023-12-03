@@ -1,4 +1,4 @@
-import { IDiscription, IName, IPrice } from "@/@types/course.types";
+import { IDiscription, IName, IPrice } from "@/@types/course/course.types";
 import toast from "react-hot-toast";
 import validator from "validator"
 
