@@ -7,7 +7,7 @@ export interface ICourseDetails {
   category: string;
   thumbnail: string;
   demoUrl: string;
-  entrolls: number;
+  enrolls: string[];
   level: number;
 }
 export interface IAddCourse {

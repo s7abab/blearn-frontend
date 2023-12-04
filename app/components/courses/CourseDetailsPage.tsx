@@ -19,7 +19,6 @@ const CourseDetailsPage = ({ courseId }: Props) => {
     courseId,
   });
   const courseData: ICourseDetails = data?.course;
-
   const { data: config } = useGetStripePublishableKeyQuery({});
   const [createPaymentIntent, { data: paymentIntentData }] =
     useCreatePaymentIntentMutation();

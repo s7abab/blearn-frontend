@@ -9,11 +9,12 @@ import { CiPlay1 } from "react-icons/ci";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import VideoPlayer from "../video/VideoPlayer";
 import CustomModal from "../modals/CustomModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../payment/CheckoutForm";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   courseData: ICourseDetails;
@@ -30,9 +31,21 @@ const CourseDetails = ({
 }: Props) => {
   const [open, setOpen] = useState(false);
   const [videoPlayer, setVideoPlayer] = useState(false);
+  const [enrolledUsers, setEnrolledUsers] = useState<string[]>([]);
   const router = useRouter();
   const { user } = useSelector((state: any) => state.auth);
 
+  useEffect(() => {
+    if (courseData && courseData.enrolls) {
+      const enrolled = courseData.enrolls.filter(
+        (userId: string) => userId === user?._id
+      );
+        setEnrolledUsers(enrolled)
+    }
+    //eslint-disable-next-line
+  }, [courseData, user]);
+
+  useEffect(() => {}, []);
   const handleVideoPlayerModal = () => {
     setVideoPlayer(!videoPlayer);
   };
@@ -86,17 +99,22 @@ const CourseDetails = ({
               className="rounded-md"
             />
           </div>
-          <div className="md:flex md:gap-2">
-            <button className="w-full bg-slate-400 dark:bg-gradient-to-br dark:from-[#252f43] dark:to-[#1d2232]  flex justify-center items-center font-Poppins h-10 rounded-sm cursor-pointer gap-2">
-              <AiOutlineShoppingCart />
-              <p>Add to cart</p>
-            </button>
-            <button
-              onClick={handleEnrollment}
-              className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer"
-            >
-              Entroll Now
-            </button>
+          <div className="md:flex ">
+            {enrolledUsers[0] ? (
+              <Link
+                className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer flex items-center justify-center"
+                href={"/my-learnings"}
+              >
+                Go to Course
+              </Link>
+            ) : (
+              <button
+                onClick={handleEnrollment}
+                className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer"
+              >
+                Entroll Now
+              </button>
+            )}
           </div>
         </div>
         <div className="flex flex-col md:gap-2 mt-5 md:mt-0">
@@ -109,8 +127,7 @@ const CourseDetails = ({
             <p>Active community</p>
           </div>
           <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
-            <FaPeopleGroup className="text-orange-700 font-bold" />
-            <p>{courseData?.entrolls}+ people have joined already</p>
+            <FaPeopleGroup className="text-orange-700 font-bold" />6 enrolls
           </div>
           <div
             onClick={handleVideoPlayerModal}
