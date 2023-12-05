@@ -79,6 +79,7 @@ const ProfileInfo = ({ user }: Props) => {
     const email = user.email;
     updateUser({ name, email });
   };
+
   return (
     <div className="flex flex-col items-center h-screen">
       <h1 className={`${styles.title} mt-4`}>Profile</h1>

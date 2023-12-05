@@ -1,18 +1,22 @@
 "use client";
 import NavItems from "@/app/utils/NavItems";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "../../styles/style";
 import { useSelector } from "react-redux";
 import ProfileImage from "../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
-import { FaShoppingCart } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const [token, setToken] = useState<any>("");
   const { user } = useSelector((state: any) => state.auth);
-
+  useEffect(() => {
+    let cookie = Cookies.get("token");
+    setToken(cookie);
+  }, []);
   return (
     <>
       <div className="sticky top-0 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
@@ -26,7 +30,7 @@ const Header = (props: Props) => {
             </span>
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            {user ? (
+            {token ? (
               <Link href={"/profile"}>
                 <div className="w-[48px] h-[48px] relative overflow-hidden rounded-full">
                   <ProfileImage avatar={user?.avatar} />
@@ -75,9 +79,6 @@ const Header = (props: Props) => {
               />
             </div>
             <ThemeSwitcher />
-            {/* <Link href={"/cart"} className="flex item-center justify-center">
-              <FaShoppingCart size={20} />
-            </Link> */}
           </div>
         </div>
       </div>

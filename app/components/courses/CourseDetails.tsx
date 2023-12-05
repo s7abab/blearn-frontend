@@ -40,7 +40,7 @@ const CourseDetails = ({
       const enrolled = courseData.enrolls.filter(
         (userId: string) => userId === user?._id
       );
-        setEnrolledUsers(enrolled)
+      setEnrolledUsers(enrolled);
     }
     //eslint-disable-next-line
   }, [courseData, user]);
@@ -112,7 +112,7 @@ const CourseDetails = ({
                 onClick={handleEnrollment}
                 className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer"
               >
-                Entroll Now
+                Enroll Now
               </button>
             )}
           </div>
@@ -131,10 +131,17 @@ const CourseDetails = ({
           </div>
           <div
             onClick={handleVideoPlayerModal}
-            className="md:mt-4 bg-slate-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
+            className="bg-gray-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
           >
             <CiPlay1 className="text-orange-700 font-bold" />
             <p className="font-Poppins">Watch Preview</p>
+          </div>
+          <div
+            onClick={handleVideoPlayerModal}
+            className=" bg-gray-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
+          >
+            <p className="font-Poppins font-bold">₹{courseData?.discountPrice}</p>
+            <p className="line-through font-Josefin text-sm">₹{courseData?.price}</p>
           </div>
         </div>
       </div>
