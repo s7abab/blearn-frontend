@@ -60,7 +60,7 @@ const Login = (props: Props) => {
 
   useEffect(() => {
     if (user) {
-      router.push("/profile");
+      router.push("/");
     }
   });
 

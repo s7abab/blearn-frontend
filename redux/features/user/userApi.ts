@@ -1,6 +1,5 @@
 import endpoints from "@/app/utils/endpoints";
 import { userLoggedOut, userLoggerIn, userRegistration } from "./userSlice";
-import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { userServiceApi } from "../api/apiSlice";
 
@@ -50,7 +49,6 @@ export const userApi = userServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          Cookies.set("token", result.data.token);
           dispatch(
             userLoggerIn({
               token: result.data.token,
@@ -72,7 +70,6 @@ export const userApi = userServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          Cookies.set("token", result.data.token);
           dispatch(
             userLoggerIn({
               token: result.data.token,
