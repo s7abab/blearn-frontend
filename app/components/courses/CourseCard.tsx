@@ -48,13 +48,13 @@ const CourseCard = ({ course, mylearning,progress }: Props) => {
                 <div className="flex justify-between mt-5 text-sm text-gray-100">
                   <p>
                     <span className="font-semibold font-Poppins">
-                      {course?.entrolls}
+                      {course?.enrolls}
                     </span>{" "}
                     Enrolls
                   </p>
                   <p className="flex items-center gap-2">
                     Rating
-                    <span className="font-semibold">{course?.entrolls}</span>
+                    <span className="font-semibold">{course?.enrolls}</span>
                     <div className="text-yellow-500">
                       <FaStar />
                     </div>

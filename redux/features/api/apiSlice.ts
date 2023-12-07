@@ -16,7 +16,7 @@ export const courseServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_COURSE_SRV_URL,
   }),
-  tagTypes: ["Categories", "Courses", "Course"],
+  tagTypes: ["Categories", "Courses", "Course", "Modules"],
   endpoints: (builder) => ({}),
 });
 

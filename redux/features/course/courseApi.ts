@@ -1,6 +1,7 @@
 import endpoints from "@/app/utils/endpoints";
 import { courseServiceApi } from "../api/apiSlice";
 import { ICourseDetails } from "@/@types/course/course.types";
+import { setCourseId } from "./courseSlice";
 
 export const courseApi = courseServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -94,11 +95,68 @@ export const courseApi = courseServiceApi.injectEndpoints({
 
     // user
     getEnrolledCourses: builder.query({
-      query: (userId) => ({
+      query: (userId: string) => ({
         url: `${endpoints.course.user.get_enrolled_course}/${userId}`,
         method: "GET",
         credentials: "include" as const,
       }),
+    }),
+
+    // instructor
+    getCoursesForInstructor: builder.query({
+      query: () => ({
+        url: endpoints.course.get_courses_for_instructor,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+
+    getSingleCourseForInstructor: builder.query({
+      query: (courseId: string) => ({
+        url: `${endpoints.course.get_single_course_for_instructor}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(setCourseId(result.data.course._id));
+        } catch (error: any) {
+          console.log(error);
+        }
+      },
+    }),
+    addLesson: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.add_lesson,
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+    }),
+    getLessonsForInstructor: builder.query({
+      query: (data) => ({
+        url: endpoints.course.get_lessons_for_instructor,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+    addModule: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.add_module,
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Modules"],
+    }),
+    getModules: builder.query({
+      query: (courseId) => ({
+        url: `${endpoints.course.get_modules}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Modules"],
     }),
   }),
 });
@@ -113,4 +171,9 @@ export const {
   useGetAllCourseQuery,
   useGetSingleCourseQuery,
   useGetEnrolledCoursesQuery,
+  useGetCoursesForInstructorQuery,
+  useAddLessonMutation,
+  useGetSingleCourseForInstructorQuery,
+  useAddModuleMutation,
+  useGetModulesQuery,
 } = courseApi;

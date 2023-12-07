@@ -4,10 +4,16 @@ const initialState = {};
 
 const courseSlice = createSlice({
   name: "course",
-  initialState,
-  reducers: {},
+  initialState: {
+    courseId: null,
+  },
+  reducers: {
+    setCourseId: (state, { payload }) => {
+      state.courseId = payload;
+    },
+  },
 });
 
-export const {} = courseSlice.actions;
+export const { setCourseId } = courseSlice.actions;
 
 export default courseSlice.reducer;

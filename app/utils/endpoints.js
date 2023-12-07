@@ -21,6 +21,13 @@ const endpoints = {
     get_all_courses: "/api/v1/course/get-all-courses",
     get_single_course: "/api/v1/course/get-single-course",
     edit_course: "/api/v1/course/edit-course",
+    get_courses_for_instructor: "/api/v1/course/get-courses-for-instructor",
+    get_single_course_for_instructor:
+      "/api/v1/course/get-course-for-instructor",
+    add_lesson: "/api/v1/course/add-lesson",
+    get_lessons_for_instructor: "/api/v1/course/get-lessons-for-instructors",
+    add_module: "/api/v1/course/add-module",
+    get_modules: "/api/v1/course/get-modules",
 
     category: {
       add_category: "/api/v1/course/category/create-category",
