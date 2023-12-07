@@ -6,7 +6,6 @@ import { MdOutlinePlayLesson } from "react-icons/md";
 import { CiChat1 } from "react-icons/ci";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { CiPlay1 } from "react-icons/ci";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import VideoPlayer from "../video/VideoPlayer";
 import CustomModal from "../modals/CustomModal";
 import { useEffect, useState } from "react";

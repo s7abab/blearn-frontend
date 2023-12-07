@@ -1,37 +1,34 @@
 "use client";
-import { firebaseDB } from "@/app/utils/firebase";
 import {
   useAddCourseMutation,
   useGetAllCategoryQuery,
 } from "@/redux/features/course/courseApi";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { v4 } from "uuid";
 import Uploading from "../spinners/SmallLoader";
 import {
   validateCourseName,
   validateDiscription,
   validatePrice,
 } from "@/app/utils/validations/course.validation";
-import { IAddCourse, ICourseDetails} from "@/@types/course/course.types";
-import { useRouter } from "next/navigation";
+import { IAddCourse, ICourseDetails } from "@/@types/course/course.types";
+import { redirect } from "next/navigation";
+import uploadVideo from "@/app/utils/video-upload";
+import uploadImage from "@/app/utils/upload-image";
 
 const AddCourse = () => {
-  const [AddCourse, { isSuccess, isLoading }] = useAddCourseMutation();
+  const [AddCourse, { isSuccess }] = useAddCourseMutation();
   const { data: categoriesData, isLoading: categoryLoading } =
     useGetAllCategoryQuery({});
-  const [image, setImage] = useState<File | null>(null)
+  const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const router = useRouter()
 
   const categories: ICategories[] = categoriesData?.categories;
   useEffect(() => {
     if (isSuccess) {
       toast.success("Course published");
-      router.push("instructor/courses")
-
+      redirect("/instructor/courses");
     }
     // eslint-disable-next-line
   }, [isSuccess]);
@@ -72,19 +69,17 @@ const AddCourse = () => {
   };
 
   const handleImageUpload = async () => {
-    const imgRef = ref(firebaseDB, `thumbnail/${v4()}`);
-    if (image != null) {
-      try {
-        const snapshot = await uploadBytes(imgRef, image);
-        const downloadURL = await getDownloadURL(imgRef);
+    try {
+      const imageUrl = await uploadImage(image);
+      if (imageUrl) {
         setCourseDetails({
           ...courseDetails,
-          thumbnail: downloadURL,
+          thumbnail: imageUrl,
         });
-        console.log("Image uploaded successfully:", snapshot);
-      } catch (error: any) {
-        console.error("Error uploading image:", error);
       }
+    } catch (error: any) {
+      toast.error(error.message);
+      console.log(error);
     }
   };
 
@@ -96,23 +91,20 @@ const AddCourse = () => {
   }, [image]);
 
   const handleVideoUpload = async () => {
-    setUploading(true);
     try {
-      const videoRef = ref(firebaseDB, `videos/${v4()}`);
-      if (video) {
-        const snapshot = await uploadBytes(videoRef, video);
-        const downloadURL = await getDownloadURL(videoRef);
-        setCourseDetails((prevDetails) => ({
-          ...prevDetails,
-          demoUrl: downloadURL,
-        }));
-        setUploading(false);
-        console.log("Video uploaded successfully:", snapshot);
-      } else {
-        console.error("No video file provided for upload.");
+      setUploading(true);
+      const videoUrl = await uploadVideo(video);
+      if (videoUrl) {
+        setCourseDetails({
+          ...courseDetails,
+          demoUrl: videoUrl,
+        });
       }
-    } catch (error) {
-      console.error("Error uploading video:", error);
+      setUploading(false);
+    } catch (error: any) {
+      setUploading(false);
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -237,7 +229,7 @@ const AddCourse = () => {
               onChange={handleImageChange}
               className="border rounded-lg p-2 w-full"
             />
-            {image && <span>✅ Image Added</span>}
+            {courseDetails.thumbnail.length!==0 && <span>✅ Image Added</span>}
           </div>
         </div>
         <div>
@@ -254,7 +246,7 @@ const AddCourse = () => {
                 onChange={handleVideoChange}
                 className="border rounded-lg p-2 w-full"
               />
-              {video && <span>✅ Video Added</span>}
+              {courseDetails.demoUrl.length!==0 && <span>✅ Video Added</span>}
             </div>
           )}
         </div>

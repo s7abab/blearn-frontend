@@ -40,3 +40,9 @@ export interface ICourseDataForTable {
   Price: number;
   for: string;
 }
+
+export interface IModule {
+  _id?: string;
+  courseId: string;
+  title: string;
+}
