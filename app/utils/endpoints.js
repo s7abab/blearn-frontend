@@ -18,6 +18,7 @@ const endpoints = {
   },
   course: {
     add_course: "/api/v1/course/create-course",
+    edit_course: "/api/v1/course/edit-course",
     get_all_courses: "/api/v1/course/get-all-courses",
     get_single_course: "/api/v1/course/get-single-course",
     edit_course: "/api/v1/course/edit-course",
@@ -28,6 +29,8 @@ const endpoints = {
     get_lessons_for_instructor: "/api/v1/course/get-lessons-for-instructors",
     add_module: "/api/v1/course/add-module",
     get_modules: "/api/v1/course/get-modules",
+    edit_module: "/api/v1/course/edit-module",
+    delete_module: "/api/v1/course/delete-module",
 
     category: {
       add_category: "/api/v1/course/category/create-category",

@@ -1,22 +1,30 @@
 "use client";
 import { IModule } from "@/@types/course/course.types";
 import { styles } from "@/app/styles/style";
-import { useAddModuleMutation } from "@/redux/features/course/courseApi";
+import {
+  useAddModuleMutation,
+  useEditModuleMutation,
+} from "@/redux/features/course/courseApi";
+import { title } from "process";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 type Props = {
   closeModal: () => void;
+  edit: boolean;
+  data?: IModule;
+  index?: number;
 };
 
-const AddModule = ({ closeModal }: Props) => {
+const AddModule = ({ closeModal, edit, data, index }: Props) => {
   const [addModule, { isSuccess, error }] = useAddModuleMutation();
   const { courseId } = useSelector((state: any) => state.course);
   const [moduleData, setModuleData] = useState<IModule>({
     courseId: courseId,
-    title: "",
+    title: data?.title || "",
   });
+  const [editModule, {}] = useEditModuleMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,6 +36,14 @@ const AddModule = ({ closeModal }: Props) => {
 
   const handleAddModule = async () => {
     await addModule(moduleData);
+    closeModal();
+  };
+
+  const handleEditModule = async () => {
+    await editModule({
+      ...moduleData,
+      index,
+    });
     closeModal();
   };
 
@@ -52,12 +68,21 @@ const AddModule = ({ closeModal }: Props) => {
         className="p-2 w-full rounded-md mb-2"
         type="text"
       />
-      <button
-        onClick={handleAddModule}
-        className={`${styles.secondary_Btn} w-full mt-5`}
-      >
-        Add
-      </button>
+      {edit ? (
+        <button
+          onClick={handleEditModule}
+          className={`${styles.secondary_Btn} w-full mt-5`}
+        >
+          Edit
+        </button>
+      ) : (
+        <button
+          onClick={handleAddModule}
+          className={`${styles.secondary_Btn} w-full mt-5`}
+        >
+          Add
+        </button>
+      )}
     </div>
   );
 };

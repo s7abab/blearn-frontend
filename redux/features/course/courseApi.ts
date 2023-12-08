@@ -30,6 +30,15 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Courses"],
     }),
+    editCourse: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.edit_course,
+        method: "PUT",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Courses"],
+    }),
     getAllCourse: builder.query({
       query: ({}) => ({
         url: endpoints.course.get_all_courses,
@@ -133,18 +142,38 @@ export const courseApi = courseServiceApi.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
+      invalidatesTags: ["ILessons"],
     }),
     getLessonsForInstructor: builder.query({
       query: (data) => ({
-        url: endpoints.course.get_lessons_for_instructor,
+        url: `${endpoints.course.get_lessons_for_instructor}?courseId=${data.courseId}&index=${data.index}`,
         method: "GET",
         credentials: "include" as const,
       }),
+      providesTags: ["ILessons"],
     }),
     addModule: builder.mutation({
       query: (data) => ({
         url: endpoints.course.add_module,
         method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Modules"],
+    }),
+    editModule: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.edit_module,
+        method: "PUT",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Modules"],
+    }),
+    deletModule: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.delete_module,
+        method: "DELETE",
         body: data,
         credentials: "include" as const,
       }),
@@ -176,4 +205,8 @@ export const {
   useGetSingleCourseForInstructorQuery,
   useAddModuleMutation,
   useGetModulesQuery,
+  useGetLessonsForInstructorQuery,
+  useEditModuleMutation,
+  useDeletModuleMutation,
+  useEditCourseMutation,
 } = courseApi;

@@ -14,6 +14,7 @@ const Modules = (props: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const { courseId } = useSelector((state: any) => state.course);
   const { isLoading, data } = useGetModulesQuery(courseId);
+
   const modules: IModule[] = data?.modules;
   const handleOpen = () => {
     setOpen(!open);
@@ -29,7 +30,7 @@ const Modules = (props: Props) => {
             isOpen={open}
             onClose={handleOpen}
           >
-            <AddModule closeModal={handleOpen} />
+            <AddModule edit={false} closeModal={handleOpen} />
           </CustomModal>
         </>
       )}
@@ -37,14 +38,14 @@ const Modules = (props: Props) => {
       <div>
         <button
           onClick={handleOpen}
-          className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-3 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer"
+          className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-3 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100"
         >
           Add Module
         </button>
         <div className="mt-3 flex flex-col gap-2">
           {modules?.map((module,index) => (
             <div key={module?._id}>
-              <ModuleCard module={module} index={index} />
+              <ModuleCard edit={true} module={module} index={index} />
             </div>
           ))}
         </div>

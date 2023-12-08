@@ -97,12 +97,6 @@ const CourseContents = ({ index }: Props) => {
     }
     //eslint-disable-next-line
   }, [file]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Lesson added succussfully");
-    }
-  }, [isSuccess]);
   return (
     <div className="mt-5">
       {selectedOption === "video" && (
