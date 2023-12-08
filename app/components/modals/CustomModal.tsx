@@ -15,11 +15,11 @@ const CustomModal = ({ isOpen, onClose, children, modalHeader }: Props) => {
   return (
     <>
       <div
-        className="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-40"
+        className="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-[1000]"
         onClick={onClose}
       ></div>
       <div
-        className={` w-[380px] outline-none  mx-auto absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-50 shadow-xl rounded-lg ${
+        className={` w-[380px] outline-none  mx-auto absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[1001] shadow-xl rounded-lg ${
           modalHeader
             ? "dark:bg-gradient-to-tr dark:from-gray-950 dark:to-gray-900 bg-gray-500"
             : "bg-white"

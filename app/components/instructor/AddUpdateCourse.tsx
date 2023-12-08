@@ -1,6 +1,7 @@
 "use client";
 import {
   useAddCourseMutation,
+  useEditCourseMutation,
   useGetAllCategoryQuery,
 } from "@/redux/features/course/courseApi";
 import React, { useEffect, useState } from "react";
@@ -12,36 +13,35 @@ import {
   validatePrice,
 } from "@/app/utils/validations/course.validation";
 import { IAddCourse, ICourseDetails } from "@/@types/course/course.types";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import uploadVideo from "@/app/utils/video-upload";
 import uploadImage from "@/app/utils/upload-image";
 
-const AddCourse = () => {
-  const [AddCourse, { isSuccess }] = useAddCourseMutation();
-  const { data: categoriesData, isLoading: categoryLoading } =
-    useGetAllCategoryQuery({});
+type Props = {
+  course?: ICourseDetails;
+  edit?: boolean;
+};
+const AddUpdateCourse = ({ course, edit }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-
-  const categories: ICategories[] = categoriesData?.categories;
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Course published");
-      redirect("/instructor/courses");
-    }
-    // eslint-disable-next-line
-  }, [isSuccess]);
-
   const [courseDetails, setCourseDetails] = useState<IAddCourse>({
-    title: "",
-    description: "",
-    price: 0,
-    discountPrice: 0,
-    category: "",
-    thumbnail: "",
-    demoUrl: "",
+    title: course?.title || "",
+    description: course?.description || "",
+    price: course?.price || 0,
+    discountPrice: course?.discountPrice || 0,
+    category: course?.category || "",
+    thumbnail: course?.thumbnail || "",
+    demoUrl: course?.demoUrl || "",
   });
+  const [AddCourse, { isSuccess }] = useAddCourseMutation();
+  const [EditCourse, { isSuccess: edited }] = useEditCourseMutation();
+  const { data: categoriesData, isLoading: categoryLoading } =
+    useGetAllCategoryQuery({});
+
+  const router = useRouter();
+  const categories: ICategories[] = categoriesData?.categories;
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -83,13 +83,6 @@ const AddCourse = () => {
     }
   };
 
-  useEffect(() => {
-    if (image) {
-      handleImageUpload();
-    }
-    //eslint-disable-next-line
-  }, [image]);
-
   const handleVideoUpload = async () => {
     try {
       setUploading(true);
@@ -114,13 +107,6 @@ const AddCourse = () => {
     }
   };
 
-  useEffect(() => {
-    if (video) {
-      handleVideoUpload();
-    }
-    //eslint-disable-next-line
-  }, [video]);
-
   const handlePublish = () => {
     validateCourseName({ name: courseDetails.title });
     validatePrice({
@@ -139,6 +125,35 @@ const AddCourse = () => {
     }
     AddCourse(courseDetails as ICourseDetails);
   };
+
+  const handleEdit = async () => {
+    await EditCourse({ ...courseDetails, _id: course?._id });
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Course published");
+      router.push("/instructor/courses");
+    }
+    if (edited) {
+      toast.success("Course Updated");
+      router.push("/instructor/courses");
+    }
+    // eslint-disable-next-line
+  }, [isSuccess, edited]);
+  useEffect(() => {
+    if (video) {
+      handleVideoUpload();
+    }
+    //eslint-disable-next-line
+  }, [video]);
+
+  useEffect(() => {
+    if (image) {
+      handleImageUpload();
+    }
+    //eslint-disable-next-line
+  }, [image]);
   return (
     <>
       <div className="mt-5">
@@ -229,7 +244,9 @@ const AddCourse = () => {
               onChange={handleImageChange}
               className="border rounded-lg p-2 w-full"
             />
-            {courseDetails.thumbnail.length!==0 && <span>✅ Image Added</span>}
+            {courseDetails.thumbnail.length !== 0 && (
+              <span>✅ Image Added</span>
+            )}
           </div>
         </div>
         <div>
@@ -246,21 +263,32 @@ const AddCourse = () => {
                 onChange={handleVideoChange}
                 className="border rounded-lg p-2 w-full"
               />
-              {courseDetails.demoUrl.length!==0 && <span>✅ Video Added</span>}
+              {courseDetails.demoUrl.length !== 0 && (
+                <span>✅ Video Added</span>
+              )}
             </div>
           )}
         </div>
         <div className="mb-5">
-          <button
-            onClick={handlePublish}
-            className="border rounded-lg p-2 w-full mt-5 bg-gray-500 hover:bg-gray-600 text-light-primary dark:bg-slate-600 dark:hover:bg-slate-800 dark:text-dark-primary"
-          >
-            PUBLISH COURSE
-          </button>
+          {edit ? (
+            <button
+              onClick={handleEdit}
+              className="border rounded-lg p-2 w-full mt-5 bg-gray-500 hover:bg-gray-600 text-light-primary dark:bg-slate-600 dark:hover:bg-slate-800 dark:text-dark-primary"
+            >
+              EDIT COURSE
+            </button>
+          ) : (
+            <button
+              onClick={handlePublish}
+              className="border rounded-lg p-2 w-full mt-5 bg-gray-500 hover:bg-gray-600 text-light-primary dark:bg-slate-600 dark:hover:bg-slate-800 dark:text-dark-primary"
+            >
+              PUBLISH COURSE
+            </button>
+          )}
         </div>
       </div>
     </>
   );
 };
 
-export default AddCourse;
+export default AddUpdateCourse;
