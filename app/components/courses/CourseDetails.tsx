@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDetails } from "@/@types/course/course.types";
+import { ICourseDetails, IModule } from "@/@types/course/course.types";
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
 import { MdOutlinePlayLesson } from "react-icons/md";
@@ -14,6 +14,8 @@ import CheckoutForm from "../payment/CheckoutForm";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useGetModulesQuery } from "@/redux/features/course/courseApi";
+import ModuleCard from "../modules/ModuleCard";
 
 type Props = {
   courseData: ICourseDetails;
@@ -33,7 +35,11 @@ const CourseDetails = ({
   const [enrolledUsers, setEnrolledUsers] = useState<string[]>([]);
   const router = useRouter();
   const { user } = useSelector((state: any) => state.auth);
-
+  const { data: modulesData, isLoading: modulesLoading } = useGetModulesQuery(
+    courseData._id
+  );
+  const modules: IModule[] = modulesData?.modules;
+  const instructorCourse: boolean = user._id === courseData.instructorId;
   useEffect(() => {
     if (courseData && courseData.enrolls) {
       const enrolled = courseData.enrolls.filter(
@@ -106,6 +112,13 @@ const CourseDetails = ({
               >
                 Go to Course
               </Link>
+            ) : instructorCourse ? (
+              <Link
+                href={"/instructor/courses"}
+                className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer flex items-center justify-center"
+              >
+                Go to Course
+              </Link>
             ) : (
               <button
                 onClick={handleEnrollment}
@@ -139,13 +152,22 @@ const CourseDetails = ({
             onClick={handleVideoPlayerModal}
             className=" bg-gray-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
           >
-            <p className="font-Poppins font-bold">₹{courseData?.discountPrice}</p>
-            <p className="line-through font-Josefin text-sm">₹{courseData?.price}</p>
+            <p className="font-Poppins font-bold">
+              ₹{courseData?.discountPrice}
+            </p>
+            <p className="line-through font-Josefin text-sm">
+              ₹{courseData?.price}
+            </p>
           </div>
         </div>
       </div>
       <div>
-        <h2 className={`${styles.title} mt-10`}>Feedbacks</h2>
+        <h2 className={`${styles.title} mt-6`}>Course content</h2>
+        {modules?.map((module, index) => (
+          <div key={index} className="mt-2" >
+          <ModuleCard module={module} index={index} edit={false} />
+          </div>
+        ))}
       </div>
     </div>
   );

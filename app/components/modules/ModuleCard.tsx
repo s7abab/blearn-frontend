@@ -2,10 +2,8 @@
 import { IModule } from "@/@types/course/course.types";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import CourseContents from "../instructor/CourseContents";
 import {
   useDeletModuleMutation,
-  useGetLessonsForInstructorQuery,
 } from "@/redux/features/course/courseApi";
 import { useSelector } from "react-redux";
 import { ILesson } from "@/@types/course/lesson.types";
@@ -15,6 +13,7 @@ import AddModule from "../instructor/AddModule";
 import CustomModal from "../modals/CustomModal";
 import { MdDeleteOutline } from "react-icons/md";
 import ConfirmBox from "../modals/ConfirmBox";
+import AddLesson from "../instructor/AddLesson";
 
 type Props = {
   module: IModule;
@@ -28,12 +27,8 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [lesson, setLesson] = useState<boolean>(false);
   const { courseId } = useSelector((state: any) => state.course);
-  const { data } = useGetLessonsForInstructorQuery({
-    courseId,
-    index,
-  });
   const [deleteModule, { isLoading }] = useDeletModuleMutation();
-  const lessons: ILesson[] = data?.lessons;
+  const lessons: ILesson[] = module?.lessons
 
   const handleDeleteModule = () => {
     deleteModule({
@@ -79,7 +74,10 @@ const ModuleCard = ({ module, index, edit }: Props) => {
       )}
       {confirmModal && (
         <CustomModal isOpen={confirmModal} onClose={toggleConfirmModal}>
-          <ConfirmBox close={toggleConfirmModal} confirm={handleConfirmDelete} />
+          <ConfirmBox
+            close={toggleConfirmModal}
+            confirm={handleConfirmDelete}
+          />
         </CustomModal>
       )}
       <div className="cursor-pointer flex justify-between">
@@ -97,7 +95,7 @@ const ModuleCard = ({ module, index, edit }: Props) => {
           {lessons?.map((lesson) => (
             <LessonCard key={lesson.index} lesson={lesson} />
           ))}
-          {<CourseContents index={index} />}
+          {edit && <>{<AddLesson index={index} />}</>}
         </>
       )}
     </div>

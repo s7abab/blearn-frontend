@@ -26,7 +26,6 @@ const endpoints = {
     get_single_course_for_instructor:
       "/api/v1/course/get-course-for-instructor",
     add_lesson: "/api/v1/course/add-lesson",
-    get_lessons_for_instructor: "/api/v1/course/get-lessons-for-instructors",
     add_module: "/api/v1/course/add-module",
     get_modules: "/api/v1/course/get-modules",
     edit_module: "/api/v1/course/edit-module",
