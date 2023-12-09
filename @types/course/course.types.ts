@@ -1,5 +1,8 @@
+import { ILesson } from "./lesson.types";
+
 export interface ICourseDetails {
   _id: string;
+  instructorId: string;
   title: string;
   description: string;
   price: number;
@@ -41,8 +44,11 @@ export interface ICourseDataForTable {
   for: string;
 }
 
-export interface IModule {
+export interface IModuleAdd {
   _id?: string;
   courseId: string;
   title: string;
+}
+export interface IModule extends IModuleAdd {
+  lessons: ILesson[];
 }

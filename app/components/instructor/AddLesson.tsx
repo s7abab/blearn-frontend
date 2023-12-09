@@ -14,7 +14,7 @@ type Props = {
   index: number;
 };
 
-const CourseContents = ({ index }: Props) => {
+const AddLesson = ({ index }: Props) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
@@ -133,4 +133,4 @@ const CourseContents = ({ index }: Props) => {
   );
 };
 
-export default CourseContents;
+export default AddLesson;

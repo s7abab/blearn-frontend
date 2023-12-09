@@ -1,11 +1,10 @@
 "use client";
-import { IModule } from "@/@types/course/course.types";
+import { IModule, IModuleAdd } from "@/@types/course/course.types";
 import { styles } from "@/app/styles/style";
 import {
   useAddModuleMutation,
   useEditModuleMutation,
 } from "@/redux/features/course/courseApi";
-import { title } from "process";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -20,7 +19,7 @@ type Props = {
 const AddModule = ({ closeModal, edit, data, index }: Props) => {
   const [addModule, { isSuccess, error }] = useAddModuleMutation();
   const { courseId } = useSelector((state: any) => state.course);
-  const [moduleData, setModuleData] = useState<IModule>({
+  const [moduleData, setModuleData] = useState<IModuleAdd>({
     courseId: courseId,
     title: data?.title || "",
   });
