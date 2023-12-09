@@ -150,7 +150,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
-      invalidatesTags: ["ILessons"],
+      invalidatesTags: ["Modules"],
     }),
     addModule: builder.mutation({
       query: (data) => ({

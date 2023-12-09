@@ -15,7 +15,7 @@ const navLinks = [
   },
   {
     name: "Teach",
-    url: "/",
+    url: "/become-an-instructor",
   },
 ];
 

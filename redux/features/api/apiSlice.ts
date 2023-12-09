@@ -16,7 +16,7 @@ export const courseServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_COURSE_SRV_URL,
   }),
-  tagTypes: ["Categories", "Courses", "Course", "Modules", "ILessons"],
+  tagTypes: ["Categories", "Courses", "Course", "Modules"],
   endpoints: (builder) => ({}),
 });
 
@@ -26,7 +26,7 @@ export const userServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_AUTH_SRV_URL,
   }),
-  tagTypes: ["User", "Users","Instructor", "Instructors"],
+  tagTypes: ["User", "Users", "Instructor", "Instructors"],
   endpoints: (builder) => ({
     loadCurrentUser: builder.query({
       query: () => ({

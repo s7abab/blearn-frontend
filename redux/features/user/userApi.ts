@@ -163,6 +163,14 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["User", "Instructor"],
     }),
+    instructoApplication: builder.mutation({
+      query: (data) => ({
+        url: endpoints.user.instructor_application,
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -179,4 +187,5 @@ export const {
   useGetSingleUserQuery,
   useGetSingleInstructorQuery,
   useBlockUserMutation,
+  useInstructoApplicationMutation,
 } = userApi;

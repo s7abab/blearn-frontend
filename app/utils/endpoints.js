@@ -8,6 +8,7 @@ const endpoints = {
     update_user_avatar: "/api/v1/user/update-user-avatar",
     get_current_user: "/api/v1/user/current-user",
     update_user: "/api/v1/user/update-user",
+    instructor_application: "/api/v1/user/instructor-application",
     admin: {
       get_users: "/api/v1/admin/users",
       get_instructors: "/api/v1/admin/instructors",
