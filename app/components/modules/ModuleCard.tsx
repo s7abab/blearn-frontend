@@ -57,7 +57,7 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   }, [confirmDelete]);
 
   return (
-    <div className="bg-gradient-to-br from-[#2c2c35] to-[#29292a] p-5 rounded-md shadow-lg font-Josefin hover:from-[#373739] hover:to-[#414144] text-dark-primary  ">
+    <div className=" bg-inherit p-5 rounded-md font-Poppins text-md hover:from-[#373739] hover:to-[#414144] text-dark-primary  ">
       {open && (
         <CustomModal
           isOpen={open}
@@ -88,12 +88,12 @@ const ModuleCard = ({ module, index, edit }: Props) => {
             <MdDeleteOutline onClick={toggleConfirmModal} size={20} />
           </div>
         )}
-        {module?.title} <IoIosArrowDown onClick={toggleLesson} size={20} />
+       <h1 className="text-lg">{module?.title} </h1>  <IoIosArrowDown onClick={toggleLesson} size={20} />
       </div>
       {lesson && (
         <>
-          {lessons?.map((lesson) => (
-            <LessonCard key={lesson.index} lesson={lesson} />
+          {lessons?.map((lesson, index) => (
+            <LessonCard key={index} lesson={lesson} index={index} />
           ))}
           {edit && <>{<AddLesson index={index} />}</>}
         </>

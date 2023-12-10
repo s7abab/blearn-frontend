@@ -9,6 +9,7 @@ type Props = {
   handleFileChange: (args: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
   loading: boolean;
+  addLoading: boolean;
   video: string;
 };
 
@@ -18,6 +19,7 @@ const VideoLesson = ({
   loading,
   video,
   handleSubmit,
+  addLoading,
 }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -64,13 +66,22 @@ const VideoLesson = ({
         <h1 className="text-white text-lg mb-2">Title</h1>
         <input
           onChange={handleChange}
-          className="p-2 bg-gray-800 rounded-md w-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`p-2 cursor-${
+            !video ? "not-allowed" : "pointer"
+          } bg-gray-800 rounded-md w-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
           type="text"
           placeholder="Enter title..."
+          disabled={!video}
         />
       </div>
       <div className={`flex justify-center  ${styles.primary} mt-4 w-20`}>
-        <button onClick={handleSubmit}>Submit</button>
+        <button
+          className={`cursor-${addLoading} ? "not-allowed" : "pointer`}
+          disabled={addLoading}
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </div>
     </div>
   );

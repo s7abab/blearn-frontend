@@ -12,8 +12,8 @@ type Props = {};
 
 const Modules = (props: Props) => {
   const [open, setOpen] = useState<boolean>(false);
-  const { courseId } = useSelector((state: any) => state.course);
-  const { isLoading, data } = useGetModulesQuery(courseId);
+  const { course } = useSelector((state: any) => state.course);
+  const { isLoading, data } = useGetModulesQuery(course?._id);
 
   const modules: IModule[] = data?.modules;
   const handleOpen = () => {

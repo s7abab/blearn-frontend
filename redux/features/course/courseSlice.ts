@@ -1,19 +1,23 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  course: {},
+  lessonActiveIndex:""
+};
 
 const courseSlice = createSlice({
   name: "course",
-  initialState: {
-    courseId: null,
-  },
+  initialState,
   reducers: {
-    setCourseId: (state, { payload }) => {
-      state.courseId = payload;
+    setCourse: (state, { payload }) => {
+      state.course = payload;
     },
+    setActiveIndex:(state, {payload})=>{
+      state.lessonActiveIndex= payload
+    }
   },
 });
 
-export const { setCourseId } = courseSlice.actions;
+export const { setCourse, setActiveIndex } = courseSlice.actions;
 
 export default courseSlice.reducer;

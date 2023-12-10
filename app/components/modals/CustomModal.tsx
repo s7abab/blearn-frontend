@@ -1,5 +1,6 @@
 "use client";
 import { styles } from "@/app/styles/style";
+import { IoIosCloseCircle } from "react-icons/io";
 
 type Props = {
   isOpen: boolean;
@@ -28,9 +29,9 @@ const CustomModal = ({ isOpen, onClose, children, modalHeader }: Props) => {
         {modalHeader && <h1 className={styles.title}>{modalHeader}</h1>}
         <button
           onClick={onClose}
-          className="font-semibold cursor-pointer fixed top-1 right-2 text-2xl z-20 text-dark-primary mx-2"
+          className="font-semibold cursor-pointer fixed top-2 right-1 text-2xl z-20 text-dark-primary mx-2"
         >
-          X
+          <IoIosCloseCircle />
         </button>
         <div>{children}</div>
       </div>

@@ -41,7 +41,8 @@ const endpoints = {
     },
 
     user: {
-      get_enrolled_course: "/api/v1/course/user/enrolled-courses",
+      get_enrolled_course: "/api/v1/course/enrolled-courses",
+      get_single_enrolled_course: "/api/v1/course/single-enrolled-course"
     },
   },
 

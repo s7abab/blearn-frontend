@@ -53,7 +53,8 @@ const Login = (props: Props) => {
           email: sessionData?.user?.email,
           name: sessionData?.user?.name,
           avatar: sessionData?.user?.image,
-        });
+        })
+        router.push("/")
       }
     }
   }, [sessionData, user, sessionSuccess, socialAuth, router]);

@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import Loader from "./components/spinners/Loader";
 import { SessionProvider, useSession } from "next-auth/react";
 import { ThemeProvider } from "./utils/theme-provider";
+import { styles } from "./styles/style";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${josefin.variable} max-w-screen overflow-x-hidden pl-5 pr-5 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-black duration-300 dark:text-gray-50 text-gray-950`}
+        className={`${poppins.variable} ${josefin.variable} max-w-screen min-h-screen overflow-x-hidden pl-5 pr-5 ${styles.blue_gradient}`}
       >
         <Provider store={store}>
           <SessionProvider>

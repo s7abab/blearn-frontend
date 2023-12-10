@@ -1,7 +1,7 @@
 import endpoints from "@/app/utils/endpoints";
 import { courseServiceApi } from "../api/apiSlice";
 import { ICourseDetails } from "@/@types/course/course.types";
-import { setCourseId } from "./courseSlice";
+import { setCourse } from "./courseSlice";
 
 export const courseApi = courseServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -56,7 +56,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          dispatch(setCourseId(result.data.course._id));
+          dispatch(setCourse(result.data.course));
         } catch (error: any) {
           console.log(error);
         }
@@ -113,10 +113,26 @@ export const courseApi = courseServiceApi.injectEndpoints({
     // user
     getEnrolledCourses: builder.query({
       query: (userId: string) => ({
-        url: `${endpoints.course.user.get_enrolled_course}/${userId}`,
+        url: endpoints.course.user.get_enrolled_course,
         method: "GET",
         credentials: "include" as const,
       }),
+    }),
+
+    getSingleEnrolledCourse: builder.query({
+      query: (courseId: string) => ({
+        url: `${endpoints.course.user.get_single_enrolled_course}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(setCourse(result.data.course));
+        } catch (error: any) {
+          console.log(error);
+        }
+      },
     }),
 
     // instructor
@@ -137,7 +153,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          dispatch(setCourseId(result.data.course._id));
+          dispatch(setCourse(result.data.course));
         } catch (error: any) {
           console.log(error);
         }
@@ -208,4 +224,5 @@ export const {
   useEditModuleMutation,
   useDeletModuleMutation,
   useEditCourseMutation,
+  useGetSingleEnrolledCourseQuery,
 } = courseApi;

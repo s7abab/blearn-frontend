@@ -72,7 +72,7 @@ const CourseDetails = ({
             onClose={handleVideoPlayerModal}
             modalHeader="Preview Video"
           >
-            <VideoPlayer url={courseData?.demoUrl} />
+            <VideoPlayer url={courseData?.demoUrl} height="100%" />
           </CustomModal>
         )}
       </>
@@ -161,7 +161,7 @@ const CourseDetails = ({
           </div>
         </div>
       </div>
-      <div>
+      <div className="px-5">
         <h2 className={`${styles.title} mt-6`}>Course content</h2>
         {modules?.map((module, index) => (
           <div key={index} className="mt-2" >

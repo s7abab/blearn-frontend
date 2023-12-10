@@ -15,6 +15,7 @@ import { firebaseDB } from "@/app/utils/firebase";
 import Uploading from "../spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
 import Cookies from "js-cookie";
+import UserTopbar from "../user-topbar/UserTopbar";
 
 type Props = {
   user: { name: string; email: string; avatar: string };
@@ -82,6 +83,7 @@ const ProfileInfo = ({ user }: Props) => {
 
   return (
     <div className="flex flex-col items-center h-screen">
+            <UserTopbar />
       <h1 className={`${styles.title} mt-4`}>Profile</h1>
       <div className="mt-5 relative w-[120px] h-[120px] rounded-full overflow-hidden">
         {uploading ? <Uploading /> : <ProfileImage avatar={user?.avatar} />}

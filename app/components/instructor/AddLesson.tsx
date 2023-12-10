@@ -7,7 +7,6 @@ import uploadVideo from "@/app/utils/video-upload";
 import { useAddLessonMutation } from "@/redux/features/course/courseApi";
 import VideoLesson from "./lesson/VideoLesson";
 import DocumentLesson from "./lesson/Document";
-import LessonCard from "../modules/LessonCard";
 import { useSelector } from "react-redux";
 
 type Props = {
@@ -19,19 +18,28 @@ const AddLesson = ({ index }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const { courseId } = useSelector((state: any) => state.course);
+  const { course } = useSelector((state: any) => state.course);
   const [lessonDetails, setLessonDetails] = useState<ILesson>({
-    courseId: courseId,
+    courseId: course?._id,
     index: index,
     type: "",
     title: "",
     url: "",
     duration: 1,
   });
-  const [uploadLesson, { isSuccess, error }] = useAddLessonMutation();
+  const [uploadLesson, { isSuccess, error, isLoading }] =
+    useAddLessonMutation();
 
   const handleUploadLesson = async () => {
     await uploadLesson(lessonDetails);
+    setLessonDetails({
+      courseId: course?._id,
+      index: index,
+      type: "",
+      title: "",
+      url: "",
+      duration: 1,
+    });
     handleModal();
   };
 
@@ -105,6 +113,7 @@ const AddLesson = ({ index }: Props) => {
             handleChange={handleLessonTitle}
             handleFileChange={handleFileChange}
             loading={loading}
+            addLoading={isLoading}
             video={lessonDetails.url}
             handleSubmit={handleUploadLesson}
           />
@@ -116,6 +125,7 @@ const AddLesson = ({ index }: Props) => {
             handleChange={handleLessonTitle}
             handleFileChange={handleFileChange}
             loading={loading}
+            addLoading={isLoading}
             video={lessonDetails.url}
             handleSubmit={handleUploadLesson}
           />

@@ -1,30 +1,32 @@
+"use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import React from "react";
+import { useSelector } from "react-redux";
 
 type Props = {};
-
-const navLinks = [
-  {
-    name: "Home",
-    url: "/",
-  },
-  {
-    name: "Courses",
-    url: "/courses",
-  },
-  {
-    name: "Teach",
-    url: "/become-an-instructor",
-  },
-];
 
 const NavItems = (props: Props) => {
   const linkVariants = {
     initial: { scale: 1 },
     hover: { scale: 1.1 },
   };
+  const { user } = useSelector((state: any) => state.auth);
 
+  const navLinks = [
+    {
+      name: "Home",
+      url: "/",
+    },
+    {
+      name: "Courses",
+      url: "/courses",
+    },
+    {
+      name: "Teach",
+      url: user.role === "instructor" ? "/instructor/courses" : "/become-an-instructor",
+    },
+  ];
   return (
     <>
       {navLinks.map((link, index) => (
