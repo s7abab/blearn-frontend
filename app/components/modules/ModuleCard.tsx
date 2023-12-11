@@ -2,10 +2,8 @@
 import { IModule } from "@/@types/course/course.types";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import {
-  useDeletModuleMutation,
-} from "@/redux/features/course/courseApi";
-import { useSelector } from "react-redux";
+import { useDeletModuleMutation } from "@/redux/features/course/courseApi";
+import { useDispatch, useSelector } from "react-redux";
 import { ILesson } from "@/@types/course/lesson.types";
 import LessonCard from "./LessonCard";
 import { FaEdit } from "react-icons/fa";
@@ -14,6 +12,7 @@ import CustomModal from "../modals/CustomModal";
 import { MdDeleteOutline } from "react-icons/md";
 import ConfirmBox from "../modals/ConfirmBox";
 import AddLesson from "../instructor/AddLesson";
+import { setActiveLesson } from "@/redux/features/course/courseSlice";
 
 type Props = {
   module: IModule;
@@ -28,7 +27,8 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   const [lesson, setLesson] = useState<boolean>(false);
   const { courseId } = useSelector((state: any) => state.course);
   const [deleteModule, { isLoading }] = useDeletModuleMutation();
-  const lessons: ILesson[] = module?.lessons
+  const lessons: ILesson[] = module?.lessons;
+  const dispatch = useDispatch();
 
   const handleDeleteModule = () => {
     deleteModule({
@@ -56,6 +56,9 @@ const ModuleCard = ({ module, index, edit }: Props) => {
     // eslint-disable-next-line
   }, [confirmDelete]);
 
+  const handleLessonChange = (index: number) => {
+    dispatch(setActiveLesson(index-1));
+  };
   return (
     <div className=" bg-inherit p-5 rounded-md font-Poppins text-md hover:from-[#373739] hover:to-[#414144] text-dark-primary  ">
       {open && (
@@ -88,12 +91,18 @@ const ModuleCard = ({ module, index, edit }: Props) => {
             <MdDeleteOutline onClick={toggleConfirmModal} size={20} />
           </div>
         )}
-       <h1 className="text-lg">{module?.title} </h1>  <IoIosArrowDown onClick={toggleLesson} size={20} />
+        <h1 className="text-lg">{module?.title} </h1>{" "}
+        <IoIosArrowDown onClick={toggleLesson} size={20} />
       </div>
       {lesson && (
         <>
           {lessons?.map((lesson, index) => (
-            <LessonCard key={index} lesson={lesson} index={index} />
+            <div
+              key={lesson.lessonNo}
+              onClick={() => handleLessonChange(lesson.lessonNo)}
+            >
+              <LessonCard lesson={lesson} index={index} />
+            </div>
           ))}
           {edit && <>{<AddLesson index={index} />}</>}
         </>

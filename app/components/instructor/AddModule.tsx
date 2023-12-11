@@ -18,9 +18,9 @@ type Props = {
 
 const AddModule = ({ closeModal, edit, data, index }: Props) => {
   const [addModule, { isSuccess, error }] = useAddModuleMutation();
-  const { courseId } = useSelector((state: any) => state.course);
+  const { course } = useSelector((state: any) => state.course);
   const [moduleData, setModuleData] = useState<IModuleAdd>({
-    courseId: courseId,
+    courseId: course?._id,
     title: data?.title || "",
   });
   const [editModule, {}] = useEditModuleMutation();

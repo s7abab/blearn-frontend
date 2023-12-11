@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Progress from "../../spinners/Progress";
 import { IoIosCloudDone } from "react-icons/io";
 import { IoIosDocument } from "react-icons/io";
+import Link from "next/link";
 
 type Props = {
   handleChange: (args: React.ChangeEvent<HTMLInputElement>) => void;
@@ -35,7 +36,7 @@ const DocumentLesson = ({
         <label
           onClick={handleClick}
           htmlFor="fileInput"
-          className="flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-800 w-16 h-16 mr-4 "
+          className="flex items-center justify-center rounded-full bg-gray-700 hover:bg-gray-800 w-10 h-10 mr-4 "
         >
           {video.length === 0 ? (
             <IoIosDocument className="cursor-pointer" />
@@ -50,11 +51,16 @@ const DocumentLesson = ({
           className="hidden"
         />
         {video.length === 0 ? (
-          <h1 className="font-Poppins text-xxl">Add Document</h1>
+          <h1 className="font-Poppins text-2xl">Add Document</h1>
         ) : (
-          <h1 className="font-Poppins text-xxl">Document Added</h1>
+          <h1 className="font-Poppins text-2xl">Document Added</h1>
         )}
       </div>
+      {video && (
+        <Link href={video} className="flex items-center justify-center">
+          <IoIosDocument size={40} /> <h1 className="font-Poppins text-xl font-semibold">Open Document</h1>
+        </Link>
+      )}
       {loading ? (
         <div>
           <Progress />
@@ -62,27 +68,31 @@ const DocumentLesson = ({
       ) : (
         <div className="h-[4px]"></div>
       )}
-      <div className="mt-3">
-        <h1 className="text-white text-lg mb-2">Title</h1>
-        <input
-          onChange={handleChange}
-          className={`p-2 cursor-${
-            !video ? "not-allowed" : "pointer"
-          } bg-gray-800 rounded-md w-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
-          type="text"
-          placeholder="Enter title..."
-          disabled={!video}
-        />
-      </div>
-      <div className={`flex justify-center  ${styles.primary} mt-4 w-20`}>
-        <button
-          className={`cursor-${addLoading} ? "not-allowed" : "pointer`}
-          disabled={addLoading}
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </div>
+      {video && (
+        <>
+          <div className="mt-3">
+            <h1 className="text-white text-lg mb-2 font-Poppins">Title</h1>
+            <input
+              onChange={handleChange}
+              className={`p-2 cursor-${
+                !video ? "not-allowed" : "pointer"
+              } bg-gray-800 rounded-md w-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              type="text"
+              placeholder="Enter title..."
+              disabled={!video}
+            />
+          </div>
+          <div className={`flex justify-center  ${styles.primary} mt-4 w-20`}>
+            <button
+              className={`cursor-${addLoading} ? "not-allowed" : "pointer`}
+              disabled={addLoading}
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

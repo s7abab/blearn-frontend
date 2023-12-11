@@ -1,68 +1,80 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import VideoPlayer from "../../video/VideoPlayer";
 import ModuleCard from "../../modules/ModuleCard";
 import { useGetSingleEnrolledCourseQuery } from "@/redux/features/course/courseApi";
 import { ICourseDetails } from "@/@types/course/course.types";
 import { useParams } from "next/navigation";
-import { setActiveIndex } from "@/redux/features/course/courseSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { IoIosDocument } from "react-icons/io";
+import Link from "next/link";
+import Loader from "../../spinners/Loader";
+import { setActiveLesson } from "@/redux/features/course/courseSlice";
 
 const WatchCourse = () => {
-  const [currentModuleIndex, setCurrentModuleIndex] = useState<number>(0);
-  const [currentLessonIndex, setCurrentLessonIndex] = useState<number>(0);
-  const dispatch = useDispatch();
-
   const { courseId } = useParams<any>();
+  const dispatch = useDispatch();
   const { data: courseData } = useGetSingleEnrolledCourseQuery(courseId);
+  const { activeLesson } = useSelector((state: any) => state.course);
   const course: ICourseDetails = courseData?.course;
+  const totalLessons = course?.totalLessons;
+  const lessons = course?.modules?.map((module) => module?.lessons).flat();
 
-  const handleChangeLesson = (increment: number) => {
-    const totalModules = course?.modules?.length || 0;
-    const totalLessons =
-      course?.modules[currentModuleIndex]?.lessons?.length || 0;
-
-    let newModuleIndex = currentModuleIndex;
-    let newLessonIndex = currentLessonIndex + increment;
-
-    if (newLessonIndex >= totalLessons) {
-      newModuleIndex += 1;
-      newLessonIndex = 0;
-    } else if (newLessonIndex < 0) {
-      newModuleIndex -= 1;
-      newLessonIndex = course?.modules[newModuleIndex]?.lessons.length - 1;
-    }
-
-    setCurrentModuleIndex(newModuleIndex);
-    setCurrentLessonIndex(newLessonIndex);
+  const handleNext = () => {
+    dispatch(setActiveLesson(activeLesson + 1));
+  };
+  const handlePrev = () => {
+    dispatch(setActiveLesson(activeLesson - 1));
   };
 
-  const currentModule = course?.modules[currentModuleIndex];
-  const currentLessonUrl = currentModule?.lessons[currentLessonIndex]?.url;
-  dispatch(setActiveIndex(currentModule?.lessons[currentLessonIndex]?._id));
-
-  useEffect(()=>{},[])
+  if (!lessons && !activeLesson) {
+    return <Loader />;
+  }
   return (
     <div className="md:flex min-h-screen">
       <div className="md:w-2/3 rounded-md p-5">
-        <VideoPlayer url={currentLessonUrl} height="400px" />
+        {lessons[activeLesson]?.type === "video" ? (
+          <VideoPlayer url={lessons[activeLesson]?.url} height="400px" />
+        ) : (
+          <div className="h-[400px] w-full flex justify-center items-center">
+            <IoIosDocument size={100} />
+            {lessons[activeLesson]?.url && (
+              <Link
+                href={lessons[activeLesson]?.url}
+                className="font-Poppins text-xl font-semibold"
+              >
+                Open Document
+              </Link>
+            )}
+          </div>
+        )}
         <div className="flex justify-between mt-2">
           <button
-            className="bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold"
-            onClick={() => handleChangeLesson(-1)}
+            className={`bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold ${
+              activeLesson > 0 ? "" : "cursor-not-allowed"
+            }`}
+            onClick={() => {
+              handlePrev();
+            }}
+            disabled={activeLesson === 0}
           >
             Prev Lesson
           </button>
           <button
-            className="bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold"
-            onClick={() => handleChangeLesson(1)}
+            className={`bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold ${
+              activeLesson > totalLessons - 2 ? "cursor-not-allowed" : ""
+            }`}
+            onClick={() => {
+              handleNext();
+            }}
+            disabled={activeLesson > totalLessons - 2}
           >
             Next Lesson
           </button>
         </div>
         <div className="mt-4">
           <h1 className="font-Poppins text-xl font-semibold">
-            {currentModule?.lessons[currentLessonIndex].title}
+            {course?.modules[activeLesson].title}
           </h1>
         </div>
         <div

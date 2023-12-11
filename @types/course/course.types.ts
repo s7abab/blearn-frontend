@@ -12,7 +12,8 @@ export interface ICourseDetails {
   demoUrl: string;
   enrolls: string[];
   level: number;
-  modules: IModule[]
+  modules: IModule[];
+  totalLessons:number
 }
 export interface IAddCourse {
   title: string;

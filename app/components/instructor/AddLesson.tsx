@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CustomModal from "../modals/CustomModal";
-import { ILesson } from "@/@types/course/lesson.types";
 import toast from "react-hot-toast";
 import uploadVideo from "@/app/utils/video-upload";
 import { useAddLessonMutation } from "@/redux/features/course/courseApi";
 import VideoLesson from "./lesson/VideoLesson";
 import DocumentLesson from "./lesson/Document";
 import { useSelector } from "react-redux";
+import { ILessonAdd } from "@/@types/course/lesson.types";
 
 type Props = {
   index: number;
@@ -19,7 +19,7 @@ const AddLesson = ({ index }: Props) => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { course } = useSelector((state: any) => state.course);
-  const [lessonDetails, setLessonDetails] = useState<ILesson>({
+  const [lessonDetails, setLessonDetails] = useState<ILessonAdd>({
     courseId: course?._id,
     index: index,
     type: "",
@@ -57,6 +57,7 @@ const AddLesson = ({ index }: Props) => {
 
   const handleModal = () => {
     setOpen(!open);
+    setSelectedOption("");
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -132,6 +133,7 @@ const AddLesson = ({ index }: Props) => {
         </CustomModal>
       )}
       <select
+        value={selectedOption} // Set value to selectedOption state
         onChange={handleSelectChange}
         className="p-1 rounded-md  font-Josefin text-dark-primary  cursor-pointer"
       >

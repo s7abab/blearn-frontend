@@ -1,4 +1,4 @@
-export interface ILesson {
+export interface ILessonAdd {
   _id?: string;
   courseId: string;
   index?: number;
@@ -6,4 +6,7 @@ export interface ILesson {
   title: string;
   url: string;
   duration: number;
+}
+export interface ILesson extends ILessonAdd {
+  lessonNo: number;
 }
