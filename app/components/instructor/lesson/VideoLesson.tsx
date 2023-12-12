@@ -8,7 +8,7 @@ import VideoPlayer from "../../video/VideoPlayer";
 type Props = {
   handleChange: (args: React.ChangeEvent<HTMLInputElement>) => void;
   handleFileChange: (args: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: () => void;
+  handleSubmit?: () => void;
   loading: boolean;
   addLoading: boolean;
   video: string;

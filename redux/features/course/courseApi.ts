@@ -2,6 +2,7 @@ import endpoints from "@/app/utils/endpoints";
 import { courseServiceApi } from "../api/apiSlice";
 import { ICourseDetails } from "@/@types/course/course.types";
 import { setCourse } from "./courseSlice";
+import { ILessonProgressTrackData } from "@/@types/course/lesson.types";
 
 export const courseApi = courseServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -168,6 +169,15 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Modules"],
     }),
+    trackLesson: builder.mutation({
+      query: (data: ILessonProgressTrackData) => ({
+        url: endpoints.course.track_lesson,
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["EnrolledCourse"],
+    }),
     addModule: builder.mutation({
       query: (data) => ({
         url: endpoints.course.add_module,
@@ -225,4 +235,5 @@ export const {
   useDeletModuleMutation,
   useEditCourseMutation,
   useGetSingleEnrolledCourseQuery,
+  useTrackLessonMutation,
 } = courseApi;

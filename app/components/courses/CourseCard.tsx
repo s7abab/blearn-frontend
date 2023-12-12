@@ -8,11 +8,9 @@ import { FaStar } from "react-icons/fa6";
 type Props = {
   course: ICourseDetails;
   mylearning?: boolean;
-  progress?: number;
 };
 
-const CourseCard = ({ course, mylearning,progress }: Props) => {
-  
+const CourseCard = ({ course, mylearning}: Props) => {
   return (
     <div>
       <motion.div
@@ -33,7 +31,8 @@ const CourseCard = ({ course, mylearning,progress }: Props) => {
             </h2>
             {mylearning ? (
               <>
-                <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+              <p>progress</p>
+                {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
                   <div
                     className="bg-blue-600 h-2.5 rounded-full"
                     style={{ width: `${progress! * 10}%` }}
@@ -42,20 +41,18 @@ const CourseCard = ({ course, mylearning,progress }: Props) => {
                 <p className="flex items-center gap-2 mt-2">
                   <span className="font-semibold">{progress}0%</span>
                   Completed
-                </p>
+                </p> */}
               </>
             ) : (
               <>
                 <div className="flex justify-between mt-5 text-sm text-gray-100">
                   <p>
-                    <span className="font-semibold font-Poppins">
-                      {course?.enrolls.length}
-                    </span>{" "}
+                    <span className="font-semibold font-Poppins">1test</span>{" "}
                     Enrolls
                   </p>
                   <p className="flex items-center gap-2">
                     Rating
-                    <span className="font-semibold">{course?.enrolls.length}</span>
+                    <span className="font-semibold">1test</span>
                     <div className="text-yellow-500">
                       <FaStar />
                     </div>

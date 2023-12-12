@@ -1,8 +1,8 @@
-import {  createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   course: {},
-  activeLesson:0
+  activeLessonId: null,
 };
 
 const courseSlice = createSlice({
@@ -12,12 +12,13 @@ const courseSlice = createSlice({
     setCourse: (state, { payload }) => {
       state.course = payload;
     },
-    setActiveLesson:(state, {payload})=>{
-      state.activeLesson= payload
-    }
+    setActiveLessonId: (state, { payload }) => {
+      state.activeLessonId = payload;
+    },
   },
 });
 
-export const { setCourse, setActiveLesson } = courseSlice.actions;
+export const { setCourse,setActiveLessonId } =
+  courseSlice.actions;
 
 export default courseSlice.reducer;

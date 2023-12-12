@@ -1,11 +1,14 @@
-import React from "react";
+"use client";
 import ReactPlayer from "react-player";
 
 type Props = {
   url: string;
-  height:string,
+  height: string;
+  handleProgress?: (state: { played: number })=> void
 };
-const VideoPlayer = ({ url,height }: Props) => {
+
+const VideoPlayer = ({ url, height, handleProgress }: Props) => {
+
   return (
     <div className="relative p-2">
       <ReactPlayer
@@ -15,6 +18,7 @@ const VideoPlayer = ({ url,height }: Props) => {
         stopOnUnmount
         width={"100%"}
         height={height}
+        onProgress={handleProgress}
       />
     </div>
   );
