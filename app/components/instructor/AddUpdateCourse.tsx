@@ -13,7 +13,7 @@ import {
   validatePrice,
 } from "@/app/utils/validations/course.validation";
 import { IAddCourse, ICourseDetails } from "@/@types/course/course.types";
-import { redirect, useRouter } from "next/navigation";
+import {useRouter } from "next/navigation";
 import uploadVideo from "@/app/utils/video-upload";
 import uploadImage from "@/app/utils/upload-image";
 

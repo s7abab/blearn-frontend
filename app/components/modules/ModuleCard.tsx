@@ -11,8 +11,8 @@ import AddModule from "../instructor/AddModule";
 import CustomModal from "../modals/CustomModal";
 import { MdDeleteOutline } from "react-icons/md";
 import ConfirmBox from "../modals/ConfirmBox";
+import { setActiveLessonId } from "@/redux/features/course/courseSlice";
 import AddLesson from "../instructor/AddLesson";
-import { setActiveLesson } from "@/redux/features/course/courseSlice";
 
 type Props = {
   module: IModule;
@@ -25,6 +25,9 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [lesson, setLesson] = useState<boolean>(false);
+  const [editLesson, setEditLesson] = useState<boolean>(false);
+  const [lessonData, setLessonData] = useState<any>({});
+
   const { courseId } = useSelector((state: any) => state.course);
   const [deleteModule, { isLoading }] = useDeletModuleMutation();
   const lessons: ILesson[] = module?.lessons;
@@ -48,7 +51,6 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   const handleConfirmDelete = () => {
     setConfirmDelete(true);
   };
-
   useEffect(() => {
     if (confirmDelete) {
       handleDeleteModule();
@@ -56,8 +58,13 @@ const ModuleCard = ({ module, index, edit }: Props) => {
     // eslint-disable-next-line
   }, [confirmDelete]);
 
-  const handleLessonChange = (index: number) => {
-    dispatch(setActiveLesson(index-1));
+  const handleLessonChange = (id: any) => {
+    dispatch(setActiveLessonId(id));
+  };
+
+  const handleEditLesson = (lesson: ILesson) => {
+    setLessonData({ ...lesson });
+    setEditLesson(!editLesson);
   };
   return (
     <div className=" bg-inherit p-5 rounded-md font-Poppins text-md hover:from-[#373739] hover:to-[#414144] text-dark-primary  ">
@@ -99,12 +106,17 @@ const ModuleCard = ({ module, index, edit }: Props) => {
           {lessons?.map((lesson, index) => (
             <div
               key={lesson.lessonNo}
-              onClick={() => handleLessonChange(lesson.lessonNo)}
+              onClick={() => {
+                handleLessonChange(lesson._id), handleEditLesson(lesson);
+              }}
             >
               <LessonCard lesson={lesson} index={index} />
             </div>
           ))}
-          {edit && <>{<AddLesson index={index} />}</>}
+          {edit && <>{<AddLesson edit={false} index={index} />}</>}
+          {editLesson && (
+            <>{<AddLesson lesson={lessonData} edit={true} index={index} />} </>
+          )}
         </>
       )}
     </div>

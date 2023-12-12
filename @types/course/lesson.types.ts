@@ -10,3 +10,10 @@ export interface ILessonAdd {
 export interface ILesson extends ILessonAdd {
   lessonNo: number;
 }
+
+export interface ILessonProgressTrackData {
+  courseId: string;
+  moduleId: string | undefined;
+  lessonId: string | undefined;
+  progress: number;
+}

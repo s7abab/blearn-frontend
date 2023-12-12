@@ -7,29 +7,30 @@ import { useAddLessonMutation } from "@/redux/features/course/courseApi";
 import VideoLesson from "./lesson/VideoLesson";
 import DocumentLesson from "./lesson/Document";
 import { useSelector } from "react-redux";
-import { ILessonAdd } from "@/@types/course/lesson.types";
+import { ILesson, ILessonAdd } from "@/@types/course/lesson.types";
 
 type Props = {
   index: number;
+  edit: boolean;
+  lesson?: ILesson;
 };
 
-const AddLesson = ({ index }: Props) => {
+const AddLesson = ({ index, edit, lesson }: Props) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(edit);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { course } = useSelector((state: any) => state.course);
   const [lessonDetails, setLessonDetails] = useState<ILessonAdd>({
-    courseId: course?._id,
-    index: index,
-    type: "",
-    title: "",
-    url: "",
-    duration: 1,
+    courseId: lesson?.courseId || course?._id,
+    index: lesson?.index || index,
+    type: lesson?.type || "",
+    title: lesson?.title || "",
+    url: lesson?.url || "",
+    duration: lesson?.duration || 1,
   });
   const [uploadLesson, { isSuccess, error, isLoading }] =
     useAddLessonMutation();
-
   const handleUploadLesson = async () => {
     await uploadLesson(lessonDetails);
     setLessonDetails({
@@ -106,9 +107,10 @@ const AddLesson = ({ index }: Props) => {
     }
     //eslint-disable-next-line
   }, [file]);
+  console.log(lesson?.type);
   return (
     <div className="mt-5">
-      {selectedOption === "video" && (
+      {(selectedOption === "video" || lesson?.type === "video") && (
         <CustomModal onClose={handleModal} isOpen={open}>
           <VideoLesson
             handleChange={handleLessonTitle}
@@ -132,15 +134,17 @@ const AddLesson = ({ index }: Props) => {
           />
         </CustomModal>
       )}
-      <select
-        value={selectedOption} // Set value to selectedOption state
-        onChange={handleSelectChange}
-        className="p-1 rounded-md  font-Josefin text-dark-primary  cursor-pointer"
-      >
-        <option value={""}> Add lesson</option>
-        <option value={"video"}>Video</option>
-        <option value={"document"}>Document</option>
-      </select>
+      {!edit && (
+        <select
+          value={selectedOption} // Set value to selectedOption state
+          onChange={handleSelectChange}
+          className="p-1 rounded-md  font-Josefin text-dark-primary  cursor-pointer"
+        >
+          <option value={""}> Add lesson</option>
+          <option value={"video"}>Video</option>
+          <option value={"document"}>Document</option>
+        </select>
+      )}
     </div>
   );
 };
