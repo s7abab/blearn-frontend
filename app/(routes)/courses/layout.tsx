@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/app/components/ui/Header";
+import Header from "@/app/components/common/ui/Header";
 
 export default function InstructorLayout({
   children,

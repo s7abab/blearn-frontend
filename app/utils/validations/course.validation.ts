@@ -1,8 +1,8 @@
-import { IDiscription, IName, IPrice } from "@/@types/course/course.types";
+import { IPrice } from "@/@types/interfaces/course/course.interface";
 import toast from "react-hot-toast";
 import validator from "validator"
 
-export const validateCourseName = ({ name }: IName) => {
+export const validateCourseName = ( name : string) => {
   if (validator.isEmpty(name)) {
     toast.error("Course name is required");
     return false;
@@ -34,7 +34,7 @@ export const validatePrice = ({ price, discountPrice }: IPrice) => {
   return true;
 };
 
-export const validateDiscription = ({ discription }: IDiscription) => {
+export const validateDiscription = (discription :string ) => {
   if (discription.trim() === "") {
     toast.error("Course discription is required");
     return false;

@@ -2,7 +2,7 @@ import { styles } from "@/app/styles/style";
 import React, { useRef } from "react";
 import { FaVideo } from "react-icons/fa";
 import { IoIosCloudDone } from "react-icons/io";
-import Progress from "../../spinners/Progress";
+import Progress from "../../common/spinners/Progress";
 import VideoPlayer from "../../video/VideoPlayer";
 
 type Props = {

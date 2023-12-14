@@ -9,7 +9,7 @@ import {
   useSocialAuthMutation,
 } from "@/redux/features/user/userApi";
 import toast from "react-hot-toast";
-import OtpModal from "@/app/components/modals/OtpModal";
+import OtpModal from "@/app/components/common/modals/OtpModal";
 import { signIn, useSession } from "next-auth/react";
 import { schema } from "@/app/utils/validations/register.validation";
 import BackButton from "@/app/components/common/BackButton";

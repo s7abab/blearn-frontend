@@ -1,5 +1,5 @@
 "use client";
-import { IModule, IModuleAdd } from "@/@types/course/course.types";
+import { IModule } from "@/@types/interfaces/course/module.interface";
 import { styles } from "@/app/styles/style";
 import {
   useAddModuleMutation,
@@ -19,7 +19,7 @@ type Props = {
 const AddModule = ({ closeModal, edit, data, index }: Props) => {
   const [addModule, { isSuccess, error }] = useAddModuleMutation();
   const { course } = useSelector((state: any) => state.course);
-  const [moduleData, setModuleData] = useState<IModuleAdd>({
+  const [moduleData, setModuleData] = useState<IModule>({
     courseId: course?._id,
     title: data?.title || "",
   });

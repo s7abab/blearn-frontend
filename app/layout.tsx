@@ -5,7 +5,7 @@ import { Poppins } from "next/font/google";
 import { Josefin_Sans } from "next/font/google";
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
-import Loader from "./components/spinners/Loader";
+import Loader from "./components/common/spinners/Loader";
 import { SessionProvider, useSession } from "next-auth/react";
 import { ThemeProvider } from "./utils/theme-provider";
 import { styles } from "./styles/style";

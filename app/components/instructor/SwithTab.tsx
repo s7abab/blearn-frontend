@@ -1,11 +1,8 @@
-"use client";
-import React, { useState } from "react";
-
 type Props = {
-  handleClick: (arg:string) => void;
+  handleClick: (arg: string) => void;
 };
 
-const SwitchTab = ({handleClick}: Props) => {
+const SwitchTab = ({ handleClick }: Props) => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -16,13 +13,15 @@ const SwitchTab = ({handleClick}: Props) => {
           Course Overview
         </div>
         <div
-         onClick={() => handleClick("contents")}
-         className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-4 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100">
+          onClick={() => handleClick("contents")}
+          className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-4 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100"
+        >
           Course Contents
         </div>
         <div
-        onClick={() => handleClick("edit")}
-        className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-4 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100">
+          onClick={() => handleClick("edit")}
+          className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-4 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100"
+        >
           Edit Course
         </div>
       </div>

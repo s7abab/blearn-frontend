@@ -2,15 +2,16 @@
 import React from "react";
 import { motion } from "framer-motion";
 import CourseImage from "./CourseImage";
-import { ICourseDetails } from "@/@types/course/course.types";
 import { FaStar } from "react-icons/fa6";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import CourseProgress from "../user/my-learnings/CourseProgress";
 
 type Props = {
   course: ICourseDetails;
   mylearning?: boolean;
 };
 
-const CourseCard = ({ course, mylearning}: Props) => {
+const CourseCard = ({ course, mylearning }: Props) => {
   return (
     <div>
       <motion.div
@@ -31,28 +32,20 @@ const CourseCard = ({ course, mylearning}: Props) => {
             </h2>
             {mylearning ? (
               <>
-              <p>progress</p>
-                {/* <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
-                  <div
-                    className="bg-blue-600 h-2.5 rounded-full"
-                    style={{ width: `${progress! * 10}%` }}
-                  />
-                </div>
-                <p className="flex items-center gap-2 mt-2">
-                  <span className="font-semibold">{progress}0%</span>
-                  Completed
-                </p> */}
+                <CourseProgress courseId={course?._id} />
               </>
             ) : (
               <>
                 <div className="flex justify-between mt-5 text-sm text-gray-100">
                   <p>
-                    <span className="font-semibold font-Poppins">1test</span>{" "}
+                    <span className="font-semibold font-Poppins">
+                      {course?.enrolledUsers?.length}
+                    </span>{" "}
                     Enrolls
                   </p>
                   <p className="flex items-center gap-2">
                     Rating
-                    <span className="font-semibold">1test</span>
+                    <span className="font-semibold">...test</span>
                     <div className="text-yellow-500">
                       <FaStar />
                     </div>

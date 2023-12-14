@@ -1,14 +1,14 @@
 "use client";
-import { ICourseDetails } from "@/@types/course/course.types";
 import { useGetSingleCourseQuery } from "@/redux/features/course/courseApi";
 import React, { useEffect, useState } from "react";
-import Loader from "../spinners/Loader";
+import Loader from "../common/spinners/Loader";
 import CourseDetails from "./CourseDetails";
 import {
   useCreatePaymentIntentMutation,
   useGetStripePublishableKeyQuery,
 } from "@/redux/features/payment/paymentApi";
 import { loadStripe } from "@stripe/stripe-js";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 
 type Props = {
   courseId: string;

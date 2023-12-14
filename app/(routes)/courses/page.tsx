@@ -1,7 +1,7 @@
 "use client";
 import { ICourseDetails } from "@/@types/course/course.types";
 import CourseCard from "@/app/components/courses/CourseCard";
-import Loader from "@/app/components/spinners/Loader";
+import Loader from "@/app/components/common/spinners/Loader";
 import { styles } from "@/app/styles/style";
 import Heading from "@/app/utils/Heading";
 import { useGetAllCourseQuery } from "@/redux/features/course/courseApi";

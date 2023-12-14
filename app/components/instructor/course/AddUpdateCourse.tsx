@@ -6,16 +6,19 @@ import {
 } from "@/redux/features/course/courseApi";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Uploading from "../spinners/SmallLoader";
+import Uploading from "../../common/spinners/SmallLoader";
 import {
   validateCourseName,
   validateDiscription,
   validatePrice,
 } from "@/app/utils/validations/course.validation";
-import { IAddCourse, ICourseDetails } from "@/@types/course/course.types";
-import {useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import uploadVideo from "@/app/utils/video-upload";
 import uploadImage from "@/app/utils/upload-image";
+import {
+  IAddCourse,
+  ICourseDetails,
+} from "@/@types/interfaces/course/course.interface";
 
 type Props = {
   course?: ICourseDetails;
@@ -25,6 +28,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const router = useRouter();
   const [courseDetails, setCourseDetails] = useState<IAddCourse>({
     title: course?.title || "",
     description: course?.description || "",
@@ -39,7 +43,6 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   const { data: categoriesData, isLoading: categoryLoading } =
     useGetAllCategoryQuery({});
 
-  const router = useRouter();
   const categories: ICategories[] = categoriesData?.categories;
 
   const handleInputChange = (
@@ -108,12 +111,12 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   };
 
   const handlePublish = () => {
-    validateCourseName({ name: courseDetails.title });
+    validateCourseName(courseDetails.title);
     validatePrice({
       price: courseDetails.price,
       discountPrice: courseDetails.discountPrice,
     });
-    validateDiscription({ discription: courseDetails.description });
+    validateDiscription(courseDetails.description);
     if (!courseDetails.category) {
       return toast.error("Category is required");
     }

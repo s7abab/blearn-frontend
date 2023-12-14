@@ -10,11 +10,11 @@ const endpoints = {
     update_user: "/api/v1/user/update-user",
     instructor_application: "/api/v1/user/instructor-application",
     admin: {
-      get_users: "/api/v1/admin/users",
-      get_instructors: "/api/v1/admin/instructors",
-      get_single_user: "/api/v1/admin/single-user",
-      get_single_instructor: "/api/v1/admin/single-instructor",
-      block_user: "/api/v1/admin/block-user",
+      get_users: "/api/v1/user/users",
+      get_instructors: "/api/v1/user/instructors",
+      get_single_user: "/api/v1/user/single-user",
+      get_single_instructor: "/api/v1/user/single-instructor",
+      block_user: "/api/v1/user/block-user",
     },
   },
   course: {
@@ -26,12 +26,13 @@ const endpoints = {
     get_courses_for_instructor: "/api/v1/course/get-courses-for-instructor",
     get_single_course_for_instructor:
       "/api/v1/course/get-course-for-instructor",
-    add_lesson: "/api/v1/course/add-lesson",
-    track_lesson: "/api/v1/course/track-lesson",
     add_module: "/api/v1/course/add-module",
     get_modules: "/api/v1/course/get-modules",
     edit_module: "/api/v1/course/edit-module",
     delete_module: "/api/v1/course/delete-module",
+    add_lesson: "/api/v1/course/add-lesson",
+    track_lesson: "/api/v1/course/track-lesson",
+    get_progression: "/api/v1/course/get-progression",
 
     category: {
       add_category: "/api/v1/course/category/create-category",
@@ -43,7 +44,7 @@ const endpoints = {
 
     user: {
       get_enrolled_course: "/api/v1/course/enrolled-courses",
-      get_single_enrolled_course: "/api/v1/course/single-enrolled-course"
+      get_single_enrolled_course: "/api/v1/course/single-enrolled-course",
     },
   },
 

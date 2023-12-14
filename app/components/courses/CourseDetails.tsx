@@ -1,5 +1,4 @@
 "use client";
-import { ICourseDetails, IModule } from "@/@types/course/course.types";
 import { styles } from "@/app/styles/style";
 import Image from "next/image";
 import { MdOutlinePlayLesson } from "react-icons/md";
@@ -7,7 +6,7 @@ import { CiChat1 } from "react-icons/ci";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { CiPlay1 } from "react-icons/ci";
 import VideoPlayer from "../video/VideoPlayer";
-import CustomModal from "../modals/CustomModal";
+import CustomModal from "../common/modals/CustomModal";
 import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../payment/CheckoutForm";
@@ -15,7 +14,9 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useGetModulesQuery } from "@/redux/features/course/courseApi";
-import ModuleCard from "../modules/ModuleCard";
+import ModuleCard from "./modules/ModuleCard";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import { IModule } from "@/@types/interfaces/course/module.interface";
 
 type Props = {
   courseData: ICourseDetails;
@@ -39,16 +40,13 @@ const CourseDetails = ({
     courseData._id
   );
   const modules: IModule[] = modulesData?.modules;
+
+  // is instructor course
   const instructorCourse: boolean = user._id === courseData.instructorId;
-  useEffect(() => {
-    if (courseData && courseData.enrolls) {
-      const enrolled = courseData.enrolls.filter(
-        (userId: string) => userId === user?._id
-      );
-      setEnrolledUsers(enrolled);
-    }
-    //eslint-disable-next-line
-  }, [courseData, user]);
+// is enrolled course
+  const isEnrolled = courseData.enrolledUsers.some(
+    (users: any) => users.userId == user._id
+  );
 
   useEffect(() => {}, []);
   const handleVideoPlayerModal = () => {
@@ -105,7 +103,7 @@ const CourseDetails = ({
             />
           </div>
           <div className="md:flex ">
-            {enrolledUsers[0] ? (
+            {isEnrolled ? (
               <Link
                 className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer flex items-center justify-center"
                 href={"/my-learnings"}
@@ -164,8 +162,8 @@ const CourseDetails = ({
       <div className="px-5">
         <h2 className={`${styles.title} mt-6`}>Course content</h2>
         {modules?.map((module, index) => (
-          <div key={index} className="mt-2" >
-          <ModuleCard module={module} index={index} edit={false} />
+          <div key={index} className="mt-2">
+            <ModuleCard module={module} index={index} edit={false} />
           </div>
         ))}
       </div>

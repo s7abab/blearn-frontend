@@ -1,5 +1,5 @@
 'use client'
-import Header from "@/app/components/ui/Header";
+import Header from "@/app/components/common/ui/Header";
 import MyLearnings from "@/app/components/user/my-learnings/MyLearnings";
 import React from "react";
 import { useSelector } from "react-redux";

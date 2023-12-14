@@ -1,7 +1,7 @@
 "use client";
-import Header from "@/app/components/ui/Header";
+import Header from "@/app/components/common/ui/Header";
 import Heading from "@/app/utils/Heading";
-import AdminSidebar from "@/app/components/ui/AdminSidebar";
+import AdminSidebar from "@/app/components/common/ui/AdminSidebar";
 
 export default function InstructorLayout({
   children,

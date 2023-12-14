@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import SwitchTab from "./SwithTab";
-import Overview from "./Overview";
+import SwitchTab from "../SwithTab";
+import Overview from "../Overview";
 import { useGetSingleCourseForInstructorQuery } from "@/redux/features/course/courseApi";
 import { useParams } from "next/navigation";
-import AddModule from "./Modules";
+import AddModule from "../modules/Modules";
 import AddUpdateCourse from "./AddUpdateCourse";
 
 type Props = {};

@@ -1,4 +1,4 @@
-import { ILesson } from "@/@types/course/lesson.types";
+import { ILesson } from "@/@types/interfaces/course/lesson.interface";
 import React from "react";
 import { FaPlayCircle } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";

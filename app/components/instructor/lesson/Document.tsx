@@ -1,7 +1,7 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React, { useRef } from "react";
-import Progress from "../../spinners/Progress";
+import Progress from "../../common/spinners/Progress";
 import { IoIosCloudDone } from "react-icons/io";
 import { IoIosDocument } from "react-icons/io";
 import Link from "next/link";
