@@ -1,8 +1,8 @@
 import endpoints from "@/app/utils/endpoints";
 import { courseServiceApi } from "../api/apiSlice";
-import { ICourseDetails } from "@/@types/course/course.types";
 import { setCourse } from "./courseSlice";
-import { ILessonProgressTrackData } from "@/@types/course/lesson.types";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import { ILessonProgressTrackData } from "@/@types/interfaces/course/lesson.interface";
 
 export const courseApi = courseServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -160,24 +160,8 @@ export const courseApi = courseServiceApi.injectEndpoints({
         }
       },
     }),
-    addLesson: builder.mutation({
-      query: (data) => ({
-        url: endpoints.course.add_lesson,
-        method: "POST",
-        body: data,
-        credentials: "include" as const,
-      }),
-      invalidatesTags: ["Modules"],
-    }),
-    trackLesson: builder.mutation({
-      query: (data: ILessonProgressTrackData) => ({
-        url: endpoints.course.track_lesson,
-        method: "POST",
-        body: data,
-        credentials: "include" as const,
-      }),
-      invalidatesTags: ["EnrolledCourse"],
-    }),
+
+    // module
     addModule: builder.mutation({
       query: (data) => ({
         url: endpoints.course.add_module,
@@ -213,6 +197,34 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       providesTags: ["Modules"],
     }),
+
+    // lesson
+    addLesson: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.add_lesson,
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Modules"],
+    }),
+    trackLesson: builder.mutation({
+      query: (data: ILessonProgressTrackData) => ({
+        url: endpoints.course.track_lesson,
+        method: "POST",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Progression"],
+    }),
+    getProgression: builder.query({
+      query: (courseId: string) => ({
+        url: `${endpoints.course.get_progression}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Progression"],
+    }),
   }),
 });
 
@@ -236,4 +248,5 @@ export const {
   useEditCourseMutation,
   useGetSingleEnrolledCourseQuery,
   useTrackLessonMutation,
+  useGetProgressionQuery,
 } = courseApi;

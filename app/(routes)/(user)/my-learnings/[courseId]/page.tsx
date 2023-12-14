@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/app/components/ui/Header";
+import Header from "@/app/components/common/ui/Header";
 import WatchCourse from "@/app/components/user/my-learnings/WatchCourse";
 import Heading from "@/app/utils/Heading";
 import { useParams } from "next/navigation";

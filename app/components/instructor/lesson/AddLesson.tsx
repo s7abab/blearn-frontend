@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CustomModal from "../modals/CustomModal";
+import CustomModal from "../../common/modals/CustomModal";
 import toast from "react-hot-toast";
 import uploadVideo from "@/app/utils/video-upload";
 import { useAddLessonMutation } from "@/redux/features/course/courseApi";
-import VideoLesson from "./lesson/VideoLesson";
-import DocumentLesson from "./lesson/Document";
+import VideoLesson from "./VideoLesson";
+import DocumentLesson from "./Document";
 import { useSelector } from "react-redux";
-import { ILesson, ILessonAdd } from "@/@types/course/lesson.types";
+import { ILesson } from "@/@types/interfaces/course/lesson.interface";
 
 type Props = {
   index: number;
@@ -21,7 +21,7 @@ const AddLesson = ({ index, edit, lesson }: Props) => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { course } = useSelector((state: any) => state.course);
-  const [lessonDetails, setLessonDetails] = useState<ILessonAdd>({
+  const [lessonDetails, setLessonDetails] = useState<ILesson>({
     courseId: lesson?.courseId || course?._id,
     index: lesson?.index || index,
     type: lesson?.type || "",
@@ -107,7 +107,7 @@ const AddLesson = ({ index, edit, lesson }: Props) => {
     }
     //eslint-disable-next-line
   }, [file]);
-  console.log(lesson?.type);
+
   return (
     <div className="mt-5">
       {(selectedOption === "video" || lesson?.type === "video") && (
@@ -134,7 +134,7 @@ const AddLesson = ({ index, edit, lesson }: Props) => {
           />
         </CustomModal>
       )}
-      {!edit && (
+      {!edit &&  (
         <select
           value={selectedOption} // Set value to selectedOption state
           onChange={handleSelectChange}

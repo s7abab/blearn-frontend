@@ -1,12 +1,12 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React, { useState } from "react";
-import ModuleCard from "../modules/ModuleCard";
-import CustomModal from "../modals/CustomModal";
+import ModuleCard from "../../courses/modules/ModuleCard";
+import CustomModal from "../../common/modals/CustomModal";
 import AddModule from "./AddModule";
 import { useGetModulesQuery } from "@/redux/features/course/courseApi";
-import { IModule } from "@/@types/course/course.types";
 import { useSelector } from "react-redux";
+import { IModule } from "@/@types/interfaces/course/module.interface";
 
 type Props = {};
 
@@ -44,7 +44,7 @@ const Modules = (props: Props) => {
         </button>
         <div className="mt-3 flex flex-col gap-2">
           {modules?.map((module,index) => (
-            <div key={module?._id}>
+            <div key={index}>
               <ModuleCard edit={true} module={module} index={index} />
             </div>
           ))}

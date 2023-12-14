@@ -1,7 +1,7 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React, {  useState } from "react";
-import CustomModal from "../../modals/CustomModal";
+import CustomModal from "../../common/modals/CustomModal";
 import AddCategory from "./AddCategory";
 import {
   useGetAllCategoryQuery,

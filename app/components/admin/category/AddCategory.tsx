@@ -4,7 +4,7 @@ import { styles } from "@/app/styles/style";
 import { useAddCategoryMutation } from "@/redux/features/course/courseApi";
 import toast from "react-hot-toast";
 import { validateCategoryName } from "@/app/utils/validations/category.validation";
-import SmallLoader from "../../spinners/SmallLoader";
+import SmallLoader from "../../common/spinners/SmallLoader";
 
 type Props = {
   onClose: () => void;

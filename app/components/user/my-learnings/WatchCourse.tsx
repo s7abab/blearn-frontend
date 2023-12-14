@@ -1,36 +1,41 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import VideoPlayer from "../../video/VideoPlayer";
-import ModuleCard from "../../modules/ModuleCard";
+import ModuleCard from "../../courses/modules/ModuleCard";
 import {
   useGetSingleEnrolledCourseQuery,
   useTrackLessonMutation,
 } from "@/redux/features/course/courseApi";
-import { ICourseDetails } from "@/@types/course/course.types";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosDocument } from "react-icons/io";
 import Link from "next/link";
 import { setActiveLessonId } from "@/redux/features/course/courseSlice";
-import { ILessonProgressTrackData } from "@/@types/course/lesson.types";
+import {
+  ILesson,
+  ILessonProgressTrackData,
+} from "@/@types/interfaces/course/lesson.interface";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import CourseProgress from "./CourseProgress";
 
 const WatchCourse = () => {
   const [lessonCount, setLessonCount] = useState<number>(0);
   const { courseId } = useParams<any>();
   const [trackData, setTrackData] = useState<ILessonProgressTrackData>({
     courseId: courseId,
-    lessonId: "first",
-    moduleId: "first",
     progress: 0,
+    lessonId: "1",
   });
   const { data: courseData } = useGetSingleEnrolledCourseQuery(courseId);
   const { activeLesson, activeLessonId } = useSelector(
     (state: any) => state.course
   );
-  const [trackProgress, { isLoading }] = useTrackLessonMutation();
+  const [trackProgress] = useTrackLessonMutation();
   const dispatch = useDispatch();
   const course: ICourseDetails = courseData?.course;
-  const lessons = course?.modules?.map((module) => module?.lessons).flat();
+  const lessons: ILesson[] = course?.modules
+    ?.map((module) => module?.lessons)
+    .flat() as ILesson[];
   const totalLessons = course?.totalLessons;
   const handleNext = () => {
     if (lessonCount < lessons?.length - 1) {
@@ -38,7 +43,7 @@ const WatchCourse = () => {
       dispatch(setActiveLessonId(lessons[lessonCount + 1]?._id));
       setTrackData({
         ...trackData,
-        lessonId: lessons[lessonCount + 1]?._id,
+        lessonId: lessons[lessonCount + 1]?._id as string,
       });
     }
   };
@@ -49,16 +54,13 @@ const WatchCourse = () => {
       dispatch(setActiveLessonId(lessons[lessonCount - 1]?._id));
       setTrackData({
         ...trackData,
-        lessonId: lessons[lessonCount - 1]?._id,
+        lessonId: lessons[lessonCount - 1]?._id as string,
       });
     }
   };
   // Find the current lesson
   const currentLesson = lessons?.[lessonCount];
-  // Find the module that contains the current lesson
-  const currentModule = course?.modules.find((module) =>
-    module.lessons.some((lesson) => lesson._id === currentLesson?._id)
-  );
+
   useEffect(() => {
     if (activeLessonId) {
       const lessonIndex = lessons?.findIndex(
@@ -74,12 +76,12 @@ const WatchCourse = () => {
   const handleProgress = (state: { played: number }) => {
     setTrackData({
       ...trackData,
-      progress: state.played * 100,
-      moduleId: currentModule?._id,
+      progress: currentLesson.duration,
     });
     // Check for specific progress percentages to call trackProgress
     if (state.played * 100 === 100) {
       trackProgress(trackData);
+      handleNext()
     }
   };
 
@@ -142,6 +144,7 @@ const WatchCourse = () => {
         </div>
       </div>
       <div className="flex flex-col md:w-1/3 px-3">
+        <CourseProgress courseId={courseId} />
         {course?.modules?.map((module, index) => (
           <div key={index} className="mt-2">
             <ModuleCard module={module} index={index} edit={false} />

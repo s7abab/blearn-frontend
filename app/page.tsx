@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "./components/home/Hero";
 import Heading from "./utils/Heading";
-import Header from "./components/ui/Header";
+import Header from "./components/common/ui/Header";
 
 type Props = {};
 const page = (props: Props) => {

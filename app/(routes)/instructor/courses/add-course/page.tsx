@@ -1,4 +1,4 @@
-import AddCourse from "@/app/components/instructor/AddUpdateCourse";
+import AddCourse from "@/app/components/instructor/course/AddUpdateCourse";
 import React from "react";
 
 type Props = {};

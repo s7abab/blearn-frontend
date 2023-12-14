@@ -1,5 +1,5 @@
 "use client";
-import { ICourseDetails } from "@/@types/course/course.types";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import { useLoadCurrentUserQuery } from "@/redux/features/api/apiSlice";
 import { useCreateOrderMutation } from "@/redux/features/payment/paymentApi";
 import {

@@ -1,13 +1,13 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import ProfileImage from "../profile/ProfileImage";
-import { User } from "@/@types/user/user.types";
 import { useBlockUserMutation } from "@/redux/features/user/userApi";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { IUser } from "@/@types/interfaces/user/user.interface";
 
 type Props = {
-  user: User;
+  user: IUser;
 };
 
 const UserDetails = ({ user }: Props) => {

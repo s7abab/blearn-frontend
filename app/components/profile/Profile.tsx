@@ -9,13 +9,11 @@ import {
 import { signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 import ProfileImage from "./ProfileImage";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import { firebaseDB } from "@/app/utils/firebase";
-import Uploading from "../spinners/SmallLoader";
+import Uploading from "../common/spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
 import Cookies from "js-cookie";
-import UserTopbar from "../user-topbar/UserTopbar";
+import UserTopbar from "../user/UserTopbar";
+import uploadImage from "@/app/utils/upload-image";
 
 type Props = {
   user: { name: string; email: string; avatar: string };
@@ -45,20 +43,12 @@ const ProfileInfo = ({ user }: Props) => {
     }
   };
   const handleImageUpload = async () => {
-    const imgRef = ref(firebaseDB, `profile/${v4()}`);
-    if (image != null) {
-      try {
-        setUploading(true);
-        const snapshot = await uploadBytes(imgRef, image);
-        const downloadURL = await getDownloadURL(imgRef);
-        setImageUrl(downloadURL);
-        setUploading(false);
-        toast.success("Image uploaded successfully:");
-      } catch (error: any) {
-        console.error("Error uploading image:", error);
-        toast.error("Error uploading image:");
-      }
+    setUploading(true);
+    const imgUrl = await uploadImage(image);
+    if (imgUrl) {
+      setImageUrl(imgUrl);
     }
+    setUploading(false);
   };
   useEffect(() => {
     if (image) {
@@ -83,7 +73,7 @@ const ProfileInfo = ({ user }: Props) => {
 
   return (
     <div className="flex flex-col items-center h-screen">
-            <UserTopbar />
+      <UserTopbar />
       <h1 className={`${styles.title} mt-4`}>Profile</h1>
       <div className="mt-5 relative w-[120px] h-[120px] rounded-full overflow-hidden">
         {uploading ? <Uploading /> : <ProfileImage avatar={user?.avatar} />}

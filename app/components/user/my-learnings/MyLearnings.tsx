@@ -1,21 +1,16 @@
 "use client";
-import { User } from "@/@types/user/user.types";
 import { useGetEnrolledCoursesQuery } from "@/redux/features/course/courseApi";
 import React from "react";
-import Loader from "../../spinners/Loader";
+import Loader from "../../common/spinners/Loader";
 import { styles } from "@/app/styles/style";
 import CourseCard from "../../courses/CourseCard";
-import { ICourseDetails } from "@/@types/course/course.types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-type CourseWithProgress = {
-  course: ICourseDetails;
-  progress: number;
-};
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import { IUser } from "@/@types/interfaces/user/user.interface";
 
 type Props = {
-  user: User;
+  user: IUser;
 };
 
 const MyLearnings = ({ user }: Props) => {
@@ -38,15 +33,8 @@ const MyLearnings = ({ user }: Props) => {
             {data.courses.length > 0 ? (
               <div className="mt-5 grid grid-cols-1 400px:grid-cols-2 600px:grid-cols-3 800px:grid-cols-3 lg:grid-cols-4 gap-5">
                 {courses?.map((course, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleRoute(course?._id)}
-                  >
-                    <CourseCard
-                      course={course}
-                     
-                      mylearning={true}
-                    />
+                  <div key={index} onClick={() => handleRoute(course?._id)}>
+                    <CourseCard course={course} mylearning={true} />
                   </div>
                 ))}
               </div>

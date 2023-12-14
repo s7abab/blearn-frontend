@@ -1,6 +1,6 @@
 "use client";
 import { useSelector } from "react-redux";
-import { styles } from "../../styles/style";
+import { styles } from "../../../styles/style";
 import React, { useState, useRef, useEffect } from "react";
 import {
   useActivationMutation,
@@ -129,7 +129,7 @@ const OtpModal = ({ data }: Props) => {
         <button className={`${styles.primary}`} onClick={verificationHandler}>
           Verify OTP
         </button>
-        <h1 className="mt-2 text-gray-900 cursor-pointer font-semibold">
+        <h1 className="mt-2 dark:text-dark-primary text-light-primary cursor-pointer font-semibold">
           {time <= 0 ? (
             <span onClick={resendOTPHandler}>Resend OTP</span>
           ) : (

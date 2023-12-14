@@ -1,6 +1,7 @@
 "use client";
-import { ICourseDataForTable } from "@/@types/course/course.types";
-import { IUserDataForTable } from "@/@types/user/user.types";
+
+import { ICourseDataForTable } from "@/@types/interfaces/course/course.interface";
+import { IUserDataForTable } from "@/@types/interfaces/user/user.interface";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 

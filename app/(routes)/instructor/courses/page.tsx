@@ -1,7 +1,7 @@
 "use client";
-import { ICourseDetails } from "@/@types/course/course.types";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import CourseCard from "@/app/components/courses/CourseCard";
-import AddCourseBtn from "@/app/components/instructor/AddCourseBtn";
+import AddCourseBtn from "@/app/components/instructor/course/AddCourseBtn";
 import { useGetCoursesForInstructorQuery } from "@/redux/features/course/courseApi";
 import Link from "next/link";
 

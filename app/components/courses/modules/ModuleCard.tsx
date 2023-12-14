@@ -1,18 +1,18 @@
 "use client";
-import { IModule } from "@/@types/course/course.types";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useDeletModuleMutation } from "@/redux/features/course/courseApi";
 import { useDispatch, useSelector } from "react-redux";
-import { ILesson } from "@/@types/course/lesson.types";
 import LessonCard from "./LessonCard";
 import { FaEdit } from "react-icons/fa";
-import AddModule from "../instructor/AddModule";
-import CustomModal from "../modals/CustomModal";
+import AddModule from "../../instructor/modules/AddModule";
+import CustomModal from "../../common/modals/CustomModal";
 import { MdDeleteOutline } from "react-icons/md";
-import ConfirmBox from "../modals/ConfirmBox";
+import ConfirmBox from "../../common/modals/ConfirmBox";
 import { setActiveLessonId } from "@/redux/features/course/courseSlice";
-import AddLesson from "../instructor/AddLesson";
+import AddLesson from "../../instructor/lesson/AddLesson";
+import { IModule } from "@/@types/interfaces/course/module.interface";
+import { ILesson } from "@/@types/interfaces/course/lesson.interface";
 
 type Props = {
   module: IModule;
@@ -28,11 +28,12 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   const [editLesson, setEditLesson] = useState<boolean>(false);
   const [lessonData, setLessonData] = useState<any>({});
 
-  const { courseId } = useSelector((state: any) => state.course);
+  const { course } = useSelector((state: any) => state.course);
   const [deleteModule, { isLoading }] = useDeletModuleMutation();
-  const lessons: ILesson[] = module?.lessons;
+  const lessons: ILesson[] = module?.lessons as ILesson[];
   const dispatch = useDispatch();
 
+  const courseId = course._id;
   const handleDeleteModule = () => {
     deleteModule({
       courseId,
@@ -57,6 +58,13 @@ const ModuleCard = ({ module, index, edit }: Props) => {
     }
     // eslint-disable-next-line
   }, [confirmDelete]);
+
+  const handleLesson = (lesson: ILesson) => {
+    if (edit) {
+      handleEditLesson(lesson);
+    }
+    handleLessonChange(lesson._id);
+  };
 
   const handleLessonChange = (id: any) => {
     dispatch(setActiveLessonId(id));
@@ -105,9 +113,9 @@ const ModuleCard = ({ module, index, edit }: Props) => {
         <>
           {lessons?.map((lesson, index) => (
             <div
-              key={lesson.lessonNo}
+              key={index}
               onClick={() => {
-                handleLessonChange(lesson._id), handleEditLesson(lesson);
+                handleLesson(lesson);
               }}
             >
               <LessonCard lesson={lesson} index={index} />

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { styles } from "@/app/styles/style";
 import toast from "react-hot-toast";
 import { useEditCategoryMutation } from "@/redux/features/course/courseApi";
-import SmallLoader from "../../spinners/SmallLoader";
+import SmallLoader from "../../common/spinners/SmallLoader";
 
 type Props = {
   onClose: () => void;

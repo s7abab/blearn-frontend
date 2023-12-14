@@ -2,9 +2,9 @@
 import NavItems from "@/app/utils/NavItems";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { styles } from "../../styles/style";
+import { styles } from "../../../styles/style";
 import { useSelector } from "react-redux";
-import ProfileImage from "../profile/ProfileImage";
+import ProfileImage from "../../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Cookies from "js-cookie";
 

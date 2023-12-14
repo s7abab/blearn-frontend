@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parse } from "cookie";
 import { jwtDecode } from "jwt-decode";
-import { Roles } from "./@types/user/roles.enum";
+import { Roles } from "./@types/enums/roles";
 
 const protectedRoute = ["/profile"];
 
@@ -54,6 +54,3 @@ export default function Middleware(req: any) {
     return NextResponse.redirect(absoluteUrl.toString());
   }
 }
-
-
-
