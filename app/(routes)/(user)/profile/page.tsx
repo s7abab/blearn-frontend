@@ -1,5 +1,5 @@
 "use client";
-import ProfileInfo from "@/app/components/profile/Profile";
+import ProfileInfo from "@/app/components/profile/EditProfile";
 import Header from "@/app/components/common/ui/Header";
 import React from "react";
 import { useSelector } from "react-redux";

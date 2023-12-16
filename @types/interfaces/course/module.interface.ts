@@ -6,6 +6,10 @@ export interface IModule {
   title: string;
   lessons: ILesson[];
 }
+export interface IAddModule {
+  courseId:string;
+  title: string;
+}
 
 export interface IModuleDeleteRequest {
   courseId: string;

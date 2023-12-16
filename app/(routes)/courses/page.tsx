@@ -1,12 +1,11 @@
 "use client";
-import { ICourseDetails } from "@/@types/course/course.types";
 import CourseCard from "@/app/components/courses/CourseCard";
 import Loader from "@/app/components/common/spinners/Loader";
 import { styles } from "@/app/styles/style";
 import Heading from "@/app/utils/Heading";
-import { useGetAllCourseQuery } from "@/redux/features/course/courseApi";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import { useGetAllCourseQuery } from "@/redux/features/course/courseApi";
 
 type Props = {};
 
@@ -14,10 +13,11 @@ const CoursesPage = (props: Props) => {
   const { data, isLoading } = useGetAllCourseQuery({});
   const router = useRouter();
   const courses: ICourseDetails[] = data?.courses;
-
+  console.log(data)
   const ViewCourseDeatailsPage = (courseId: string) => {
     router.push(`/courses/${courseId}`);
   };
+
   return (
     <>
       <Heading
@@ -34,7 +34,7 @@ const CoursesPage = (props: Props) => {
             {courses?.map((course, index) => (
               <div
                 key={index}
-                onClick={() => ViewCourseDeatailsPage(course._id)}
+                onClick={() => ViewCourseDeatailsPage(course?._id)}
               >
                 <CourseCard course={course} />
               </div>

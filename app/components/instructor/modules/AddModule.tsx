@@ -1,6 +1,8 @@
 "use client";
-import { IModule } from "@/@types/interfaces/course/module.interface";
-import { styles } from "@/app/styles/style";
+import {
+  IAddModule,
+  IModule,
+} from "@/@types/interfaces/course/module.interface";
 import {
   useAddModuleMutation,
   useEditModuleMutation,
@@ -8,6 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import ModuleForm from "./ModuleForm";
 
 type Props = {
   closeModal: () => void;
@@ -19,7 +22,7 @@ type Props = {
 const AddModule = ({ closeModal, edit, data, index }: Props) => {
   const [addModule, { isSuccess, error }] = useAddModuleMutation();
   const { course } = useSelector((state: any) => state.course);
-  const [moduleData, setModuleData] = useState<IModule>({
+  const [moduleData, setModuleData] = useState<IAddModule>({
     courseId: course?._id,
     title: data?.title || "",
   });
@@ -58,31 +61,13 @@ const AddModule = ({ closeModal, edit, data, index }: Props) => {
     }
   }, [isSuccess, error]);
   return (
-    <div className="p-6 ">
-      <p className="font-Poppins">Title</p>{" "}
-      <input
-        onChange={handleChange}
-        value={moduleData.title}
-        name="title"
-        className="p-2 w-full rounded-md mb-2"
-        type="text"
-      />
-      {edit ? (
-        <button
-          onClick={handleEditModule}
-          className={`${styles.secondary_Btn} w-full mt-5`}
-        >
-          Edit
-        </button>
-      ) : (
-        <button
-          onClick={handleAddModule}
-          className={`${styles.secondary_Btn} w-full mt-5`}
-        >
-          Add
-        </button>
-      )}
-    </div>
+    <ModuleForm
+      edit={edit}
+      handleAddModule={handleAddModule}
+      handleEditModule={handleEditModule}
+      handleChange={handleChange}
+      moduleData={moduleData}
+    />
   );
 };
 

@@ -20,14 +20,13 @@ type Props = {
   edit: boolean;
 };
 
-const ModuleCard = ({ module, index, edit }: Props) => {
+const ModulesAndLessons = ({ module, index, edit }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const [lesson, setLesson] = useState<boolean>(false);
   const [editLesson, setEditLesson] = useState<boolean>(false);
   const [lessonData, setLessonData] = useState<any>({});
-
   const { course } = useSelector((state: any) => state.course);
   const [deleteModule, { isLoading }] = useDeletModuleMutation();
   const lessons: ILesson[] = module?.lessons as ILesson[];
@@ -131,4 +130,4 @@ const ModuleCard = ({ module, index, edit }: Props) => {
   );
 };
 
-export default ModuleCard;
+export default ModulesAndLessons;

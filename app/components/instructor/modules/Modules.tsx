@@ -1,7 +1,7 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React, { useState } from "react";
-import ModuleCard from "../../courses/modules/ModuleCard";
+import ModuleCard from "../../courses/modules/ModulesAndLessons";
 import CustomModal from "../../common/modals/CustomModal";
 import AddModule from "./AddModule";
 import { useGetModulesQuery } from "@/redux/features/course/courseApi";

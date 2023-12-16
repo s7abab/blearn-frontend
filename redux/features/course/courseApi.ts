@@ -41,8 +41,8 @@ export const courseApi = courseServiceApi.injectEndpoints({
       invalidatesTags: ["Courses"],
     }),
     getAllCourse: builder.query({
-      query: ({}) => ({
-        url: endpoints.course.get_all_courses,
+      query: () => ({
+        url: `${endpoints.course.get_all_courses}?page=1&limit=4`,
         method: "GET",
         credentials: "include" as const,
       }),
