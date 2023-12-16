@@ -1,7 +1,7 @@
 "use client";
 import { useFormik } from "formik";
 import { FcGoogle } from "react-icons/fc";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { styles } from "../../../styles/style";
 import Link from "next/link";
 import {

@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { styles } from "@/app/styles/style";
 import { useAddCategoryMutation } from "@/redux/features/course/courseApi";
 import toast from "react-hot-toast";
 import { validateCategoryName } from "@/app/utils/validations/category.validation";
-import SmallLoader from "../../common/spinners/SmallLoader";
+import CategoryInput from "./CategoryInput";
 
 type Props = {
   onClose: () => void;
@@ -40,25 +39,14 @@ const AddCategory = ({ onClose }: Props) => {
     }
   }, [isSuccess, onClose]);
   return (
-    <div className="p-6 pb-8">
-      <div className="flex flex-col">
-        <input
-          type="text"
-          value={name}
-          onChange={handleChange}
-          placeholder="Category name"
-          className="p-2 rounded-md mt-4 mb-2 bg-slate-200 text-light-primary"
-        />
-        {isLoading && <SmallLoader />}
-        <button
-          onClick={handleAddCategory}
-          className={`${styles.secondary_Btn} mt-4`}
-        >
-          ADD
-        </button>
-        {error && <p className="text-red-600 mt-2">{errMsg}</p>}
-      </div>
-    </div>
+    <CategoryInput
+      name={name}
+      isLoading={isLoading}
+      handleChange={handleChange}
+      handleSubmit={handleAddCategory}
+      errMsg={errMsg}
+      error={error}
+    />
   );
 };
 

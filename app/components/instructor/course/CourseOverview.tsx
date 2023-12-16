@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import SwitchTab from "../SwithTab";
-import Overview from "../Overview";
+import Overview from "../CourseDashboard";
 import { useGetSingleCourseForInstructorQuery } from "@/redux/features/course/courseApi";
 import { useParams } from "next/navigation";
 import AddModule from "../modules/Modules";

@@ -52,7 +52,6 @@ const CourseDetailsPage = ({ courseId }: Props) => {
       ) : (
         <div>
           <CourseDetails
-            courseData={courseData}
             stripePromise={stripePromise}
             clientSecret={clientSecret}
             createIntent={handleCreateIntent}

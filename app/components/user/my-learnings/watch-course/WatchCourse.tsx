@@ -1,22 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import VideoPlayer from "../../video/VideoPlayer";
-import ModuleCard from "../../courses/modules/ModuleCard";
+import ModuleCard from "../../../courses/modules/ModulesAndLessons";
 import {
   useGetSingleEnrolledCourseQuery,
   useTrackLessonMutation,
 } from "@/redux/features/course/courseApi";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { IoIosDocument } from "react-icons/io";
-import Link from "next/link";
 import { setActiveLessonId } from "@/redux/features/course/courseSlice";
 import {
   ILesson,
   ILessonProgressTrackData,
 } from "@/@types/interfaces/course/lesson.interface";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
-import CourseProgress from "./CourseProgress";
+import CourseProgress from "../CourseProgress";
+import OngoingLesson from "./OngoingLesson";
 
 const WatchCourse = () => {
   const [lessonCount, setLessonCount] = useState<number>(0);
@@ -81,68 +79,22 @@ const WatchCourse = () => {
     // Check for specific progress percentages to call trackProgress
     if (state.played * 100 === 100) {
       trackProgress(trackData);
-      handleNext()
+      handleNext();
     }
   };
 
   return (
     <div className="md:flex min-h-screen">
-      <div className="md:w-2/3 rounded-md p-5">
-        {lessons?.[lessonCount]?.type === "video" ? (
-          <VideoPlayer
-            handleProgress={handleProgress}
-            url={lessons[lessonCount]?.url}
-            height="400px"
-          />
-        ) : (
-          <div className="h-[400px] w-full flex justify-center items-center">
-            <IoIosDocument size={100} />
-            {lessons?.[lessonCount]?.url && (
-              <Link
-                href={lessons?.[lessonCount]?.url}
-                className="font-Poppins text-xl font-semibold"
-              >
-                Open Document
-              </Link>
-            )}
-          </div>
-        )}
-        <div className="flex justify-between mt-2">
-          <button
-            className={`bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold ${
-              lessonCount > 0 ? "" : "cursor-not-allowed"
-            }`}
-            onClick={() => {
-              handlePrev();
-            }}
-          >
-            Prev Lesson
-          </button>
-          <button
-            className={`bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold ${
-              lessonCount > totalLessons - 2 ? "cursor-not-allowed" : ""
-            }`}
-            onClick={() => {
-              handleNext();
-            }}
-            disabled={activeLesson > totalLessons - 2}
-          >
-            Next Lesson
-          </button>
-        </div>
-        <div className="mt-4">
-          <h1 className="font-Poppins text-xl font-semibold">
-            {currentLesson?.title}
-          </h1>
-        </div>
-        <div
-          className={`flex justify-evenly items-center cursor-pointer font-Poppins h-[50px] bg-gray-800 rounded-md text-dark-primary mt-4`}
-        >
-          <div>Overview</div>
-          <div>Feedback</div>
-          <div>Community</div>
-        </div>
-      </div>
+      <OngoingLesson
+        activeLesson={activeLesson}
+        currentLesson={currentLesson}
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+        handleProgress={handleProgress}
+        lessonCount={lessonCount}
+        lessons={lessons}
+        totalLessons={totalLessons}
+      />
       <div className="flex flex-col md:w-1/3 px-3">
         <CourseProgress courseId={courseId} />
         {course?.modules?.map((module, index) => (

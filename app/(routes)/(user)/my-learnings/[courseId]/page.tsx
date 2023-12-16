@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/app/components/common/ui/Header";
-import WatchCourse from "@/app/components/user/my-learnings/WatchCourse";
+import WatchCourse from "@/app/components/user/my-learnings/watch-course/WatchCourse";
 import Heading from "@/app/utils/Heading";
 import { useParams } from "next/navigation";
 import React from "react";
@@ -12,8 +12,8 @@ const WatchCoursePage = (props: Props) => {
   return (
     <>
       <Heading
-        title="Testasc"
-        description="adas"
+        title= "my-learnings"
+        description="learnings"
         keywords="course, e-learning, udemy"
       />
       <Header />

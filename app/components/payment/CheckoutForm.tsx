@@ -1,5 +1,4 @@
 "use client";
-import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import { useLoadCurrentUserQuery } from "@/redux/features/api/apiSlice";
 import { useCreateOrderMutation } from "@/redux/features/payment/paymentApi";
 import {
@@ -11,12 +10,10 @@ import {
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
-type Props = {
-  courseData: ICourseDetails;
-};
-
-const CheckoutForm = ({ courseData }: Props) => {
+type Props = {};
+const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<any>("");
@@ -24,6 +21,7 @@ const CheckoutForm = ({ courseData }: Props) => {
   const [loadUser, setLoadUser] = useState(false);
   const {} = useLoadCurrentUserQuery({ skip: loadUser ? false : true });
   const [isLoading, setIsloading] = useState(false);
+  const { course } = useSelector((state: any) => state.course);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -40,7 +38,7 @@ const CheckoutForm = ({ courseData }: Props) => {
       setIsloading(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       setIsloading(false);
-      createOrder({ courseId: courseData._id, payment_info: paymentIntent });
+      createOrder({ courseId: course._id, payment_info: paymentIntent });
     }
   };
 
@@ -75,9 +73,10 @@ const CheckoutForm = ({ courseData }: Props) => {
         id="submit"
         className="w-full bg-gray-900 text-white font-semibold py-2 px-4 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        <span id="button-text">{isLoading ? "Paying..." : `Pay ₹${courseData?.discountPrice}`}</span>
+        <span id="button-text">
+          {isLoading ? "Paying..." : `Pay ₹${course?.discountPrice}`}
+        </span>
       </button>
-      {/* Show any error or success messages */}
       {message && (
         <div
           id="payment-message"
