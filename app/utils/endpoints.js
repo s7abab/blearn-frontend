@@ -20,6 +20,7 @@ const endpoints = {
   course: {
     add_course: "/api/v1/course/create-course",
     edit_course: "/api/v1/course/edit-course",
+    search_courses: "/api/v1/course/search-courses",
     get_all_courses: "/api/v1/course/get-all-courses",
     get_single_course: "/api/v1/course/get-single-course",
     edit_course: "/api/v1/course/edit-course",
@@ -27,7 +28,7 @@ const endpoints = {
     get_single_course_for_instructor:
       "/api/v1/course/get-course-for-instructor",
     add_module: "/api/v1/course/add-module",
-    get_modules: "/api/v1/course/get-modules",  
+    get_modules: "/api/v1/course/get-modules",
     edit_module: "/api/v1/course/edit-module",
     delete_module: "/api/v1/course/delete-module",
     add_lesson: "/api/v1/course/add-lesson",
@@ -52,6 +53,9 @@ const endpoints = {
     get_stripe_publishable_key: "/api/v1/payment/stripepublishablekey",
     create_payment_intent: "/api/v1/payment/new-payment",
     create_order: "/api/v1/payment/create-order",
+    analytics: {
+      get_revenue_of_course: "api/v1/analytics/revenue",
+    },
   },
 };
 

@@ -64,13 +64,13 @@ const ValuationCard = ({
         </div>
         <div className="flex justify-between mt-5">
           <button
-            className="w-[100px] h-[35px] bg-gray-900 hover:bg-gray-800 rounded-md shadow-md outline-none"
+            className="w-[100px] h-[35px] dark:bg-gray-900 dark:hover:bg-gray-800 rounded-md shadow-md outline-none bg-gray-400"
             onClick={handlePrev}
           >
             Back{" "}
           </button>
           <button
-            className="w-[100px] h-[35px] bg-gray-900 hover:bg-gray-800 rounded-md shadow-md outline-none"
+            className="w-[100px] h-[35px] dark:bg-gray-900 dark:hover:bg-gray-800 rounded-md shadow-md outline-none bg-gray-400"
             onClick={handleNext}
           >
             Next{" "}

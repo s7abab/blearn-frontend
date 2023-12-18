@@ -20,7 +20,7 @@ const CourseCard = ({ course, mylearning }: Props) => {
         transition={{ duration: 0.5 }}
         whileHover={{ scale: 1.1 }}
       >
-        <div className="bg-gradient-to-tr from-[#0e161b] to-[#090c1b] shadow-lg rounded-lg overflow-hidden cursor-pointer relative border border-gray-800">
+        <div className="dark:bg-gradient-to-tr dark:from-[#0e161b] dark:to-[#090c1b] bg-gradient-to-b from-gray-300 to-gray-400 shadow-lg rounded-lg overflow-hidden cursor-pointer relative border dark:border-gray-800">
           <div className="h-40 relative overflow-hidden m-3">
             <div className="overflow-hidden">
               <CourseImage imgUrl={course?.thumbnail} />

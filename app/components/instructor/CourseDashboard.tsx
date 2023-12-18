@@ -1,11 +1,51 @@
-import React from 'react'
+"use client";
+import { useGetRevenueOfCourseQuery } from "@/redux/features/payment/paymentApi";
+import { useSelector } from "react-redux";
+import Loader from "../common/spinners/Loader";
+import CourseRevenueChart from "../charts/CourseRevenueChart";
+import { styles } from "@/app/styles/style";
+import { GiDuration } from "react-icons/gi";
+import { FaVideo } from "react-icons/fa6";
+import { FaPeopleGroup } from "react-icons/fa6";
 
-type Props = {}
+interface Props {}
 
 const CourseDashboard = (props: Props) => {
-  return (
-    <div>CourseDashboard</div>
-  )
-}
+  const { course } = useSelector((state: any) => state.course);
+  const { data, isLoading } = useGetRevenueOfCourseQuery({
+    courseId: course?._id,
+  });
 
-export default CourseDashboard
+  if (isLoading) {
+    return <Loader />;
+  }
+  return (
+    <div>
+      <div className="h-[500px]">
+        <div className="flex gap-2 mt-5">
+          <div className="bg-gradient-to-br from-[#0c214d] to-[#0b063f] p-4 rounded-md shadow-lg  w-1/3 flex px-4 items-center gap-3 font-Josefin">
+            <FaPeopleGroup className="text-green-600" /> 
+            <h1>Total Enrolls</h1>
+            <h1 className="">{course?.enrolledUsers?.length}</h1>
+          </div>  
+          <div className="bg-gradient-to-br from-[#0c214d] to-[#0b063f] p-4 rounded-md shadow-lg  w-1/3 flex px-4 items-center gap-3 font-Josefin">
+            <FaVideo className="text-orange-600" />
+            <h1>Total Lessons</h1>
+            <h1 className="">{course?.totalLessons}</h1>
+          </div>
+          <div className="bg-gradient-to-br from-[#0c214d] to-[#0b063f] p-4 rounded-md shadow-lg  w-1/3 flex px-4 items-center gap-3 font-Josefin">
+            <GiDuration className="text-violet-600" />
+            <h1>Total Duration</h1>
+            <h1 className="">{course?.duration}</h1>
+          </div>
+        </div>
+        <div>
+          <h1 className={styles.title}>Revenue</h1>
+          <CourseRevenueChart data={data.revenue} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CourseDashboard;

@@ -31,23 +31,32 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Courses"],
     }),
-    editCourse: builder.mutation({
-      query: (data) => ({
-        url: endpoints.course.edit_course,
-        method: "PUT",
-        body: data,
-        credentials: "include" as const,
-      }),
-      invalidatesTags: ["Courses"],
-    }),
-    getAllCourse: builder.query({
+
+    getAllCourses: builder.query({
       query: () => ({
-        url: `${endpoints.course.get_all_courses}?page=1&limit=4`,
+        url: endpoints.course.get_all_courses,
         method: "GET",
+
         credentials: "include" as const,
       }),
       providesTags: ["Courses"],
     }),
+
+    searchAllCourses: builder.query({
+      query: ({ page, priceFilter, sortByEnrollments, searchKeyword }) => ({
+        url: endpoints.course.search_courses,
+        method: "GET",
+        params: {
+          page,
+          priceFilter,
+          sortByEnrollments,
+          searchKeyword,
+        },
+        credentials: "include" as const,
+      }),
+      providesTags: ["Courses"],
+    }),
+
     getSingleCourse: builder.query({
       query: ({ courseId }) => ({
         url: `${endpoints.course.get_single_course}/${courseId}`,
@@ -76,6 +85,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Categories"],
     }),
+
     getAllCategory: builder.query({
       query: () => ({
         url: endpoints.course.category.get_all_category,
@@ -84,6 +94,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       providesTags: ["Categories"],
     }),
+
     unListCategory: builder.mutation({
       query: ({ categoryId }) => ({
         url: endpoints.course.category.unlist_category,
@@ -93,6 +104,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Categories"],
     }),
+
     editCategory: builder.mutation({
       query: ({ categoryId, name }) => ({
         url: endpoints.course.category.edit_category,
@@ -102,6 +114,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Categories"],
     }),
+
     getSingleCategory: builder.query({
       query: ({ categoryId }) => ({
         url: endpoints.course.category.get_single_category,
@@ -143,6 +156,17 @@ export const courseApi = courseServiceApi.injectEndpoints({
         method: "GET",
         credentials: "include" as const,
       }),
+      providesTags: ["InstructorCourses"],
+    }),
+
+    editCourse: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.edit_course,
+        method: "PUT",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["InstructorCourses", "InstructorCourse"],
     }),
 
     getSingleCourseForInstructor: builder.query({
@@ -150,6 +174,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
         url: `${endpoints.course.get_single_course_for_instructor}/${courseId}`,
         method: "GET",
         credentials: "include" as const,
+        providesTags: ["InstructorCourse"],
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -171,6 +196,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Modules"],
     }),
+
     editModule: builder.mutation({
       query: (data) => ({
         url: endpoints.course.edit_module,
@@ -180,6 +206,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Modules"],
     }),
+
     deletModule: builder.mutation({
       query: (data) => ({
         url: endpoints.course.delete_module,
@@ -189,6 +216,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Modules"],
     }),
+
     getModules: builder.query({
       query: (courseId) => ({
         url: `${endpoints.course.get_modules}/${courseId}`,
@@ -208,6 +236,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Modules"],
     }),
+
     trackLesson: builder.mutation({
       query: (data: ILessonProgressTrackData) => ({
         url: endpoints.course.track_lesson,
@@ -217,6 +246,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Progression"],
     }),
+
     getProgression: builder.query({
       query: (courseId: string) => ({
         url: `${endpoints.course.get_progression}/${courseId}`,
@@ -231,11 +261,12 @@ export const courseApi = courseServiceApi.injectEndpoints({
 export const {
   useAddCourseMutation,
   useAddCategoryMutation,
+  useGetAllCoursesQuery,
   useGetAllCategoryQuery,
   useGetSingleCategoryQuery,
   useEditCategoryMutation,
   useUnListCategoryMutation,
-  useGetAllCourseQuery,
+  useSearchAllCoursesQuery,
   useGetSingleCourseQuery,
   useGetEnrolledCoursesQuery,
   useGetCoursesForInstructorQuery,

@@ -74,7 +74,7 @@ const ModulesAndLessons = ({ module, index, edit }: Props) => {
     setEditLesson(!editLesson);
   };
   return (
-    <div className=" bg-inherit p-5 rounded-md font-Poppins text-md hover:from-[#373739] hover:to-[#414144] text-dark-primary  ">
+    <div className=" dark:bg-inherit p-5 rounded-md font-Poppins text-md dark:hover:from-[#373739] dark:hover:to-[#414144] dark:text-dark-primary bg-gray-400">
       {open && (
         <CustomModal
           isOpen={open}

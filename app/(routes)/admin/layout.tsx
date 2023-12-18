@@ -1,7 +1,8 @@
 "use client";
 import Header from "@/app/components/common/ui/Header";
 import Heading from "@/app/utils/Heading";
-import AdminSidebar from "@/app/components/common/ui/AdminSidebar";
+import AdminSidebar from "@/app/components/common/ui/Sidebar";
+import Sidebar from "@/app/components/common/ui/Sidebar";
 
 export default function InstructorLayout({
   children,
@@ -19,7 +20,7 @@ export default function InstructorLayout({
       <Header />
       <div className="grid grid-cols-12">
         <div className="col-span-2 hidden md:block">
-          <AdminSidebar />
+          <Sidebar isAdmin={true} />
         </div>
         <div className="col-span-12 md:col-span-10">{children}</div>
       </div>
