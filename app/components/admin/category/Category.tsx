@@ -55,7 +55,7 @@ const Category = (props: Props) => {
           Create Category
         </button>
         <table className="w-full text-sm text-left rtl:text-right text-gray-400 mt-5">
-          <thead className="text-xs uppercase bg-gray-700 text-gray-400">
+          <thead className="dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336] dark:text-dark-primary bg-gray-300 shadow-2xl text-light-primary">
             <tr>
               <th scope="col" className="px-4 py-3 w-1/4">
                 Si No
@@ -68,20 +68,20 @@ const Category = (props: Props) => {
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="">
             {categories?.map((category, index) => (
-              <tr key={index} className="bg-gray-800">
-                <td className="px-4 py-4">{index + 1}</td>
+              <tr key={index} className="bg-gray-100 dark:text-dark-primary bg-gradient-to-br dark:from-[#05081b] dark:to-[#050d2e] shadow-2xl ">
+                <td className="py-3 px-4 lg:py-4 lg:px-6">{index + 1}</td>
                 <td
                   onClick={()=>openEditModal(category._id)}
-                  className="px-4 py-4 flex gap-3 cursor-pointer"
+                  className="py-3 px-4 lg:py-4 lg:px-6 flex gap-3 cursor-pointer"
                 >
                   {category.name}
                   <MdEdit />
                 </td>
                 <td
                   onClick={() => handleUnlist(category._id)}
-                  className="px-4 py-4 cursor-pointer"
+                  className="py-3 px-4 lg:py-4 lg:px-6 cursor-pointer"
                 >
                   {category.isListed ? "Unlist" : "List"}
                 </td>

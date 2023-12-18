@@ -1,5 +1,6 @@
 import endpoints from "@/app/utils/endpoints";
 import { paymentServiceApi } from "../api/apiSlice";
+import { url } from "inspector";
 
 export const paymentApi = paymentServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -33,6 +34,15 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
+    // analytics
+    getRevenueOfCourse: builder.query({
+      query: ({ courseId}) => ({
+        url: `${endpoints.payment.analytics.get_revenue_of_course}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -40,4 +50,5 @@ export const {
   useGetStripePublishableKeyQuery,
   useCreatePaymentIntentMutation,
   useCreateOrderMutation,
+  useGetRevenueOfCourseQuery
 } = paymentApi;

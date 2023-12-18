@@ -7,12 +7,14 @@ import { useSelector } from "react-redux";
 import ProfileImage from "../../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Cookies from "js-cookie";
+import Search from "../Search";
 
 type Props = {};
 
 const Header = (props: Props) => {
   const [token, setToken] = useState<any>("");
   const { user } = useSelector((state: any) => state.auth);
+
   useEffect(() => {
     let cookie = Cookies.get("token");
     setToken(cookie);
@@ -72,10 +74,9 @@ const Header = (props: Props) => {
           >
             <div className="flex flex-col items-center font-medium p-4 md:p-0 mt-4 border rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:from-[#070210] dark:to-black duration-300 ">
               <NavItems />
-              <input
-                className="p-2 rounded-full dark:bg-gray-800 bg-slate-100 text-light-primary"
-                type="text"
+              <Search
                 placeholder="Search a course"
+                inputStyle="p-2 rounded-full dark:bg-gray-800 bg-slate-100 text-light-primary"
               />
             </div>
             <ThemeSwitcher />
