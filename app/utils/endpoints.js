@@ -8,6 +8,7 @@ const endpoints = {
     update_user_avatar: "/api/v1/user/update-user-avatar",
     get_current_user: "/api/v1/user/current-user",
     update_user: "/api/v1/user/update-user",
+    update_bankdetails: "/api/v1/user/update-bankdetails",
     instructor_application: "/api/v1/user/instructor-application",
     admin: {
       get_users: "/api/v1/user/users",
@@ -56,6 +57,9 @@ const endpoints = {
     analytics: {
       get_revenue_of_course: "api/v1/analytics/revenue",
     },
+    withdraw_money: "/api/v1/withdrawals/withdraw-money",
+    get_withdrawals: "/api/v1/withdrawals/get-withdrawals",
+    update_withdrawal_status: "/api/v1/withdrawals/update-withdrawal-status",
   },
 };
 

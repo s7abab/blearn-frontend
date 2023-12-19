@@ -32,6 +32,7 @@ export const userApi = userServiceApi.injectEndpoints({
         }
       },
     }),
+
     activation: builder.mutation({
       query: ({ activation_token, activation_code }) => ({
         url: endpoints.user.activate_user,
@@ -39,6 +40,7 @@ export const userApi = userServiceApi.injectEndpoints({
         body: { activation_token, activation_code },
       }),
     }),
+
     login: builder.mutation({
       query: ({ email, password }) => ({
         url: endpoints.user.login,
@@ -60,6 +62,7 @@ export const userApi = userServiceApi.injectEndpoints({
         }
       },
     }),
+
     socialAuth: builder.mutation({
       query: ({ name, email, avatar }) => ({
         url: endpoints.user.social_auth,
@@ -81,6 +84,7 @@ export const userApi = userServiceApi.injectEndpoints({
         }
       },
     }),
+
     logout: builder.query({
       query: () => ({
         url: endpoints.user.logout,
@@ -95,6 +99,7 @@ export const userApi = userServiceApi.injectEndpoints({
         }
       },
     }),
+
     updateAvatar: builder.mutation({
       query: (imageUrl) => ({
         url: endpoints.user.update_user_avatar,
@@ -104,6 +109,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+
     updateUser: builder.mutation({
       query: ({ email, name }) => ({
         url: endpoints.user.update_user,
@@ -121,6 +127,16 @@ export const userApi = userServiceApi.injectEndpoints({
         }
       },
     }),
+
+    updateBankdetails: builder.mutation({
+      query: ({bankDetails}) => ({
+        url: endpoints.user.update_bankdetails,
+        method: "PUT",
+        body: bankDetails,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["User"],
+    }),
     // admin
     getUsers: builder.query({
       query: () => ({
@@ -130,6 +146,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       providesTags: ["Users"],
     }),
+
     getInstructors: builder.query({
       query: () => ({
         url: endpoints.user.admin.get_instructors,
@@ -138,6 +155,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       providesTags: ["Instructors"],
     }),
+
     getSingleUser: builder.query({
       query: (id) => ({
         url: `${endpoints.user.admin.get_single_user}/${id}`,
@@ -146,6 +164,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       providesTags: ["User"],
     }),
+
     getSingleInstructor: builder.query({
       query: (id) => ({
         url: `${endpoints.user.admin.get_single_instructor}/${id}`,
@@ -154,6 +173,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       providesTags: ["Instructor"],
     }),
+
     blockUser: builder.mutation({
       query: (id) => ({
         url: `${endpoints.user.admin.block_user}/${id}`,
@@ -163,6 +183,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["User", "Instructor"],
     }),
+
     instructoApplication: builder.mutation({
       query: (data) => ({
         url: endpoints.user.instructor_application,
@@ -188,4 +209,5 @@ export const {
   useGetSingleInstructorQuery,
   useBlockUserMutation,
   useInstructoApplicationMutation,
+  useUpdateBankdetailsMutation
 } = userApi;

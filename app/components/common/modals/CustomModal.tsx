@@ -3,12 +3,12 @@ import { styles } from "@/app/styles/style";
 import { IoIosCloseCircle } from "react-icons/io";
 import { motion } from "framer-motion";
 
-type Props = {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   modalHeader?: string;
-};
+}
 
 const CustomModal = ({ isOpen, onClose, children, modalHeader }: Props) => {
   if (!isOpen) {

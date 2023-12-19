@@ -12,3 +12,9 @@ export interface IUserDataForTable {
   Email: string;
   role: string;
 }
+
+export interface IBankDetails {
+  name: string;
+  accountNumber: number;
+  ifscCode: number;
+} 

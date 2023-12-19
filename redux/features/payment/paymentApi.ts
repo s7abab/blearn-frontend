@@ -1,6 +1,5 @@
 import endpoints from "@/app/utils/endpoints";
 import { paymentServiceApi } from "../api/apiSlice";
-import { url } from "inspector";
 
 export const paymentApi = paymentServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -37,9 +36,37 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
 
     // analytics
     getRevenueOfCourse: builder.query({
-      query: ({ courseId}) => ({
+      query: ({ courseId }) => ({
         url: `${endpoints.payment.analytics.get_revenue_of_course}/${courseId}`,
         method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+
+    // withdraw money
+    withdrawMoney: builder.mutation({
+      query: () => ({
+        url: endpoints.payment.withdraw_money,
+        method: "POST",
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["withdrawals"],
+    }),
+
+    getWithdrawals: builder.query({
+      query: (userId: string) => ({
+        url: `${endpoints.payment.get_withdrawals}/${userId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["withdrawals"],
+    }),
+
+    updateWithdrawalStatus: builder.mutation({
+      query: (userId) => ({
+        url: endpoints.payment.update_withdrawal_status,
+        method: "PUT",
+        body: userId,
         credentials: "include" as const,
       }),
     }),
@@ -50,5 +77,8 @@ export const {
   useGetStripePublishableKeyQuery,
   useCreatePaymentIntentMutation,
   useCreateOrderMutation,
-  useGetRevenueOfCourseQuery
+  useGetRevenueOfCourseQuery,
+  useWithdrawMoneyMutation,
+  useGetWithdrawalsQuery,
+  useUpdateWithdrawalStatusMutation,
 } = paymentApi;
