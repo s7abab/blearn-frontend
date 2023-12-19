@@ -92,6 +92,8 @@ const ModulesAndLessons = ({ module, index, edit }: Props) => {
       {confirmModal && (
         <CustomModal isOpen={confirmModal} onClose={toggleConfirmModal}>
           <ConfirmBox
+            title="Are you sure you want delete?"
+            isDelete={true}
             close={toggleConfirmModal}
             confirm={handleConfirmDelete}
           />

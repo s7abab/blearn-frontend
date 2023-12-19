@@ -7,6 +7,7 @@ import { IoChatbox } from "react-icons/io5";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdPayments } from "react-icons/md";
 import { MdCategory } from "react-icons/md";
+import { MdPeopleAlt } from "react-icons/md";
 
 interface Props {
   isAdmin: boolean;
@@ -30,7 +31,7 @@ const instructorItems = [
   { title: "Courses", url: "/instructor/courses", icon: <FaVideo /> },
   { title: "Community", url: "/instructor/community", icon: <IoChatbox /> },
   { title: "Payments", url: "/instructor/payments", icon: <MdPayments /> },
-  { title: "Profile", url: "/instructor/profile", icon: <MdCategory /> },
+  { title: "Profile", url: "/instructor/profile", icon: <MdPeopleAlt /> },
 ];
 
 const Sidebar = ({ isAdmin }: Props) => {

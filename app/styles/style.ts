@@ -7,4 +7,5 @@ export const styles = {
     "md:text-[25px] text-[18px] text-light-primary dark:text-dark-primary font-[500] font-Poppins text-center py-2",
   blue_gradient:
     "bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-black duration-300 dark:text-gray-50 text-gray-950",
+  blue_btn: "bg-gradient-to-br from-[#0c214d] to-[#051536] p-2 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100"
 };
