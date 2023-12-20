@@ -3,11 +3,8 @@ import { IUserDataForTable } from "@/@types/interfaces/user/user.interface";
 import CustomTable from "@/app/components/common/CustomTable";
 import Loader from "@/app/components/common/spinners/Loader";
 import { useGetUsersQuery } from "@/redux/features/user/userApi";
-import React from "react";
 
-type Props = {};
-
-const UserDetailsAdmin = (props: Props) => {
+const UserDetailsAdmin = () => {
   const { data, isLoading } = useGetUsersQuery({});
   const users: IUserDataForTable[] = data?.users;
   return (
