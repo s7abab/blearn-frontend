@@ -66,9 +66,19 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
       query: (userId) => ({
         url: endpoints.payment.update_withdrawal_status,
         method: "PUT",
-        body: userId,
+        body: { userId },
         credentials: "include" as const,
       }),
+      invalidatesTags: ["Pending"],
+    }),
+
+    getPendingWithdrawals: builder.query({
+      query: () => ({
+        url: endpoints.payment.get_pending_withdrawals,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Pending"],
     }),
   }),
 });
@@ -81,4 +91,5 @@ export const {
   useWithdrawMoneyMutation,
   useGetWithdrawalsQuery,
   useUpdateWithdrawalStatusMutation,
+  useGetPendingWithdrawalsQuery,
 } = paymentApi;

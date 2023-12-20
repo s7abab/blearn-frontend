@@ -10,8 +10,7 @@ import {
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { IPaymentHistory } from "@/@types/interfaces/payment/payment.interface";
-import { formatDate } from "@/app/utils/date-convertor";
+import PaymentHistory from "./PaymentHistory";
 
 interface Props {
   bankModalOpen: boolean;
@@ -29,7 +28,8 @@ const PaymentDetails = ({
   const [withdrawMoney, { isSuccess, data, error }] =
     useWithdrawMoneyMutation();
   const { data: withdrawalsData } = useGetWithdrawalsQuery(user._id);
-  const withdrawals: IPaymentHistory = withdrawalsData?.withdrawals;
+  const withdrawals = withdrawalsData?.withdrawals
+
   const handleWithdraw = async () => {
     await withdrawMoney({});
     handleConfirmModal();
@@ -79,22 +79,7 @@ const PaymentDetails = ({
         </div>
       </div>
       {/* Payment History */}
-      <div className={`${styles.blue_btn} mt-5`}>
-        <h2 className="text-2xl font-semibold mb-4">Payment History</h2>
-        <ul>
-          {withdrawals?.transactions.map((payment) => (
-            <li key={payment.txid} className="mb-4">
-              <p className="text-lg font-semibold">
-                {formatDate(payment?.date)}
-              </p>
-              <p className="text-gray-600">txid: tx{payment.txid}</p>
-              <p className="text-gray-300">Amount: ${payment.amount}</p>
-              <p className="text-gray-300">{payment.status}</p>
-              <hr />
-            </li>
-          ))}
-        </ul>
-      </div>
+      <PaymentHistory withdrawals={withdrawals?.withdrawals} />
     </div>
   );
 };

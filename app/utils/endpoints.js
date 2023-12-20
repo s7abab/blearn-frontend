@@ -60,6 +60,7 @@ const endpoints = {
     withdraw_money: "/api/v1/withdrawals/withdraw-money",
     get_withdrawals: "/api/v1/withdrawals/get-withdrawals",
     update_withdrawal_status: "/api/v1/withdrawals/update-withdrawal-status",
+    get_pending_withdrawals: "/api/v1/withdrawals/get-pending-withdrawals",
   },
 };
 

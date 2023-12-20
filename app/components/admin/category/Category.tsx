@@ -51,7 +51,7 @@ const Category = (props: Props) => {
         </CustomModal>
       )}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <button onClick={openAddModal} className={`${styles.primary} mt-5`}>
+        <button onClick={openAddModal} className={`${styles.blue_btn} mt-5`}>
           Create Category
         </button>
         <table className="w-full text-sm text-left rtl:text-right text-gray-400 mt-5">

@@ -10,7 +10,7 @@ interface Props {}
 
 const BankDetails = (props: Props) => {
   const { user } = useSelector((state: any) => state.auth);
-
+  
   const [bankDetails, setBankDetails] = useState<IBankDetails>({
     name: user?.bankDetails?.name,
     accountNumber: user?.bankDetails?.accountNumber,

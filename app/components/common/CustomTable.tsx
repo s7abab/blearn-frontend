@@ -1,12 +1,9 @@
 "use client";
-
-import { ICourseDataForTable } from "@/@types/interfaces/course/course.interface";
-import { IUserDataForTable } from "@/@types/interfaces/user/user.interface";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type Props = {
-  data: IUserDataForTable[] | ICourseDataForTable[];
+  data: any[];
   tableFor: string;
   fields: string[];
   url: string;
@@ -29,7 +26,6 @@ const CustomTable = ({ data, tableFor, fields, url }: Props) => {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
@@ -85,11 +81,7 @@ const CustomTable = ({ data, tableFor, fields, url }: Props) => {
                   onClick={() => viewDetails(row._id)}
                   className="py-3 px-4 lg:py-4 lg:px-6 text-center"
                 >
-                  {
-                    row[
-                      field as keyof (IUserDataForTable | ICourseDataForTable)
-                    ]
-                  }
+                  {row[field as any]}
                 </td>
               ))}
             </tr>
