@@ -1,10 +1,8 @@
 export interface IPaymentHistory {
-    balance: number;
-    transactions: {
+  userId:string,
       txid: string;
       date: string;
       amount: number;
       status: string;
-    }[];
   }
   

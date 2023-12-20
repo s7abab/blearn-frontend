@@ -1,5 +1,5 @@
 "use client";
-import { IUserDataForTable } from "@/@types/user/user.types";
+import { IUserDataForTable } from "@/@types/interfaces/user/user.interface";
 import CustomTable from "@/app/components/common/CustomTable";
 import Loader from "@/app/components/common/spinners/Loader";
 import { useGetUsersQuery } from "@/redux/features/user/userApi";

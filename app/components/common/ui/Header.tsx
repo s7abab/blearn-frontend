@@ -76,7 +76,7 @@ const Header = (props: Props) => {
               <NavItems />
               <Search
                 placeholder="Search a course"
-                inputStyle="p-2 rounded-full dark:bg-gray-800 bg-slate-100 text-light-primary"
+                inputStyle="p-2 rounded-full dark:bg-gray-800 bg-slate-100 dark:text-gray-100"
               />
             </div>
             <ThemeSwitcher />

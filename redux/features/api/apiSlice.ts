@@ -8,7 +8,7 @@ export const paymentServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_PAYMENT_SRV_URL,
   }),
-  tagTypes: ["withdrawals"],
+  tagTypes: ["withdrawals", "Pending"],
   endpoints: (builder) => ({}),
 });
 // course service api slice
