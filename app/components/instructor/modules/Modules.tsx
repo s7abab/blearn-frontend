@@ -8,9 +8,7 @@ import { useGetModulesQuery } from "@/redux/features/course/courseApi";
 import { useSelector } from "react-redux";
 import { IModule } from "@/@types/interfaces/course/module.interface";
 
-type Props = {};
-
-const Modules = (props: Props) => {
+const Modules = () => {
   const [open, setOpen] = useState<boolean>(false);
   const { course } = useSelector((state: any) => state.course);
   const { isLoading, data } = useGetModulesQuery(course?._id);

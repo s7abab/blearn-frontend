@@ -1,18 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import SwitchTab from "../SwithTab";
 import Overview from "../CourseDashboard";
 import { useGetSingleCourseForInstructorQuery } from "@/redux/features/course/courseApi";
 import { useParams } from "next/navigation";
-import AddModule from "../modules/Modules";
 import AddUpdateCourse from "./AddUpdateCourse";
+import CourseContents from "./CourseContents";
 
 type Props = {};
 
 const CourseOverview = (props: Props) => {
   const { courseId } = useParams<any>();
   const [tab, setTab] = useState<string>("overview");
-  const { data: course, isLoading } =
+  const { data: course } =
     useGetSingleCourseForInstructorQuery(courseId);
 
   const handleTabChange = (value: string) => {
@@ -25,7 +25,7 @@ const CourseOverview = (props: Props) => {
       {tab === "edit" && (
         <AddUpdateCourse edit={true} course={course?.course} />
       )}
-      {tab === "contents" && <AddModule />}
+      {tab === "contents" && <CourseContents />}
     </div>
   );
 };

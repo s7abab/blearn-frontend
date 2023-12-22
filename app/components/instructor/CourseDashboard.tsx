@@ -8,9 +8,7 @@ import { GiDuration } from "react-icons/gi";
 import { FaVideo } from "react-icons/fa6";
 import { FaPeopleGroup } from "react-icons/fa6";
 
-interface Props {}
-
-const CourseDashboard = (props: Props) => {
+const CourseDashboard = () => {
   const { course } = useSelector((state: any) => state.course);
   const { data, isLoading } = useGetRevenueOfCourseQuery({
     courseId: course?._id,

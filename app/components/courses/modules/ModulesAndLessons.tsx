@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { useDeletModuleMutation } from "@/redux/features/course/courseApi";
 import { useDispatch, useSelector } from "react-redux";

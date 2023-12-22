@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import ModuleForm from "./ModuleForm";
 
-type Props = {
+interface Props {
   closeModal: () => void;
   edit: boolean;
   data?: IModule;

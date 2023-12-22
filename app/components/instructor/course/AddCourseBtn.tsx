@@ -10,7 +10,7 @@ const AddCourseBtn = (props: Props) => {
   return (
     <button
       onClick={() => router.push("/instructor/courses/add-course")}
-      className={`${styles.primary} w-[200px] mt-2`}
+      className={`${styles.blue_btn} w-[200px] mt-2`}
     >
       Add Course
     </button>

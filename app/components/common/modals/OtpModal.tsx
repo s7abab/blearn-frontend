@@ -28,22 +28,6 @@ const OtpModal = ({ data }: Props) => {
   const [register, {}] = useRegisterMutation();
   const route = useRouter();
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Account activated successfully");
-      route.push("/login");
-    }
-    if (error) {
-      if ("data" in error) {
-        const errorData = error as any;
-        toast.error(errorData.data.message);
-        setInvalidError(true);
-      } else {
-        console.log(error);
-      }
-    }
-  }, [isSuccess, error, route]);
-
   const [verifyNumber, setVerifyNumber] = useState<VerifyNumber>({
     "0": "",
     "1": "",
@@ -90,6 +74,22 @@ const OtpModal = ({ data }: Props) => {
     setTime(60);
     toast.success("Your otp has been sent");
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Account activated successfully");
+      route.push("/login");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+        setInvalidError(true);
+      } else {
+        console.log(error);
+      }
+    }
+  }, [isSuccess, error, route]);
   // Countdown timer effect
   useEffect(() => {
     if (time > 0) {
