@@ -4,26 +4,31 @@ import {
   courseServiceApi,
   paymentServiceApi,
   userServiceApi,
+  valuationServiceApi,
 } from "./features/api/apiSlice";
 import authSlice from "./features/user/userSlice";
 import courseSlice from "./features/course/courseSlice";
 import paymentSlice from "./features/payment/paymentSlice";
+import valuationSlice from "./features/valuation/valuationSlice";
 
 export const store = configureStore({
   reducer: {
     [userServiceApi.reducerPath]: userServiceApi.reducer,
     [courseServiceApi.reducerPath]: courseServiceApi.reducer,
     [paymentServiceApi.reducerPath]: paymentServiceApi.reducer,
+    [valuationServiceApi.reducerPath]: valuationServiceApi.reducer,
     auth: authSlice,
     course: courseSlice,
     payment: paymentSlice,
+    valuation: valuationSlice,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       userServiceApi.middleware,
       courseServiceApi.middleware,
-      paymentServiceApi.middleware
+      paymentServiceApi.middleware,
+      valuationServiceApi.middleware
     ),
 });
 

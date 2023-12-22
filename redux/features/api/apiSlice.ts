@@ -3,6 +3,15 @@ import { userLoggerIn } from "../user/userSlice";
 import endpoints from "@/app/utils/endpoints";
 
 // payment service api slice
+export const valuationServiceApi = createApi({
+  reducerPath: "valuationApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_VALUATION_SRV_URL,
+  }),
+  tagTypes: ["Questions"],
+  endpoints: (builder) => ({}),
+});
+// payment service api slice
 export const paymentServiceApi = createApi({
   reducerPath: "paymentApi",
   baseQuery: fetchBaseQuery({
