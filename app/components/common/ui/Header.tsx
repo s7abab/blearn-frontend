@@ -34,14 +34,16 @@ const Header = (props: Props) => {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {token ? (
               <Link href={"/profile"}>
-                <div className="w-[48px] h-[48px] relative overflow-hidden rounded-full">
+                <div className="w-[40px] h-[40px] relative overflow-hidden rounded-full">
                   <ProfileImage avatar={user?.avatar} />
                 </div>
               </Link>
             ) : (
-              <div className={`${styles.primary} w-20`}>
-                <Link href={"/login"}>Login</Link>
-              </div>
+              <Link href={"/login"}>
+                <div className="w-[40px] h-[40px] relative overflow-hidden rounded-full">
+                  <ProfileImage avatar={user?.avatar} />
+                </div>
+              </Link>
             )}
             <button
               data-collapse-toggle="navbar-cta"

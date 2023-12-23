@@ -1,8 +1,9 @@
 import { ILesson } from "@/@types/interfaces/course/lesson.interface";
 import VideoPlayer from "@/app/components/video/VideoPlayer";
 import Link from "next/link";
-import React from "react";
 import { IoIosDocument } from "react-icons/io";
+import LessonOverview from "../LessonOverview";
+import { styles } from "@/app/styles/style";
 
 type Props = {
   lessons: ILesson[];
@@ -47,7 +48,7 @@ const OngoingLesson = ({
       )}
       <div className="flex justify-between mt-2">
         <button
-          className={`bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold ${
+          className={`${styles.blue_btn} ${
             lessonCount > 0 ? "" : "cursor-not-allowed"
           }`}
           onClick={() => {
@@ -57,7 +58,7 @@ const OngoingLesson = ({
           Prev Lesson
         </button>
         <button
-          className={`bg-blue-500 p-2 rounded-full shadow-md font-Poppins font-semibold ${
+          className={`${styles.blue_btn} ${
             lessonCount > totalLessons - 2 ? "cursor-not-allowed" : ""
           }`}
           onClick={() => {
@@ -73,12 +74,8 @@ const OngoingLesson = ({
           {currentLesson?.title}
         </h1>
       </div>
-      <div
-        className={`flex justify-evenly items-center cursor-pointer font-Poppins h-[50px] bg-gray-800 rounded-md text-dark-primary mt-4`}
-      >
-        <div>Overview</div>
-        <div>Feedback</div>
-        <div>Community</div>
+      <div>
+        <LessonOverview />
       </div>
     </div>
   );
