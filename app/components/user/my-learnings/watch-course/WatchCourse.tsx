@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ModuleCard from "../../../courses/modules/ModulesAndLessons";
 import {
+  useGetProgressionQuery,
   useGetSingleEnrolledCourseQuery,
   useTrackLessonMutation,
 } from "@/redux/features/course/courseApi";
@@ -15,6 +16,7 @@ import {
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import CourseProgress from "../CourseProgress";
 import OngoingLesson from "./OngoingLesson";
+import GetCertificateBtn from "../../GetCertificateBtn";
 
 const WatchCourse = () => {
   const [lessonCount, setLessonCount] = useState<number>(0);
@@ -24,6 +26,8 @@ const WatchCourse = () => {
     progress: 0,
     lessonId: "1",
   });
+
+  const { data: progressData } = useGetProgressionQuery(courseId);
   const { data: courseData } = useGetSingleEnrolledCourseQuery(courseId);
   const { activeLesson, activeLessonId } = useSelector(
     (state: any) => state.course
@@ -69,7 +73,6 @@ const WatchCourse = () => {
       }
     }
   }, [activeLessonId, lessons]);
-
   // track progression
   const handleProgress = (state: { played: number }) => {
     setTrackData({
@@ -96,12 +99,13 @@ const WatchCourse = () => {
         totalLessons={totalLessons}
       />
       <div className="flex flex-col md:w-1/3 px-3">
-        <CourseProgress courseId={courseId} />
+        <CourseProgress progress={progressData?.progression} />
         {course?.modules?.map((module, index) => (
           <div key={index} className="mt-2">
             <ModuleCard module={module} index={index} edit={false} />
           </div>
         ))}
+        {progressData?.progression === 100 &&  <GetCertificateBtn />}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import { IUser } from "@/@types/interfaces/user/user.interface";
 
-type Props = {
+interface Props  {
   user: IUser;
 };
 

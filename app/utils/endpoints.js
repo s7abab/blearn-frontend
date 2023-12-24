@@ -70,6 +70,7 @@ const endpoints = {
     create_question: "/api/v1/valuation/create-question",
     delete_question: "/api/v1/valuation/delete-question",
     update_question: "/api/v1/valuation/update-question",
+    add_completed_user: "/api/v1/valuation/add-completed-user",
   },
 };
 

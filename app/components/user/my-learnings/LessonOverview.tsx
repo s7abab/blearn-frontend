@@ -36,6 +36,7 @@ const LessonOverview = () => {
       <>
         {tab === "overview" && (
           <h1 className="font-Poppins text-[16px]">{course?.description}</h1>
+          
         )}
         {tab === "feedback" && <FeedbackInput />}
       </>
