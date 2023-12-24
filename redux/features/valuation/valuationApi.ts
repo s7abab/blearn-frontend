@@ -61,7 +61,16 @@ export const valuationApi = valuationServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Questions"],
     }),
-  }),
+
+    addCompletedUser: builder.mutation({
+      query: (courseId ) => ({
+        url: endpoints.valuation.add_completed_user,
+        method: "POST",
+        body: { courseId },
+        credentials: "include" as const,
+      }),
+    }),
+  }), 
 });
 
 export const {
@@ -70,5 +79,6 @@ export const {
   useUpdateQuestionMutation,
   useDeleteQuestionMutation,
   useCreateExamMutation,
-  useUpdateExamMutation
+  useUpdateExamMutation,
+  useAddCompletedUserMutation,
 } = valuationApi;

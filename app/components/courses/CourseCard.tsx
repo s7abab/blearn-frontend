@@ -1,15 +1,13 @@
-"use client";
-import React from "react";
 import { motion } from "framer-motion";
 import CourseImage from "./CourseImage";
 import { FaStar } from "react-icons/fa6";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import CourseProgress from "../user/my-learnings/CourseProgress";
 
-type Props = {
+interface Props {
   course: ICourseDetails;
   mylearning?: boolean;
-};
+}
 
 const CourseCard = ({ course, mylearning }: Props) => {
   return (
@@ -30,34 +28,27 @@ const CourseCard = ({ course, mylearning }: Props) => {
             <h2 className="text-gray-100 font-semibold truncate">
               {course?.title}
             </h2>
-            {mylearning ? (
-              <>
-                <CourseProgress courseId={course?._id} />
-              </>
-            ) : (
-              <>
-                <div className="flex justify-between mt-5 text-sm text-gray-100">
-                  <p>
-                    <span className="font-semibold font-Poppins">
-                      {course?.enrolledUsers?.length}
-                    </span>{" "}
-                    Enrolls
-                  </p>
-                  <p className="flex items-center gap-2">
-                    Rating
-                    <span className="font-semibold">...test</span>
-                    <div className="text-yellow-500">
-                      <FaStar />
-                    </div>
-                  </p>
+
+            <div className="flex justify-between mt-5 text-sm text-gray-100">
+              <p>
+                <span className="font-semibold font-Poppins">
+                  {course?.enrolledUsers?.length}
+                </span>{" "}
+                Enrolls
+              </p>
+              <p className="flex items-center gap-2">
+                Rating
+                <span className="font-semibold">...test</span>
+                <div className="text-yellow-500">
+                  <FaStar />
                 </div>
-                <p>
-                  <span className="font-semibold font-Poppins">
-                    ₹{course?.discountPrice}
-                  </span>
-                </p>
-              </>
-            )}
+              </p>
+            </div>
+            <p>
+              <span className="font-semibold font-Poppins">
+                ₹{course?.discountPrice}
+              </span>
+            </p>
           </div>
         </div>
       </motion.div>

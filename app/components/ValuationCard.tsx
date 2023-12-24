@@ -1,7 +1,10 @@
+"use client";
 import { motion } from "framer-motion";
 import { DataState } from "./instructor/ApplicationForm";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-type Props = {
+interface Props {
   progress: number;
   currentData: any;
   data: DataState;
@@ -9,7 +12,8 @@ type Props = {
   handlePrev: () => void;
   handleNext: () => void;
   step: number;
-};
+  isOpen?: boolean;
+}
 
 const ValuationCard = ({
   progress,
@@ -19,7 +23,14 @@ const ValuationCard = ({
   handlePrev,
   handleNext,
   step,
+  isOpen,
 }: Props) => {
+  const router = useRouter();
+  useEffect(() => {
+    if (!isOpen) {
+      router.push("/my-learnings");
+    }
+  }, [isOpen, router]);
   return (
     <div className="flex justify-center items-center min-h-screen shadow-md">
       <motion.div
@@ -41,7 +52,7 @@ const ValuationCard = ({
         <p>{currentData?.desc}</p>
         <h1 className="mt-3 font-Poppins text-lg">{currentData?.qstn}</h1>
         <div className="flex flex-col gap-5 mt-3">
-          {currentData?.ans.map((option:any, index:number) => (
+          {currentData?.ans.map((option: any, index: number) => (
             <div
               className={`flex gap-4 items-center cursor-pointer ${
                 data[step + 1] === (Object.values(option)[0] as number)
@@ -58,7 +69,9 @@ const ValuationCard = ({
                   <div className="rounded-full bg-blue-600 w-3 h-3" />
                 )}
               </div>
-              <label htmlFor={`ans${index}`}>{Object.values(option)[0] as number}</label>
+              <label htmlFor={`ans${index}`}>
+                {Object.values(option)[0] as number}
+              </label>
             </div>
           ))}
         </div>
