@@ -1,4 +1,5 @@
 "use client";
+
 import { IQuestion } from "@/@types/interfaces/valuation/valuation.interface";
 import {
   useCreateQuestionMutation,
@@ -7,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import CustomInput from "../../common/CustomInput";
 
 interface Props {
   handleOpen: () => void;
@@ -14,6 +16,7 @@ interface Props {
   questionData?: IQuestion | null;
   index?: number;
 }
+
 const QuestionForm = ({ handleOpen, edit, questionData, index }: Props) => {
   const [question, setQuestion] = useState(questionData?.question || "");
   const [options, setOptions] = useState({
@@ -40,6 +43,7 @@ const QuestionForm = ({ handleOpen, edit, questionData, index }: Props) => {
       setOptions({ ...options, [name]: value });
     }
   };
+
   const handleSubmit = () => {
     const data: IQuestion = {
       question,
@@ -56,7 +60,7 @@ const QuestionForm = ({ handleOpen, edit, questionData, index }: Props) => {
       handleOpen();
     }
   };
-
+// for showing success and error toast
   useEffect(() => {
     if (isSuccess) {
       toast.success("Question created successfully");
@@ -71,94 +75,55 @@ const QuestionForm = ({ handleOpen, edit, questionData, index }: Props) => {
     }
     // eslint-disable-next-line
   }, [error, isSuccess]);
+
+  const inputFields = [
+    { name: "question", placeholder: "Enter your question here", type: "text" },
+    { name: "optionA", placeholder: "Enter option A", type: "text" },
+    { name: "optionB", placeholder: "Enter option B", type: "text" },
+    { name: "optionC", placeholder: "Enter option C", type: "text" },
+    { name: "optionD", placeholder: "Enter option D", type: "text" },
+  ];
+
   return (
-    <div className="flex flex-col p-5">
-      <label htmlFor="question">Question</label>
-      <input
-        type="text"
-        name="question"
-        className="p-2 rounded-md"
-        placeholder="Enter your question here"
-        value={question}
-        onChange={handleInputChange}
-      />
-      <div className="flex flex-col gap-2 mt-2">
-        <div className="flex items-center">
-          <input
-            type="radio"
-            name="correctAnswer"
-            value="A"
-            checked={correctAnswer === "A"}
-            onChange={handleInputChange}
-            className="mr-2"
-          />
-          <input
-            type="text"
-            name="optionA"
-            className="p-2 rounded-md"
-            placeholder="Enter option A"
-            value={options.optionA}
-            onChange={handleInputChange}
-          />
+    <div className="flex flex-col m-5 gap-3">
+      {inputFields.map((field) => (
+        <div className="flex items-center" key={field.name}>
+          {field.name === "question" ? (
+            <>
+              <CustomInput
+                type={field.type}
+                name={field.name}
+                value={question}
+                onChange={handleInputChange}
+                placeholder={field.placeholder}
+                inputStyle="w-full p-2 rounded-md mb-2"
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="radio"
+                name="correctAnswer"
+                value={field.name.slice(-1)}
+                checked={correctAnswer === field.name.slice(-1)}
+                onChange={handleInputChange}
+                className="mr-2"
+              />
+              <CustomInput
+                type={field.type}
+                name={field.name}
+                value={options[field.name as keyof typeof options]}
+                onChange={handleInputChange}
+                placeholder={field.placeholder}
+                inputStyle="w-full p-2 rounded-md"
+              />
+            </>
+          )}
         </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            name="correctAnswer"
-            value="B"
-            checked={correctAnswer === "B"}
-            onChange={handleInputChange}
-            className="mr-2"
-          />
-          <input
-            type="text"
-            name="optionB"
-            className="p-2 rounded-md"
-            placeholder="Enter option B"
-            value={options.optionB}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            name="correctAnswer"
-            value="C"
-            checked={correctAnswer === "C"}
-            onChange={handleInputChange}
-            className="mr-2"
-          />
-          <input
-            type="text"
-            name="optionC"
-            className="p-2 rounded-md"
-            placeholder="Enter option C"
-            value={options.optionC}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            name="correctAnswer"
-            value="D"
-            checked={correctAnswer === "D"}
-            onChange={handleInputChange}
-            className="mr-2"
-          />
-          <input
-            type="text"
-            name="optionD"
-            className="p-2 rounded-md"
-            placeholder="Enter option D"
-            value={options.optionD}
-            onChange={handleInputChange}
-          />
-        </div>
-      </div>
+      ))}
       <button
         onClick={handleSubmit}
-        className="mt-4 rounded-md p-2 bg-gray-800 text-white"
+        className="mt-2 rounded-md p-2 bg-gray-800 text-white"
       >
         Submit
       </button>

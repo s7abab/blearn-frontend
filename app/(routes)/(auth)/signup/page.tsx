@@ -1,7 +1,8 @@
 "use client";
+
 import { useFormik } from "formik";
 import { FcGoogle } from "react-icons/fc";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { styles } from "../../../styles/style";
 import {
@@ -15,20 +16,32 @@ import { schema } from "@/app/utils/validations/register.validation";
 import BackButton from "@/app/components/common/BackButton";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import registerInputFields from "@/app/data/register-inputFields";
 
-type Props = {};
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmpassword: string;
+}
 
-const Signup = (props: Props) => {
+const Signup = () => {
   const [show, setShow] = useState(false);
   const [verification, setVerification] = useState(false);
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    password: "",
+    confirmpassword: "",
+  });
+
   const [register, { isLoading, isSuccess, data, error }] =
     useRegisterMutation();
   const router = useRouter();
 
   useEffect(() => {
     if (isSuccess) {
-      const message = data?.message || "Registration successfull";
+      const message = data?.message || "Registration successful";
       toast.success(message);
       setVerification(true);
       setTimeout(() => {
@@ -65,13 +78,18 @@ const Signup = (props: Props) => {
     if (user) {
       router.push("/profile");
     }
-  });
+  }, [user, router]);
 
-  const formik = useFormik({
-    initialValues: { name: "", email: "", password: "", confirmpassword: "" },
+  const formik = useFormik<FormData>({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmpassword: "",
+    },
     validationSchema: schema,
     onSubmit: async ({ name, email, password, confirmpassword }) => {
-      const data = {
+      const data: FormData = {
         name,
         email,
         password,
@@ -83,117 +101,56 @@ const Signup = (props: Props) => {
   });
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
+
   return (
     <div className="flex items-center h-screen">
       <BackButton location="/" />
       {verification && <OtpModal data={formData} />}
       <div className="800px:w-[400px] 400px:w-[320px] mx-auto p-10 bg-gray-100 dark:bg-gray-800 rounded-md shadow-md ">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <h1 className={`${styles.title} mb-3`}>Create account</h1>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              id="name"
-              placeholder="Jhon"
-              className={`mt-1 p-2 w-full border ${
-                errors.name && touched.name
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
-            />
-            {errors.name && touched.name && (
-              <span className="text-sm text-red-500">{errors.email}</span>
-            )}
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              id="email"
-              placeholder="name@email.com"
-              className={`mt-1 p-2 w-full border ${
-                errors.email && touched.email
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
-            />
-            {errors.email && touched.email && (
-              <span className="text-sm text-red-500">{errors.email}</span>
-            )}
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
-            >
-              Password
-            </label>
-            <div className="relative">
-              <input
-                name="password"
-                type="password"
-                id="password"
-                onChange={handleChange}
-                value={values.password}
-                placeholder="password!@%"
-                className={` mt-1 p-2 w-full border ${
-                  errors.password && touched.password
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
-              />
+        <form onSubmit={handleSubmit} className="mb-4">
+          <h1 className={`${styles.title} mb-3`}>Create account</h1>
+          {registerInputFields.map((field) => (
+            <div key={field.name} className="mb-4">
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium text-gray-600 dark:text-gray-400"
+              >
+                {field.label}
+              </label>
+              <div className="relative">
+                <input
+                  type={field.type}
+                  name={field.name}
+                  value={values[field.name as keyof FormData]}
+                  onChange={handleChange}
+                  id={field.name}
+                  placeholder={field.placeholder}
+                  className={`mt-1 p-2 w-full border ${
+                    errors[field.name as keyof FormData] &&
+                    touched[field.name as keyof FormData]
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
+                />
+              </div>
+              {errors[field.name as keyof FormData] &&
+                touched[field.name as keyof FormData] && (
+                  <span className="text-sm text-red-500">
+                    {errors[field.name as keyof FormData]}
+                  </span>
+                )}
             </div>
-            {errors.password && touched.password && (
-              <span className="text-sm text-red-500">{errors.password}</span>
-            )}
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-600 dark:text-gray-400"
-            >
-              Confirm Password
-            </label>
-            <div className="relative">
-              <input
-                name="confirmpassword"
-                type="password"
-                id="confirmpassword"
-                onChange={handleChange}
-                value={values.confirmpassword}
-                placeholder="password!@%"
-                className={` mt-1 p-2 w-full border ${
-                  errors.confirmpassword && touched.confirmpassword
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } rounded-md focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white`}
-              />
-            </div>
-            {errors.confirmpassword && touched.confirmpassword && (
-              <span className="text-sm text-red-500">{errors.confirmpassword}</span>
-            )}
-          </div>
+          ))}
           <div className="mb-4 mt-8">
-            <button type="submit" className={`${styles.primary} w-full`}>
+            <button
+              disabled={isLoading}
+              type="submit"
+              className={`${styles.primary} w-full`}
+            >
               Submit
             </button>
           </div>
-          <div className="flex justify-center  items-center mt-3">
+          <div className="flex justify-center items-center mt-3">
             <div>
               <FcGoogle
                 onClick={() => {
