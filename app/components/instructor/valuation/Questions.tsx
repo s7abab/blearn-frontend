@@ -13,6 +13,7 @@ import { IQuestion } from "@/@types/interfaces/valuation/valuation.interface";
 import QuestionsCard from "./QuestionsCard";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
+import AlertBox from "../../common/AlertBox";
 
 const Questions = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -34,7 +35,7 @@ const Questions = () => {
   };
 
   const handleCreateExam = () => {
-    createExam({ courseId: course._id, totalQuestions: 10, passMark: 7 });
+    createExam(course._id);
     toast.success("Exam created successfully");
   };
 
@@ -84,10 +85,13 @@ const Questions = () => {
           >
             {courseData ? " Add Question" : "Create exam"}
           </button>
-          {10 - (courseData?.exam?.questions?.length || 0) > 0 && (
-            <h1>{`Add ${
-              10 - (courseData?.exam?.questions?.length || 0)
-            } More Questions!`}</h1>
+          {courseData?.exam?.questions?.length < 10 && (
+            <AlertBox
+              content={`Add ${Math.max(
+                0,
+                10 - (courseData?.exam?.questions?.length || 0)
+              )} more questions`}
+            />
           )}
         </div>
         <>

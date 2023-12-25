@@ -29,7 +29,7 @@ const GetCertificateBtn = () => {
           </CustomModal>
         )}
       </div>
-      {isCompleted ? (
+      {isCompleted || isCompleted === undefined ? (
         <PDFDownloadLink
           document={
             <Certificate
