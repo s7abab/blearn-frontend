@@ -4,20 +4,10 @@ import { valuationServiceApi } from "../api/apiSlice";
 export const valuationApi = valuationServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     createExam: builder.mutation({
-      query: ({ courseId, totalQuestions, passMark }) => ({
+      query: (courseId) => ({
         url: endpoints.valuation.create_exam,
         method: "POST",
-        body: { courseId, totalQuestions, passMark },
-        credentials: "include" as const,
-      }),
-      invalidatesTags: ["Questions"],
-    }),
-
-    updateExam: builder.mutation({
-      query: ({ courseId, passMark }) => ({
-        url: endpoints.valuation.update_exam,
-        method: "PATCH",
-        body: { courseId, passMark },
+        body: { courseId },
         credentials: "include" as const,
       }),
       invalidatesTags: ["Questions"],
@@ -63,14 +53,14 @@ export const valuationApi = valuationServiceApi.injectEndpoints({
     }),
 
     addCompletedUser: builder.mutation({
-      query: (courseId ) => ({
+      query: (courseId) => ({
         url: endpoints.valuation.add_completed_user,
         method: "POST",
         body: { courseId },
         credentials: "include" as const,
       }),
     }),
-  }), 
+  }),
 });
 
 export const {
@@ -79,6 +69,5 @@ export const {
   useUpdateQuestionMutation,
   useDeleteQuestionMutation,
   useCreateExamMutation,
-  useUpdateExamMutation,
   useAddCompletedUserMutation,
 } = valuationApi;

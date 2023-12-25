@@ -9,7 +9,6 @@ const uploadImage = async (image: any) => {
     try {
       const snapshot = await uploadBytes(imgRef, image);
       const downloadURL = await getDownloadURL(imgRef);
-      toast.success("Image uploaded successfully!");
       return downloadURL;
     } catch (error: any) {
       toast.success(error.message);

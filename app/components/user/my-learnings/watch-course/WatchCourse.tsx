@@ -16,7 +16,7 @@ import {
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import CourseProgress from "../CourseProgress";
 import OngoingLesson from "./OngoingLesson";
-import GetCertificateBtn from "../../GetCertificateBtn";
+import GetCertificateBtn from "../../GetCertificate";
 
 const WatchCourse = () => {
   const [lessonCount, setLessonCount] = useState<number>(0);

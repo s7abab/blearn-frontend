@@ -65,7 +65,6 @@ const endpoints = {
 
   valuation: {
     create_exam: "/api/v1/valuation/create-exam",
-    update_exam: "/api/v1/valuation/update-exam",
     get_exam: "/api/v1/valuation/get-exam",
     create_question: "/api/v1/valuation/create-question",
     delete_question: "/api/v1/valuation/delete-question",

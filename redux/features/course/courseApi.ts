@@ -234,7 +234,7 @@ export const courseApi = courseServiceApi.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
-      invalidatesTags: ["Modules"],
+      invalidatesTags: ["Modules", "InstructorCourse"],
     }),
 
     trackLesson: builder.mutation({
