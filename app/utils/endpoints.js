@@ -71,6 +71,15 @@ const endpoints = {
     update_question: "/api/v1/valuation/update-question",
     add_completed_user: "/api/v1/valuation/add-completed-user",
   },
+
+  realtime: {
+    create_chatroom: "/api/v1/realtime/chatRoom/create-chatroom",
+    get_chatrooms_for_instructor:
+      "/api/v1/realtime/chatRoom/get-chatrooms-for-instructor",
+    get_chatroom: "/api/v1/realtime/chatRoom/get-chatroom",
+    get_chatroom_by_courseId:
+      "/api/v1/realtime/chatRoom/get-chatroom-by-courseid",
+  },
 };
 
 export default endpoints;

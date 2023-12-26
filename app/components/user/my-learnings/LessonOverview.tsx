@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import FeedbackInput from "../../feedback/FeedbackInput";
+import CourseCommunity from "./CourseCommunity";
 
 const LessonOverview = () => {
   const [tab, setTab] = useState<string>("overview");
@@ -36,9 +37,10 @@ const LessonOverview = () => {
       <>
         {tab === "overview" && (
           <h1 className="font-Poppins text-[16px]">{course?.description}</h1>
-          
         )}
         {tab === "feedback" && <FeedbackInput />}
+        {tab === "community" && <CourseCommunity />}
+
       </>
     </>
   );

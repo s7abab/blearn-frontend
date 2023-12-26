@@ -4,7 +4,7 @@ import { applyFormData } from "@/app/data/apply-form-data";
 import { useInstructoApplicationMutation } from "@/redux/features/user/userApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import ValuationCard from "../ValuationCard";
+import ValuationCard from "./ValuationCard";
 
 export interface DataState {
   [key: number]: number;

@@ -2,7 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggerIn } from "../user/userSlice";
 import endpoints from "@/app/utils/endpoints";
 
-// payment service api slice
+// realtime service api slice
+export const realtimeServiceApi = createApi({
+  reducerPath: "realtimeApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_REALTIME_SRV_URL,
+  }),
+  tagTypes: ["Community","InstructorCommunities"],
+  endpoints: (builder) => ({}),
+});
+// valuation service api slice
 export const valuationServiceApi = createApi({
   reducerPath: "valuationApi",
   baseQuery: fetchBaseQuery({
@@ -26,7 +35,16 @@ export const courseServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_COURSE_SRV_URL,
   }),
-  tagTypes: ["Categories", "Courses", "Course", "Modules", "EnrolledCourse", "Progression","InstructorCourses", "InstructorCourse"],
+  tagTypes: [
+    "Categories",
+    "Courses",
+    "Course",
+    "Modules",
+    "EnrolledCourse",
+    "Progression",
+    "InstructorCourses",
+    "InstructorCourse",
+  ],
   endpoints: (builder) => ({}),
 });
 

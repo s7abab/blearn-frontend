@@ -21,7 +21,7 @@ const Header = (props: Props) => {
   }, []);
   return (
     <>
-      <div className="sticky top-0 bg-gradient-to-b dark:bg-gradient-to-b from-gray-200 to-gray-300  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
+      <div className="sticky top-0 bg-gray-100 dark:bg-gradient-to-b  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
         <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             href={"/"}

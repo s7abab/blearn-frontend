@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { DataState } from "./instructor/ApplicationForm";
+import { DataState } from "./ApplicationForm";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
