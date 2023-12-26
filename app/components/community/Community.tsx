@@ -8,9 +8,10 @@ import { useParams } from "next/navigation";
 import { SOCKET } from "@/app/utils/socket-connection";
 import CommunityInput from "./CommunityInput";
 import ChatCard from "./ChatCard";
-import { SOCKET_EVENTS } from "@/@types/enums/socket.enum";
+import { SOCKET_EVENTS } from "@/@types/enums/socketEvents.enum";
 import scrollToBottom from "@/app/utils/scroll-to-bottom";
 import ImagePreview from "./ImagePreview";
+import BackButton from "../common/BackButton";
 
 const Community: React.FC = () => {
   const { id } = useParams<any>();
@@ -26,6 +27,7 @@ const Community: React.FC = () => {
     if (SOCKET && selectedImage) {
       const downloadURL = await uploadImage(selectedImage);
       SOCKET.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
+        chatRoomId: id,
         senderId: user._id,
         messageType: "image",
         fileUrl: downloadURL,
@@ -42,6 +44,7 @@ const Community: React.FC = () => {
     setShowEmojiPicker(false);
     if (SOCKET && messageInput.trim() !== "") {
       SOCKET.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
+        chatRoomId: id,
         content: messageInput,
         senderId: user._id,
         messageInput: "text",
@@ -97,6 +100,7 @@ const Community: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen justify-between ">
+      <BackButton location="/community" />
       <div className="p-4 border-b border-gray-300 flex justify-center">
         <h1>Type script</h1>
       </div>
