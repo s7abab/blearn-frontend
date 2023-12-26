@@ -5,3 +5,12 @@ export interface IMessage {
   fileUrl: string;
   timestamp: string;
 }
+
+export interface IChatRoom {
+  _id:any;
+  name: string;
+  description: string;
+  courseId: string;
+  members: [{ userId: string; isAdmin: boolean; isCreator: boolean }];
+  messages: [IMessage];
+}
