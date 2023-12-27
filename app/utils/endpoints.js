@@ -1,3 +1,5 @@
+import { create } from "domain";
+
 const endpoints = {
   user: {
     register: "/api/v1/user/register",
@@ -48,6 +50,11 @@ const endpoints = {
     user: {
       get_enrolled_course: "/api/v1/course/enrolled-courses",
       get_single_enrolled_course: "/api/v1/course/single-enrolled-course",
+    },
+
+    feedback: {
+      create_feedback: "/api/v1/course/feedback/create-feedback",
+      get_feedbacks: "/api/v1/course/feedback/get-feedbacks",
     },
   },
 

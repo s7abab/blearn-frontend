@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import FeedbackInput from "../../feedback/FeedbackInput";
 import CourseCommunity from "./CourseCommunity";
+import Feedbacks from "../../feedback/Feedbacks";
 
 const LessonOverview = () => {
   const [tab, setTab] = useState<string>("overview");
@@ -45,7 +45,7 @@ const LessonOverview = () => {
             </h1>
           </div>
         )}
-        {tab === "feedback" && <FeedbackInput />}
+        {tab === "feedback" && <Feedbacks input={true} />}
         {tab === "community" && <CourseCommunity />}
       </>
     </>

@@ -98,14 +98,15 @@ const WatchCourse = () => {
         lessons={lessons}
         totalLessons={totalLessons}
       />
-      <div className="flex flex-col md:w-1/3 px-3">
+      {/* sidebar */}
+      <div className="flex flex-col md:w-1/3 px-3 ">
         <CourseProgress progress={progressData?.progression} />
         {course?.modules?.map((module, index) => (
           <div key={index} className="mt-2">
             <ModuleCard module={module} index={index} edit={false} />
           </div>
         ))}
-        {progressData?.progression === 100 &&  <GetCertificateBtn />}
+        {progressData?.progression === 100 && <GetCertificateBtn />}
       </div>
     </div>
   );

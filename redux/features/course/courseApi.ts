@@ -265,6 +265,26 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       providesTags: ["Progression"],
     }),
+
+    // feedback
+    createFeedback: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.feedback.create_feedback,
+        method: "POST",
+        body: { data },
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Feedback"],
+    }),
+
+    getFeedbacks: builder.query({
+      query: (courseId: string) => ({
+        url: `${endpoints.course.feedback.get_feedbacks}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Feedback"],
+    }),
   }),
 });
 
@@ -290,5 +310,7 @@ export const {
   useGetSingleEnrolledCourseQuery,
   useTrackLessonMutation,
   useGetProgressionQuery,
-  useUpdateLessonMutation
+  useUpdateLessonMutation,
+  useCreateFeedbackMutation,
+  useGetFeedbacksQuery,
 } = courseApi;

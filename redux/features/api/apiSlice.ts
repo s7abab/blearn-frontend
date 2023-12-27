@@ -8,7 +8,7 @@ export const realtimeServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_REALTIME_SRV_URL,
   }),
-  tagTypes: ["Community","InstructorCommunities"],
+  tagTypes: ["Community", "InstructorCommunities"],
   endpoints: (builder) => ({}),
 });
 // valuation service api slice
@@ -44,6 +44,7 @@ export const courseServiceApi = createApi({
     "Progression",
     "InstructorCourses",
     "InstructorCourse",
+    "Feedback",
   ],
   endpoints: (builder) => ({}),
 });

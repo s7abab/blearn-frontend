@@ -8,7 +8,7 @@ interface Props {
   mylearning?: boolean;
 }
 
-const CourseCard = ({ course, mylearning }: Props) => {
+const CourseCard = ({ course }: Props) => {
   return (
     <div>
       <motion.div
@@ -17,7 +17,7 @@ const CourseCard = ({ course, mylearning }: Props) => {
         transition={{ duration: 0.5 }}
         whileHover={{ scale: 1.1 }}
       >
-        <div className="bg-slate-500 bg-opacity-20 py-1 shadow-md rounded-md shadow-[bg-slate-700] backdrop-blur border border-[#ffffff1d] cursor-pointer">
+        <div className="bg-slate-600 bg-opacity-20 py-1 shadow-md rounded-md shadow-[bg-slate-700] backdrop-blur border border-[#ffffff1d] cursor-pointer">
           <div className="h-40 relative overflow-hidden m-3">
             <div className="overflow-hidden">
               <CourseImage imgUrl={course?.thumbnail} />
