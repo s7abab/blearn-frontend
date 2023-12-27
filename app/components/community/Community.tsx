@@ -12,6 +12,8 @@ import { SOCKET_EVENTS } from "@/@types/enums/socketEvents.enum";
 import scrollToBottom from "@/app/utils/scroll-to-bottom";
 import ImagePreview from "./ImagePreview";
 import BackButton from "../common/BackButton";
+import { useGetMessagesQuery } from "@/redux/features/realtime/realtimeApi";
+import Loader from "../common/spinners/Loader";
 
 const Community: React.FC = () => {
   const { id } = useParams<any>();
@@ -20,8 +22,16 @@ const Community: React.FC = () => {
   const [messageInput, setMessageInput] = useState<string>("");
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const { user } = useSelector((state: any) => state.auth);
 
+  const { user } = useSelector((state: any) => state.auth);
+  const { data: messagesD, isLoading } = useGetMessagesQuery(id);
+  const messagesData = messagesD?.messages;
+  // Update messages state when data changes
+  useEffect(() => {
+    if (messagesData?.length > 0) {
+      setMessages((prevMessages) => [...prevMessages, ...messagesData]);
+    }
+  }, [messagesData]);
   // send image
   const sendImage = async () => {
     if (SOCKET && selectedImage) {
@@ -98,11 +108,18 @@ const Community: React.FC = () => {
     // eslint-disable-next-line
   }, [SOCKET]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className="flex flex-col h-screen justify-between ">
-      <BackButton location="/community" />
+      {user?.role === "user" ? (
+        <BackButton location="/my-learnings" />
+      ) : (
+        <BackButton location="/instructor/community" />
+      )}
       <div className="p-4 border-b border-gray-300 flex justify-center">
-        <h1>Type script</h1>
+        <h1>Community</h1>
       </div>
       <ul className="flex-1 overflow-y-auto px-4 py-2 ">
         <ChatCard messages={messages} user={user} />

@@ -1,7 +1,7 @@
 import { styles } from "@/app/styles/style";
 import React, { useRef } from "react";
 import { FaVideo } from "react-icons/fa";
-import { IoIosCloudDone } from "react-icons/io";
+import { MdChangeCircle } from "react-icons/md";
 import Progress from "../../common/spinners/Progress";
 import VideoPlayer from "../../video/VideoPlayer";
 
@@ -12,6 +12,7 @@ type Props = {
   loading: boolean;
   addLoading: boolean;
   video: string;
+  title: string;
 };
 
 const VideoLesson = ({
@@ -21,6 +22,7 @@ const VideoLesson = ({
   video,
   handleSubmit,
   addLoading,
+  title,
 }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -40,7 +42,7 @@ const VideoLesson = ({
           {video.length === 0 ? (
             <FaVideo className="cursor-pointer" />
           ) : (
-            <IoIosCloudDone />
+            <MdChangeCircle className='cursor-pointer' />
           )}
         </label>
         <input
@@ -53,7 +55,7 @@ const VideoLesson = ({
         {video.length === 0 ? (
           <h1 className="font-Poppins text-2xl">Add Video</h1>
         ) : (
-          <h1 className="font-Poppins text-2xl">Video Added</h1>
+          <h1 className="font-Poppins text-2xl">Change Video</h1>
         )}
       </div>
       {video && <VideoPlayer url={video} height="100%" />}
@@ -70,6 +72,7 @@ const VideoLesson = ({
             <h1 className="text-white text-lg mb-2 font-Poppins">Title</h1>
             <input
               onChange={handleChange}
+              value={title}
               className={`p-2 cursor-${
                 !video ? "not-allowed" : "pointer"
               } bg-gray-800 rounded-md w-full text-white focus:outline-none focus:ring-2 focus:ring-blue-500`}

@@ -42,6 +42,15 @@ export const realtimeApi = realtimeServiceApi.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
+    // get messages
+    getMessages: builder.query({
+      query: (chatRoomId: string) => ({
+        url: `${endpoints.realtime.get_messages}/${chatRoomId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -50,4 +59,5 @@ export const {
   useGetCommunitiesForInstructorQuery,
   useGetCommunityQuery,
   useGetCommunityByCourseIdQuery,
+  useGetMessagesQuery,
 } = realtimeApi;
