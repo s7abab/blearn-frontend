@@ -237,6 +237,16 @@ export const courseApi = courseServiceApi.injectEndpoints({
       invalidatesTags: ["Modules", "InstructorCourse"],
     }),
 
+    updateLesson: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.update_lesson,
+        method: "PUT",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Modules", "InstructorCourse"],
+    }),
+
     trackLesson: builder.mutation({
       query: (data: ILessonProgressTrackData) => ({
         url: endpoints.course.track_lesson,
@@ -280,4 +290,5 @@ export const {
   useGetSingleEnrolledCourseQuery,
   useTrackLessonMutation,
   useGetProgressionQuery,
+  useUpdateLessonMutation
 } = courseApi;

@@ -2,6 +2,7 @@ export interface ILesson {
   _id?: string;
   courseId: string;
   index?: number;
+  lessonIndex:number,
   type: string;
   title: string;
   url: string;

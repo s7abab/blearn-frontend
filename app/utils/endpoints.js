@@ -33,6 +33,7 @@ const endpoints = {
     edit_module: "/api/v1/course/edit-module",
     delete_module: "/api/v1/course/delete-module",
     add_lesson: "/api/v1/course/add-lesson",
+    update_lesson: "/api/v1/course/update-lesson",
     track_lesson: "/api/v1/course/track-lesson",
     get_progression: "/api/v1/course/get-progression",
 
@@ -79,6 +80,7 @@ const endpoints = {
     get_chatroom: "/api/v1/realtime/chatRoom/get-chatroom",
     get_chatroom_by_courseId:
       "/api/v1/realtime/chatRoom/get-chatroom-by-courseid",
+    get_messages: "/api/v1/realtime/message/get-messages",
   },
 };
 

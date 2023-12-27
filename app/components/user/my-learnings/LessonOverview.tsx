@@ -17,30 +17,36 @@ const LessonOverview = () => {
       >
         <button
           onClick={() => handleTabChange("overview")}
-          className={tab === "overview" ? "text-red-600" : ""}
+          className={tab === "overview" ? "text-[#00d4ff]" : ""}
         >
           Overview
         </button>
         <button
           onClick={() => handleTabChange("feedback")}
-          className={tab === "feedback" ? "text-red-600" : ""}
+          className={tab === "feedback" ? "text-[#00d4ff]" : ""}
         >
           Feedback
         </button>
         <button
           onClick={() => handleTabChange("community")}
-          className={tab === "community" ? "text-red-600" : ""}
+          className={tab === "community" ? "text-[#00d4ff]" : ""}
         >
           Community
         </button>
       </div>
       <>
         {tab === "overview" && (
-          <h1 className="font-Poppins text-[16px]">{course?.description}</h1>
+          <div>
+            <h1 className="font-Poppins text-[18px] font-medium">
+              {course?.title}
+            </h1>
+            <h1 className="font-Poppins text-[14px] font-light text-gray-600 mt-2 ">
+              {course?.description}
+            </h1>
+          </div>
         )}
         {tab === "feedback" && <FeedbackInput />}
         {tab === "community" && <CourseCommunity />}
-
       </>
     </>
   );
