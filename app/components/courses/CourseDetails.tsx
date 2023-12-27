@@ -11,6 +11,7 @@ import ModuleCard from "./modules/ModulesAndLessons";
 import { IModule } from "@/@types/interfaces/course/module.interface";
 import Overview from "./CourseOverview";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import Feedbacks from "../feedback/Feedbacks";
 
 type Props = {
   stripePromise: any;
@@ -27,12 +28,11 @@ const CourseDetails = ({
   const [videoPlayer, setVideoPlayer] = useState(false);
   const router = useRouter();
   const { user } = useSelector((state: any) => state.auth);
-  const { course } = useSelector((state:any) => state.course);
+  const { course } = useSelector((state: any) => state.course);
   const { data: modulesData, isLoading: modulesLoading } = useGetModulesQuery(
     course._id
   );
   const modules: IModule[] = modulesData?.modules;
-
   // is instructor course
   const instructorCourse: boolean = user._id === course.instructorId;
   // is enrolled course
@@ -54,7 +54,7 @@ const CourseDetails = ({
     setOpen(!open);
   };
   return (
-    <div>
+    <div className="mb-10">
       <>
         {open && (
           <CustomModal isOpen={open} onClose={handleEnrollment}>
@@ -76,12 +76,14 @@ const CourseDetails = ({
         videoPlayer={videoPlayer}
       />
       <div className="px-5">
-        <h2 className={`${styles.title} mt-6`}>Course content</h2>
+        <h2 className={`${styles.title} mt-6 font-Poppins`}>Course content</h2>
         {modules?.map((module, index) => (
           <div key={index} className="mt-2">
             <ModuleCard module={module} index={index} edit={false} />
           </div>
         ))}
+        <h2 className={`${styles.title} mt-6 font-Poppins`}>Feedbacks</h2>
+        <Feedbacks />
       </div>
     </div>
   );

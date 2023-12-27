@@ -1,17 +1,33 @@
-import React from "react";
+"use client";
 import { FaStar } from "react-icons/fa";
+import ProfileImage from "../profile/ProfileImage";
+import IFeedback from "@/@types/interfaces/course/feedback.interface";
 
-const FeedbackCard = () => {
+interface Props {
+  feedback: IFeedback;
+}
+
+const FeedbackCard: React.FC<Props> = ({ feedback }) => {
   return (
-    <div className="md:w-1/4 ">
-      <div className="p-4 bg-gray-400 dark:bg-gray-900 h-14 flex items-center justify-between rounded-md">
-        <div className="bg-gray-50 rounded-full w-10 h-10">Photo</div>
-        <div className="flex items-center">
-          <FaStar className="text-yellow-400" />
-          <h1>fafdfd</h1>
+    <div className="bg-slate-500 bg-opacity-20 py-1 shadow-md rounded-md shadow-[bg-slate-700] backdrop-blur border border-[#ffffff1d] w-full">
+      <div className="m-4">
+        <div className="flex justify-between">
+          <div className="flex flex-col items-center w-[40px] h-[40px] relative overflow-hidden rounded-full ">
+            <ProfileImage avatar={feedback?.userId?.avatar} />
+          </div>
+          <div className="flex">
+            {[...Array(5)].map((_, index) => (
+              <FaStar
+                key={index}
+                className={`text-[18px] cursor-pointer ${
+                  index < 4 ? "text-yellow-400 " : "text-gray-400"
+                }`}
+              />
+            ))}
+          </div>
         </div>
+        <div className="text-gray-400 flex justify-start mt-2">{feedback?.comment}</div>
       </div>
-      <div className="relative p-4 bg-gray-300 dark:bg-gray-800 mb-10 rounded-md shadow-lg"></div>
     </div>
   );
 };
