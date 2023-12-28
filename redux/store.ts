@@ -33,7 +33,7 @@ export const store = configureStore({
       courseServiceApi.middleware,
       paymentServiceApi.middleware,
       valuationServiceApi.middleware,
-      realtimeServiceApi.middleware
+      realtimeServiceApi.middleware,
     ),
 });
 

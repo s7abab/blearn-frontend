@@ -41,7 +41,7 @@ const LessonInput = ({
             handleFileChange={handleFileChange}
             loading={loading}
             addLoading={isLoading}
-            video={lessonDetails.url}
+            video={lessonDetails?.url}
             title={lessonDetails.title}
             handleSubmit={handleUploadLesson}
           />

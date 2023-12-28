@@ -1,26 +1,36 @@
 "use client";
+import useGetS3Link from "@/app/hooks/useGetS3Link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
+import SmallLoader from "../common/spinners/SmallLoader";
 
 type Props = {
-  avatar:string
+  avatar: string;
 };
 
-const ProfileImage = ({avatar}: Props) => {
+const ProfileImage = ({ avatar }: Props) => {
+  const { loading, getFileUrl, s3Url } = useGetS3Link();
+  useEffect(() => {
+    if (avatar) {
+      getFileUrl(avatar);
+    }
+    // eslint-disable-next-line
+  }, [avatar]);
   return (
     <>
-      {avatar ? (
-        <Image
-          alt="Profile"
-          src={avatar}
-          layout="fill"
-          objectFit="cover"
-        />
+      {loading ? (
+        <SmallLoader />
       ) : (
-        <div className="absolute inset-0 flex items-center justify-center text-white shadow-lg">
-          <CgProfile size={100} />
-        </div>
+        <>
+          {avatar ? (
+            <Image alt="Profile" src={s3Url} layout="fill" objectFit="cover" />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-white shadow-lg">
+              <CgProfile size={100} />
+            </div>
+          )}
+        </>
       )}
     </>
   );

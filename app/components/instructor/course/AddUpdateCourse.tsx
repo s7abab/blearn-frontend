@@ -1,24 +1,18 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import {
   useAddCourseMutation,
   useEditCourseMutation,
   useGetAllCategoryQuery,
 } from "@/redux/features/course/courseApi";
-import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import {
-  validateCourseName,
-  validateDiscription,
-  validatePrice,
-} from "@/app/utils/validations/course.validation";
 import { useRouter } from "next/navigation";
-import uploadVideo from "@/app/utils/video-upload";
-import uploadImage from "@/app/utils/upload-image";
 import {
   IAddCourse,
   ICourseDetails,
 } from "@/@types/interfaces/course/course.interface";
 import CourseForm from "./CourseForm";
+import useFileUpload from "@/app/hooks/useS3Upload";
 
 type Props = {
   course?: ICourseDetails;
@@ -27,8 +21,11 @@ type Props = {
 const AddUpdateCourse = ({ course, edit }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
+
   const router = useRouter();
+
+  const { loading, success, error, uploadFile } = useFileUpload();
+
   const [courseDetails, setCourseDetails] = useState<IAddCourse>({
     title: course?.title || "",
     description: course?.description || "",
@@ -40,8 +37,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   });
   const [AddCourse, { isSuccess }] = useAddCourseMutation();
   const [EditCourse, { isSuccess: edited }] = useEditCourseMutation();
-  const { data: categoriesData, isLoading: categoryLoading } =
-    useGetAllCategoryQuery({});
+  const { data: categoriesData } = useGetAllCategoryQuery({});
 
   const categories: ICategories[] = categoriesData?.categories;
 
@@ -73,7 +69,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
 
   const handleImageUpload = async () => {
     try {
-      const imageUrl = await uploadImage(image);
+      const imageUrl = await uploadFile(image);
       if (imageUrl) {
         setCourseDetails({
           ...courseDetails,
@@ -82,23 +78,18 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
       }
     } catch (error: any) {
       toast.error(error.message);
-      console.log(error);
     }
   };
-
   const handleVideoUpload = async () => {
     try {
-      setUploading(true);
-      const videoUrl = await uploadVideo(video);
+      const videoUrl = await uploadFile(video);
       if (videoUrl) {
         setCourseDetails({
           ...courseDetails,
           demoUrl: videoUrl,
         });
       }
-      setUploading(false);
     } catch (error: any) {
-      setUploading(false);
       console.log(error);
       toast.error(error.message);
     }
@@ -111,21 +102,6 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   };
 
   const handlePublish = () => {
-    validateCourseName(courseDetails.title);
-    validatePrice({
-      price: courseDetails.price,
-      discountPrice: courseDetails.discountPrice,
-    });
-    validateDiscription(courseDetails.description);
-    if (!courseDetails.category) {
-      return toast.error("Category is required");
-    }
-    if (!courseDetails.demoUrl) {
-      return toast.error("Video is required");
-    }
-    if (!courseDetails.thumbnail) {
-      return toast.error("Image is required");
-    }
     AddCourse(courseDetails as ICourseDetails);
   };
 
@@ -165,7 +141,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
       handleCategoryChange={handleCategoryChange}
       handleEdit={handleEdit}
       handleImageChange={handleImageChange}
-      uploading={uploading}
+      uploading={loading}
       handleInputChange={handleInputChange}
       handlePublish={handlePublish}
       handleVideoChange={handleVideoChange}

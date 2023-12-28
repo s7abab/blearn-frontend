@@ -89,6 +89,11 @@ const endpoints = {
       "/api/v1/realtime/chatRoom/get-chatroom-by-courseid",
     get_messages: "/api/v1/realtime/message/get-messages",
   },
+
+  cloud: {
+    upload: "/api/v1/upload",
+    get_url: "/api/v1/get-url",
+  },
 };
 
 export default endpoints;

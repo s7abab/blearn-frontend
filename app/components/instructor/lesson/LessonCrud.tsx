@@ -9,6 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import { ILesson } from "@/@types/interfaces/course/lesson.interface";
 import LessonInput from "./LessonInput";
+import useFileUpload from "@/app/hooks/useS3Upload";
 
 interface Props {
   index: number;
@@ -35,7 +36,13 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
   const [lessonDetails, setLessonDetails] = useState<ILesson>(intitalState);
   const [uploadLesson, { isSuccess, error, isLoading }] =
     useAddLessonMutation();
-
+  // upload to s3
+  const {
+    loading: uploading,
+    success,
+    error: uploadingError,
+    uploadFile,
+  } = useFileUpload();
   const [
     updateLesson,
     { isSuccess: updateSuccess, error: updateError, isLoading: updateLoading },
@@ -48,7 +55,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
   // update lesson
   const handleUpdateLesson = async () => {
     await updateLesson(lessonDetails);
-    console.log(edit,"edit und")
+
     setLessonDetails(intitalState);
     handleModal();
   };
@@ -88,7 +95,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
   const handleFileUpload = async () => {
     try {
       setLoading(true);
-      const videoUrl = await uploadVideo(file);
+      const videoUrl = await uploadFile(file);
       if (videoUrl) {
         setLessonDetails({
           ...lessonDetails,
@@ -108,7 +115,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
     }
     //eslint-disable-next-line
   }, [file]);
-  // add lesson toast
+  
   useEffect(() => {
     if (isSuccess) {
       toast.success("Lesson added");
@@ -139,7 +146,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
       handleModal={handleModal}
       handleSelectChange={handleSelectChange}
       handleUploadLesson={handleUploadLesson}
-      isLoading={isLoading}
+      isLoading={uploading}
       loading={loading}
       lessonDetails={lessonDetails}
       open={open}

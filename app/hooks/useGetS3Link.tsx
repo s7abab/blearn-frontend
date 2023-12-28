@@ -1,0 +1,52 @@
+import { errorMonitor } from "events";
+import { useState } from "react";
+
+const useGetS3Link = () => {
+  const [loading, setloading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [s3Url, setS3Url] = useState("");
+
+  const getFileUrl = async (fileName: any) => {
+    if (!fileName) {
+      return;
+    }
+
+    setloading(true);
+    setSuccess(false);
+    setError("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8005/api/v1/get-url?fileName=${fileName}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setS3Url(data);
+        console.log(data)
+        setSuccess(true);
+        return data;
+      } else {
+        throw new Error("Failed to upload fileName");
+      }
+    } catch (error) {
+      setError("Error uploading file. Please try again.");
+    } finally {
+      setloading(false);
+    }
+  };
+
+  return {
+    loading,
+    success,
+    error,
+    getFileUrl,
+    s3Url,
+  };
+};
+
+export default useGetS3Link;

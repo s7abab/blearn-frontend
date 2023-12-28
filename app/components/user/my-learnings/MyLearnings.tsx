@@ -30,7 +30,7 @@ const MyLearnings = ({ user }: Props) => {
         <>
           <h1 className={styles.title}>My Learnings</h1>
           <div>
-            {data.courses.length > 0 ? (
+            {data?.courses?.length > 0 ? (
               <div className="mt-5 grid grid-cols-1 400px:grid-cols-2 600px:grid-cols-3 800px:grid-cols-3 lg:grid-cols-4 gap-5">
                 {courses?.map((course, index) => (
                   <div key={index} onClick={() => handleRoute(course?._id)}>

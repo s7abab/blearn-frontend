@@ -1,3 +1,4 @@
+"use client";
 import { styles } from "@/app/styles/style";
 import React, { useRef } from "react";
 import { FaVideo } from "react-icons/fa";
@@ -31,6 +32,7 @@ const VideoLesson = ({
       fileInputRef.current.click();
     }
   };
+
   return (
     <div className="bg-gray-900 rounded-md shadow-lg p-6 border-none ">
       <div className="h-[100px] flex items-center justify-center text-white text-3xl ">
@@ -42,7 +44,7 @@ const VideoLesson = ({
           {video.length === 0 ? (
             <FaVideo className="cursor-pointer" />
           ) : (
-            <MdChangeCircle className='cursor-pointer' />
+            <MdChangeCircle className="cursor-pointer" />
           )}
         </label>
         <input
