@@ -1,5 +1,6 @@
 "use client";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
+import Loader from "@/app/components/common/spinners/Loader";
 import CourseCard from "@/app/components/courses/CourseCard";
 import AddCourseBtn from "@/app/components/instructor/course/AddCourseBtn";
 import { useGetCoursesForInstructorQuery } from "@/redux/features/course/courseApi";
@@ -8,7 +9,9 @@ import Link from "next/link";
 const CourseManagement = () => {
   const { data, isLoading } = useGetCoursesForInstructorQuery({});
   const courses: ICourseDetails[] = data?.courses;
-
+  if(isLoading){
+    return <Loader />
+  }
   return (
     <div className="min-h-screen">
       <div className="mt-5">

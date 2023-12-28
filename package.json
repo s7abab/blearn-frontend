@@ -16,6 +16,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/uuid": "^9.0.7",
     "apexcharts": "^3.45.0",
+    "axios": "^1.6.3",
     "cookie": "^0.6.0",
     "emoji-mart": "^5.5.2",
     "emoji-picker-react": "^4.6.0",

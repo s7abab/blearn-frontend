@@ -7,7 +7,7 @@ import { CiEdit } from "react-icons/ci";
 import { IUser } from "@/@types/interfaces/user/user.interface";
 
 type Props = {
-  user: IUser;
+  user: any;
   handleUpdateUser: () => void;
   isAdmin?: boolean;
   name: string;

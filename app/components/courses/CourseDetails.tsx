@@ -10,7 +10,6 @@ import { useGetModulesQuery } from "@/redux/features/course/courseApi";
 import ModuleCard from "./modules/ModulesAndLessons";
 import { IModule } from "@/@types/interfaces/course/module.interface";
 import Overview from "./CourseOverview";
-import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 import Feedbacks from "../feedback/Feedbacks";
 
 type Props = {

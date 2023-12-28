@@ -8,8 +8,8 @@ import {
 import { signOut } from "next-auth/react";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import uploadImage from "@/app/utils/upload-image";
 import ProfileCard from "./ProfileCard";
+import useFileUpload from "@/app/hooks/useS3Upload";
 
 type Props = {
   user: { name: string; email: string; avatar: string };
@@ -18,7 +18,6 @@ type Props = {
 const ProfileInfo = ({ user }: Props) => {
   const [name, setName] = useState(user.name);
   const [image, setImage] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [logout, setLogout] = useState(false);
   const [updateUser, {}] = useUpdateUserMutation();
@@ -32,18 +31,20 @@ const ProfileInfo = ({ user }: Props) => {
     await signOut();
     toast.success("Logout successfull");
   };
+// file upload
+  const { uploadFile, loading } = useFileUpload();
+
+  // image upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files != null) {
       setImage(e.target.files[0]);
     }
   };
   const handleImageUpload = async () => {
-    setUploading(true);
-    const imgUrl = await uploadImage(image);
+    const imgUrl = await uploadFile(image);
     if (imgUrl) {
       setImageUrl(imgUrl);
     }
-    setUploading(false);
   };
   useEffect(() => {
     if (image) {
@@ -51,6 +52,7 @@ const ProfileInfo = ({ user }: Props) => {
     }
     //eslint-disable-next-line
   }, [image]);
+
   useEffect(() => {
     if (imageUrl) {
       updateAvatar(imageUrl);
@@ -74,7 +76,7 @@ const ProfileInfo = ({ user }: Props) => {
       handleNameChange={handleNameChange}
       handleUpdateUser={handleUpdateUser}
       logoutHandler={logoutHandler}
-      uploading={uploading}
+      uploading={loading}
     />
   );
 };

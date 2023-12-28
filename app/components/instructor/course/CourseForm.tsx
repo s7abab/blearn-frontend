@@ -14,7 +14,7 @@ type Props = {
   handleVideoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   edit: boolean | undefined;
   handleEdit: () => Promise<void>;
-  handlePublish: () => string | undefined;
+  handlePublish: () => void;
 };
 
 const CourseForm = ({
