@@ -85,19 +85,13 @@ export const userApi = userServiceApi.injectEndpoints({
       },
     }),
 
-    logout: builder.query({
-      query: () => ({
+    logout: builder.mutation({
+      query: (userId) => ({
         url: endpoints.user.logout,
-        method: "GET",
+        method: "POST",
+        body: { userId },
         credentials: "include" as const,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          dispatch(userLoggedOut());
-        } catch (error: any) {
-          console.log(error);
-        }
-      },
     }),
 
     updateAvatar: builder.mutation({
@@ -129,7 +123,7 @@ export const userApi = userServiceApi.injectEndpoints({
     }),
 
     updateBankdetails: builder.mutation({
-      query: ({bankDetails}) => ({
+      query: ({ bankDetails }) => ({
         url: endpoints.user.update_bankdetails,
         method: "PUT",
         body: bankDetails,
@@ -201,7 +195,7 @@ export const {
   useLoginMutation,
   useSocialAuthMutation,
   useUpdateAvatarMutation,
-  useLogoutQuery,
+  useLogoutMutation,
   useUpdateUserMutation,
   useGetUsersQuery,
   useGetInstructorsQuery,
@@ -209,5 +203,5 @@ export const {
   useGetSingleInstructorQuery,
   useBlockUserMutation,
   useInstructoApplicationMutation,
-  useUpdateBankdetailsMutation
+  useUpdateBankdetailsMutation,
 } = userApi;

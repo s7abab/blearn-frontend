@@ -57,6 +57,7 @@ export const userServiceApi = createApi({
   }),
   tagTypes: ["User", "Users", "Instructor", "Instructors"],
   endpoints: (builder) => ({
+    // get current user
     loadCurrentUser: builder.query({
       query: () => ({
         url: endpoints.user.get_current_user,

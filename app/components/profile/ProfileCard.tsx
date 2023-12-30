@@ -4,7 +4,6 @@ import { styles } from "@/app/styles/style";
 import ProfileImage from "./ProfileImage";
 import SmallLoader from "../common/spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
-import { IUser } from "@/@types/interfaces/user/user.interface";
 
 type Props = {
   user: any;

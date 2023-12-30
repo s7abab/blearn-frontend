@@ -39,7 +39,7 @@ const CourseDashboard = () => {
         </div>
         <div>
           <h1 className={styles.title}>Revenue</h1>
-          <CourseRevenueChart data={data.revenue} />
+          <CourseRevenueChart data={data?.revenue} />
         </div>
       </div>
     </div>
