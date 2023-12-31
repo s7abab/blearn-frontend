@@ -4,10 +4,10 @@ import toast from "react-hot-toast";
 import { useEditCategoryMutation } from "@/redux/features/course/courseApi";
 import CategoryInput from "./CategoryInput";
 
-type Props = {
+interface Props {
   onClose: () => void;
   categoryId: string;
-};
+}
 
 const EditCategory = ({ onClose, categoryId }: Props) => {
   const [name, setName] = useState("");

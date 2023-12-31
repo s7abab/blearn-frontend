@@ -1,8 +1,7 @@
-import React from "react";
 import SmallLoader from "../../common/spinners/SmallLoader";
 import { styles } from "@/app/styles/style";
 
-type Props = {
+interface Props  {
   name: string;
   isLoading: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

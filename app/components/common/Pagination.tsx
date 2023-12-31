@@ -1,5 +1,4 @@
 "use client";
-
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 
 interface Props {

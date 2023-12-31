@@ -4,7 +4,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";
 import { useSelector } from "react-redux";
 
-type Props = {
+interface Props  {
   lesson: ILesson;
   index: number;
 };

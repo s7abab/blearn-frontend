@@ -14,7 +14,7 @@ import {
 import CourseForm from "./CourseForm";
 import useFileUpload from "@/app/hooks/useS3Upload";
 
-type Props = {
+interface Props {
   course?: ICourseDetails;
   edit?: boolean;
 };
@@ -24,7 +24,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
 
   const router = useRouter();
 
-  const { loading, success, error, uploadFile } = useFileUpload();
+  const { loading, uploadFile } = useFileUpload();
 
   const [courseDetails, setCourseDetails] = useState<IAddCourse>({
     title: course?.title || "",
@@ -66,7 +66,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
       setImage(e.target.files[0]);
     }
   };
-
+// upload image
   const handleImageUpload = async () => {
     try {
       const imageUrl = await uploadFile(image);
@@ -80,6 +80,12 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
       toast.error(error.message);
     }
   };
+  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files != null) {
+      setVideo(e.target.files[0]);
+    }
+  };
+  // upload video
   const handleVideoUpload = async () => {
     try {
       const videoUrl = await uploadFile(video);
@@ -90,21 +96,14 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
         });
       }
     } catch (error: any) {
-      console.log(error);
       toast.error(error.message);
     }
   };
-
-  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files != null) {
-      setVideo(e.target.files[0]);
-    }
-  };
-
+// publish course
   const handlePublish = () => {
     AddCourse(courseDetails as ICourseDetails);
   };
-
+// edit course
   const handleEdit = async () => {
     await EditCourse({ ...courseDetails, _id: course?._id });
   };

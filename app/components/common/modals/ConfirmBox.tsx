@@ -1,6 +1,4 @@
-import React from "react";
-
-type Props = {
+interface Props  {
   confirm: () => void;
   close: () => void;
   title: string;

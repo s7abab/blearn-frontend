@@ -3,9 +3,7 @@ import { MdOndemandVideo } from "react-icons/md";
 import { AiOutlineLike } from "react-icons/ai";
 import Link from "next/link";
 
-type Props = {};
-
-const UserTopbar = (props: Props) => {
+const UserTopbar = () => {
   return (
     <div className="flex justify-center gap-5 mt-4">
       <Link

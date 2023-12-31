@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import uploadVideo from "@/app/utils/video-upload";
 import {
   useAddLessonMutation,
   useUpdateLessonMutation,
@@ -12,21 +11,20 @@ import LessonInput from "./LessonInput";
 import useFileUpload from "@/app/hooks/useS3Upload";
 
 interface Props {
-  index: number;
   edit: boolean;
   lesson?: ILesson;
   lessonIndex?: number;
+  moduleId: string;
 }
 
-const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
+const LessonCrud = ({ edit, lesson, lessonIndex, moduleId }: Props) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [open, setOpen] = useState<boolean>(edit);
   const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const { course } = useSelector((state: any) => state.course);
   const intitalState = {
     courseId: lesson?.courseId || course?._id,
-    index: index,
+    moduleId: moduleId,
     lessonIndex: lessonIndex || 0,
     type: lesson?.type || "",
     title: lesson?.title || "",
@@ -34,20 +32,14 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
     duration: lesson?.duration || 1,
   };
   const [lessonDetails, setLessonDetails] = useState<ILesson>(intitalState);
-  const [uploadLesson, { isSuccess, error, isLoading }] =
-    useAddLessonMutation();
+  const [uploadLesson, { isSuccess, error }] = useAddLessonMutation();
   // upload to s3
-  const {
-    loading: uploading,
-    success,
-    error: uploadingError,
-    uploadFile,
-  } = useFileUpload();
+  const { loading: uploading, uploadFile } = useFileUpload();
   const [
     updateLesson,
     { isSuccess: updateSuccess, error: updateError, isLoading: updateLoading },
   ] = useUpdateLessonMutation();
-
+  console.log(lessonDetails);
   const handleModal = () => {
     setOpen(!open);
     setSelectedOption("");
@@ -94,7 +86,6 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
 
   const handleFileUpload = async () => {
     try {
-      setLoading(true);
       const videoUrl = await uploadFile(file);
       if (videoUrl) {
         setLessonDetails({
@@ -102,9 +93,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
           url: videoUrl,
         });
       }
-      setLoading(false);
     } catch (error: any) {
-      setLoading(false);
       toast.error(error.message);
     }
   };
@@ -115,7 +104,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
     }
     //eslint-disable-next-line
   }, [file]);
-  
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Lesson added");
@@ -147,7 +136,7 @@ const LessonCrud = ({ index, edit, lesson, lessonIndex }: Props) => {
       handleSelectChange={handleSelectChange}
       handleUploadLesson={handleUploadLesson}
       isLoading={uploading}
-      loading={loading}
+      loading={uploading}
       lessonDetails={lessonDetails}
       open={open}
       selectedOption={selectedOption}

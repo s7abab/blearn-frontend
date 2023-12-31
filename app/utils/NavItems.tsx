@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useSelector } from "react-redux";
 
-type Props = {};
-
-const NavItems = (props: Props) => {
+const NavItems = () => {
   const linkVariants = {
     initial: { scale: 1 },
     hover: { scale: 1.1 },
@@ -24,7 +22,10 @@ const NavItems = (props: Props) => {
     },
     {
       name: "Teach",
-      url: user.role === "instructor" ? "/instructor/courses" : "/become-an-instructor",
+      url:
+        user.role === "instructor"
+          ? "/instructor/courses"
+          : "/become-an-instructor",
     },
   ];
   return (

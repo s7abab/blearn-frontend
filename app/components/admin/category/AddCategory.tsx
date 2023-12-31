@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { validateCategoryName } from "@/app/utils/validations/category.validation";
 import CategoryInput from "./CategoryInput";
 
-type Props = {
+interface Props  {
   onClose: () => void;
 };
 

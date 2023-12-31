@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const Progress = (props: Props) => {
+const Progress = () => {
   return (
     <div className='progress'></div>
   )

@@ -1,5 +1,4 @@
 "use client";
-
 import { styles } from "@/app/styles/style";
 import { useGetCommunityByCourseIdQuery } from "@/redux/features/realtime/realtimeApi";
 import { useRouter } from "next/navigation";

@@ -2,7 +2,7 @@ import { IAddModule } from "@/@types/interfaces/course/module.interface";
 import { styles } from "@/app/styles/style";
 import React from "react";
 
-type Props = {
+interface Props  {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   moduleData: IAddModule;
   edit?: boolean;

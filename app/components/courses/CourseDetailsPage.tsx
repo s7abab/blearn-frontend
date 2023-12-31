@@ -10,9 +10,9 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
 
-type Props = {
+interface Props {
   courseId: string;
-};
+}
 
 const CourseDetailsPage = ({ courseId }: Props) => {
   const { data, isLoading } = useGetSingleCourseQuery({

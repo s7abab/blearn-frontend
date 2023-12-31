@@ -5,6 +5,7 @@ export interface IModule {
   courseId:string;
   title: string;
   lessons: ILesson[];
+  createdAt?: string;
 }
 export interface IAddModule {
   courseId:string;

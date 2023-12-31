@@ -10,9 +10,7 @@ import {
 import { MdEdit } from "react-icons/md";
 import EditCategory from "./EditCategory";
 
-type Props = {};
-
-const Category = (props: Props) => {
+const Category = () => {
   const [categoryId, setCategoryId] = useState("");
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);

@@ -8,10 +8,14 @@ import LessonCrud from "../../instructor/lesson/LessonCrud";
 interface LessonComponentProps {
   lessons: ILesson[];
   edit: boolean;
-  index: number;
+  moduleId: string;
 }
 
-const LessonsComponent = ({ lessons, edit, index }: LessonComponentProps) => {
+const LessonsComponent = ({
+  lessons,
+  edit,
+  moduleId,
+}: LessonComponentProps) => {
   const [editLesson, setEditLesson] = useState<boolean>(false);
   const [lessonData, setLessonData] = useState<any>({});
   const [lessonIndex, setLessonIndex] = useState<number>(0);
@@ -45,13 +49,13 @@ const LessonsComponent = ({ lessons, edit, index }: LessonComponentProps) => {
           <LessonCard lesson={lesson} index={idx} />
         </div>
       ))}
-      {edit && <LessonCrud edit={false} index={index} />}
+      {edit && <LessonCrud edit={false} moduleId={moduleId} />}
       {editLesson && (
         <LessonCrud
           lesson={lessonData}
           lessonIndex={lessonIndex}
           edit={true}
-          index={index}
+          moduleId={moduleId}
         />
       )}
     </>

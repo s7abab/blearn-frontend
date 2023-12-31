@@ -13,7 +13,7 @@ import useFileUpload from "@/app/hooks/useS3Upload";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "@/redux/features/user/userSlice";
 
-type Props = {
+interface Props  {
   user: { name: string; email: string; avatar: string; _id: string };
 };
 
@@ -23,7 +23,6 @@ const ProfileInfo = ({ user }: Props) => {
   const [imageUrl, setImageUrl] = useState("");
   const [updateUser, {}] = useUpdateUserMutation();
   const [updateAvatar, {}] = useUpdateAvatarMutation({});
-
   const dispatch = useDispatch();
   const [logout] = useLogoutMutation();
   const logoutHandler = async () => {

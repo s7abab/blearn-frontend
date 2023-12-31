@@ -13,7 +13,7 @@ interface Props {
   data: any;
 }
 
-type VerifyNumber = {
+interface VerifyNumber  {
   "0": string;
   "1": string;
   "2": string;

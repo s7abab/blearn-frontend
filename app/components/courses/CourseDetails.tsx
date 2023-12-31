@@ -12,7 +12,7 @@ import { IModule } from "@/@types/interfaces/course/module.interface";
 import Overview from "./CourseOverview";
 import Feedbacks from "../feedback/Feedbacks";
 
-type Props = {
+interface Props  {
   stripePromise: any;
   clientSecret: any;
   createIntent: () => void;
@@ -78,7 +78,7 @@ const CourseDetails = ({
         <h2 className={`${styles.title} mt-6 font-Poppins`}>Course content</h2>
         {modules?.map((module, index) => (
           <div key={index} className="mt-2">
-            <ModuleCard module={module} index={index} edit={false} />
+            <ModuleCard module={module} edit={false} />
           </div>
         ))}
         <h2 className={`${styles.title} mt-6 font-Poppins`}>Feedbacks</h2>

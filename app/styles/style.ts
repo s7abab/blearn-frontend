@@ -13,5 +13,5 @@ export const styles = {
 
   // bg color
   blue_gradient:
-    "bg-gray-50 dark:bg-gradient-to-b dark:from-[#040f1e] dark:to-black duration-300 dark:text-gray-50 text-gray-950",
+    "dark:bg-gradient-to-b dark:from-[#0c1625] dark:to-black duration-300 dark:text-gray-50 backdrop-blur-lg",
 };

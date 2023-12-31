@@ -3,9 +3,6 @@ import { motion } from "framer-motion";
 import CourseImage from "./CourseImage";
 import { FaStar } from "react-icons/fa6";
 import { ICourseDetails } from "@/@types/interfaces/course/course.interface";
-import { useEffect } from "react";
-import useGetS3Link from "@/app/hooks/useGetS3Link";
-import SmallLoader from "../common/spinners/SmallLoader";
 
 interface Props {
   course: ICourseDetails;
@@ -13,12 +10,6 @@ interface Props {
 }
 
 const CourseCard = ({ course }: Props) => {
-  const { getFileUrl, loading, s3Url } = useGetS3Link();
-  useEffect(() => {
-    getFileUrl(course?.thumbnail);
-    // eslint-disable-next-line
-  }, [course]);
-
   return (
     <div>
       <motion.div
@@ -30,12 +21,11 @@ const CourseCard = ({ course }: Props) => {
         <div className="bg-slate-600 bg-opacity-20 py-1 shadow-md rounded-md shadow-[bg-slate-700] backdrop-blur border border-[#ffffff1d] cursor-pointer">
           <div className="h-40 relative overflow-hidden m-3">
             <div className="overflow-hidden">
-              {loading ? <SmallLoader /> : <CourseImage imgUrl={s3Url} />}
+              <CourseImage imgUrl={course?.thumbnail} />
             </div>
           </div>
           <div className="p-4">
             <h2 className=" font-semibold truncate">{course?.title}</h2>
-
             <div className="flex justify-between mt-5 text-sm ">
               <p>
                 <span className="font-semibold font-Poppins">
@@ -53,7 +43,7 @@ const CourseCard = ({ course }: Props) => {
             </div>
             <p>
               <span className="font-semibold font-Poppins">
-                ₹{course?.discountPrice}
+                ${course?.discountPrice}
               </span>
             </p>
           </div>

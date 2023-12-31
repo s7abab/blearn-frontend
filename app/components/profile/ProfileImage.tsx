@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { CgProfile } from "react-icons/cg";
 import SmallLoader from "../common/spinners/SmallLoader";
 
-type Props = {
+interface Props  {
   avatar: string;
 };
 

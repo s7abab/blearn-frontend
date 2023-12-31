@@ -1,6 +1,4 @@
-import React from "react";
-
-type Props = {
+interface Props  {
   title: string;
   description: string;
   keywords: string;

@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-type Props = {
+interface Props  {
   data: any[];
   tableFor: string;
   fields: string[];

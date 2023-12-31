@@ -6,7 +6,7 @@ import { MdChangeCircle } from "react-icons/md";
 import Progress from "../../common/spinners/Progress";
 import VideoPlayer from "../../video/VideoPlayer";
 
-type Props = {
+interface Props  {
   handleChange: (args: React.ChangeEvent<HTMLInputElement>) => void;
   handleFileChange: (args: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit?: () => void;

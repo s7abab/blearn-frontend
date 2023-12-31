@@ -13,7 +13,7 @@ const CourseRevenueChart = ({ data }: Props) => {
 
   const chartData = months.map((month, index) => ({
     month,
-    revenue: data[index], // Match revenue data with each month
+    revenue: data?.[index], // Match revenue data with each month
   }));
 
   return (

@@ -103,7 +103,7 @@ const WatchCourse = () => {
         <CourseProgress progress={progressData?.progression} />
         {course?.modules?.map((module, index) => (
           <div key={index} className="mt-2">
-            <ModuleCard module={module} index={index} edit={false} />
+            <ModuleCard module={module} edit={false} />
           </div>
         ))}
         {progressData?.progression === 100 && <GetCertificateBtn />}

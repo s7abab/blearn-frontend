@@ -1,13 +1,13 @@
 "use client";
 import { styles } from "@/app/styles/style";
 import React, { useState } from "react";
-import ModuleCard from "../../courses/modules/ModulesAndLessons";
 import CustomModal from "../../common/modals/CustomModal";
 import AddModule from "./AddModule";
 import { useGetModulesQuery } from "@/redux/features/course/courseApi";
 import { useSelector } from "react-redux";
 import { IModule } from "@/@types/interfaces/course/module.interface";
 import AlertBox from "../../common/AlertBox";
+import ModulesAndLessons from "../../courses/modules/ModulesAndLessons";
 
 const Modules = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -15,13 +15,16 @@ const Modules = () => {
   const { data } = useGetModulesQuery(course?._id);
 
   const modules: IModule[] = data?.modules;
+  // Reverse the order of modules
+  const reversedModules: IModule[] = modules ? [...modules]?.reverse() : [];
+
   const handleOpen = () => {
     setOpen(!open);
   };
 
   return (
     <>
-      <div className={`${styles.title}`}>Modules</div>
+      <div className={`${styles.title}`}>Modules </div>
       {open && (
         <>
           <CustomModal
@@ -37,10 +40,7 @@ const Modules = () => {
       <div>
         {course?.totalLessons < 5 && (
           <AlertBox
-            content={`${Math.max(
-              0,
-              5 - (course?.totalLessons || 0)
-            )} more lessons are required to display the course`}
+            content={`Minimum 5 lessons are required to list this course`}
           />
         )}
 
@@ -51,9 +51,9 @@ const Modules = () => {
           Add Module
         </button>
         <div className="mt-3 flex flex-col gap-2">
-          {modules?.map((module, index) => (
+          {reversedModules?.map((module, index) => (
             <div key={index}>
-              <ModuleCard edit={true} module={module} index={index} />
+              <ModulesAndLessons edit={true} module={module} />
             </div>
           ))}
         </div>

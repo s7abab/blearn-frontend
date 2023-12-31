@@ -14,10 +14,9 @@ interface Props {
   edit: boolean;
   lesson: boolean;
   setLesson: any;
-  index: number;
 }
 
-const ModuleComponent = ({ module, edit, lesson, setLesson, index }: Props) => {
+const ModuleComponent = ({ module, edit, lesson, setLesson }: Props) => {
   const { course } = useSelector((state: any) => state.course);
   const [deleteModule] = useDeletModuleMutation();
   const [open, setOpen] = useState<boolean>(false);
@@ -25,28 +24,27 @@ const ModuleComponent = ({ module, edit, lesson, setLesson, index }: Props) => {
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
   const courseId = course?._id;
 
+  // toggle modal
   const toggleLesson = () => {
     setLesson(!lesson);
   };
-
   const toggleModal = () => {
     setOpen(!open);
   };
-
   const toggleConfirmModal = () => {
     setConfirmModal(!confirmModal);
   };
-
-  const handleDeleteModule = () => {
-    deleteModule({
-      courseId,
-      index,
-    });
-  };
-
   const toggleConfirmDelete = () => {
     setConfirmDelete(true);
   };
+  // delete module
+  const handleDeleteModule = () => {
+    deleteModule({
+      courseId,
+    });
+    toggleConfirmModal();
+  };
+
   useEffect(() => {
     if (confirmDelete) {
       handleDeleteModule();
@@ -62,12 +60,7 @@ const ModuleComponent = ({ module, edit, lesson, setLesson, index }: Props) => {
           onClose={toggleModal}
           modalHeader="Edit Module"
         >
-          <AddModule
-            index={index}
-            data={module}
-            edit={true}
-            closeModal={toggleModal}
-          />
+          <AddModule data={module} edit={true} closeModal={toggleModal} />
         </CustomModal>
       )}
       {confirmModal && (

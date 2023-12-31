@@ -7,10 +7,9 @@ import { ILesson } from "@/@types/interfaces/course/lesson.interface";
 
 interface Props {
   module: IModule;
-  index: number;
   edit: boolean;
 }
-const ModulesAndLessons = ({ module, index, edit }: Props) => {
+const ModulesAndLessons = ({ module, edit }: Props) => {
   const [lesson, setLesson] = useState<boolean>(false);
   const lessons: ILesson[] = module?.lessons as ILesson[];
 
@@ -22,12 +21,9 @@ const ModulesAndLessons = ({ module, index, edit }: Props) => {
         edit={edit}
         lesson={lesson}
         setLesson={setLesson}
-        index={index}
       />
       {/* render lessons */}
-      {lesson && (
-        <LessonsComponent lessons={lessons} edit={edit} index={index} />
-      )}
+      {lesson && <LessonsComponent lessons={lessons} edit={edit} moduleId={module._id} />}
     </div>
   );
 };

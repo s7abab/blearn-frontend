@@ -1,8 +1,7 @@
-import React from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
-type Props = {
+interface Props  {
   location: string;
 };
 

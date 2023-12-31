@@ -2,16 +2,13 @@
 import NavItems from "@/app/utils/NavItems";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { styles } from "../../../styles/style";
 import { useSelector } from "react-redux";
 import ProfileImage from "../../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Cookies from "js-cookie";
 import Search from "../Search";
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   const [token, setToken] = useState<any>("");
   const { user } = useSelector((state: any) => state.auth);
 
@@ -21,7 +18,7 @@ const Header = (props: Props) => {
   }, []);
   return (
     <>
-      <div className="sticky top-0 bg-gray-100 dark:bg-gradient-to-b  dark:from-[#040f1e] dark:to-[#071323] duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
+      <div className="sticky top-0 bg-gray-100  bg-gradient-to-b dark:from-[#0c1625] dark:to-[#0a1321] backdrop-blur-lg duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
         <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             href={"/"}

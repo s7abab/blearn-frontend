@@ -16,10 +16,9 @@ interface Props {
   closeModal: () => void;
   edit: boolean;
   data?: IModule;
-  index?: number;
-};
+}
 
-const AddModule = ({ closeModal, edit, data, index }: Props) => {
+const AddModule = ({ closeModal, edit, data }: Props) => {
   const [addModule, { isSuccess, error }] = useAddModuleMutation();
   const { course } = useSelector((state: any) => state.course);
   const [moduleData, setModuleData] = useState<IAddModule>({
@@ -35,17 +34,14 @@ const AddModule = ({ closeModal, edit, data, index }: Props) => {
       [name]: value,
     });
   };
-
+// add module
   const handleAddModule = async () => {
     await addModule(moduleData);
     closeModal();
   };
-
+// edit module
   const handleEditModule = async () => {
-    await editModule({
-      ...moduleData,
-      index,
-    });
+    await editModule(moduleData);
     closeModal();
   };
 

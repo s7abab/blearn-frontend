@@ -3,19 +3,19 @@ import VideoPlayer from "../video/VideoPlayer";
 import CustomModal from "../common/modals/CustomModal";
 import { styles } from "@/app/styles/style";
 import { useSelector } from "react-redux";
-import Image from "next/image";
 import Link from "next/link";
 import { MdOutlinePlayLesson } from "react-icons/md";
 import { CiChat1, CiPlay1 } from "react-icons/ci";
 import { FaPeopleGroup } from "react-icons/fa6";
+import CourseImage from "./CourseImage";
 
-type Props = {
+interface Props {
   videoPlayer: boolean;
   handleVideoPlayerModal: () => void;
   isEnrolled: boolean;
   instructorCourse: boolean;
   handleEnrollment: () => void;
-};
+}
 
 const Overview = ({
   videoPlayer,
@@ -25,6 +25,7 @@ const Overview = ({
   handleEnrollment,
 }: Props) => {
   const { course } = useSelector((state: any) => state.course);
+
   return (
     <>
       {VideoPlayer && (
@@ -43,13 +44,7 @@ const Overview = ({
       <div className=" md:flex md:justify-center  md:gap-6 mt-10 shadow-lg md:pb-14">
         <div className="flex flex-col w-full md:w-1/3 dark:border-2 dark:border-gray-800">
           <div className="relative w-full h-48">
-            <Image
-              src={course?.thumbnail}
-              alt="Course-img"
-              objectFit="cover"
-              layout="fill"
-              className="rounded-md"
-            />
+            <CourseImage imgUrl={course?.thumbnail} />
           </div>
           <div className="md:flex ">
             {isEnrolled ? (
@@ -79,14 +74,15 @@ const Overview = ({
         <div className="flex flex-col md:gap-2 mt-5 md:mt-0">
           <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
             <MdOutlinePlayLesson className="text-blue-700 font-bold" />
-            <p>Get 16 lessons in 3 hours</p>
+            Get {course?.totalLessons} lessons
           </div>
           <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
             <CiChat1 className="text-green-700 font-bold" />
             <p>Active community</p>
           </div>
           <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
-            <FaPeopleGroup className="text-orange-700 font-bold" />6 enrolls
+            <FaPeopleGroup className="text-orange-700 font-bold" />
+            {course?.enrolledUsers?.length} enrolls
           </div>
           <div
             onClick={handleVideoPlayerModal}
@@ -99,9 +95,9 @@ const Overview = ({
             onClick={handleVideoPlayerModal}
             className=" bg-gray-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
           >
-            <p className="font-Poppins font-bold">₹{course?.discountPrice}</p>
+            <p className="font-Poppins font-bold">${course?.discountPrice}</p>
             <p className="line-through font-Josefin text-sm">
-              ₹{course?.price}
+              ${course?.price}
             </p>
           </div>
         </div>

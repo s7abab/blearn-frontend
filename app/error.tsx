@@ -1,6 +1,7 @@
-"use client"; // Error components must be Client Components
+"use client";
+import { styles } from "./styles/style";
 
-import { useEffect } from "react";
+ 
 
 export default function Error({
   error,
@@ -10,9 +11,9 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div>
+    <div className="flex flex-col gap-5 font-Poppins justify-center items-center h-screen text-3xl">
       <h2>Something went wrong!</h2>
-      <button
+      <button className={`${styles.primary} text-lg `}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()

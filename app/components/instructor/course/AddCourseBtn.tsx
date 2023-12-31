@@ -2,9 +2,7 @@
 import { styles } from "@/app/styles/style";
 import { useRouter } from "next/navigation";
 
-type Props = {};
-
-const AddCourseBtn = (props: Props) => {
+const AddCourseBtn = () => {
   const router = useRouter();
 
   return (

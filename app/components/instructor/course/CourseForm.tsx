@@ -2,7 +2,7 @@ import { IAddCourse } from "@/@types/interfaces/course/course.interface";
 import React from "react";
 import SmallLoader from "../../common/spinners/SmallLoader";
 
-type Props = {
+interface Props  {
   courseDetails: IAddCourse;
   handleInputChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
