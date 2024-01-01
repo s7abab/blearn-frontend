@@ -126,8 +126,11 @@ export const courseApi = courseServiceApi.injectEndpoints({
 
     // user
     getEnrolledCourses: builder.query({
-      query: (userId: string) => ({
+      query: (page) => ({
         url: endpoints.course.user.get_enrolled_course,
+        params: {
+          page,
+        },
         method: "GET",
         credentials: "include" as const,
       }),

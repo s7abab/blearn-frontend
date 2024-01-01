@@ -8,7 +8,7 @@ const useFetchCourse = () => {
   const [priceFilter, setPriceFilter] = useState("");
   const [sortByEnrollments, setSortByEnrollments] = useState(false);
   const { searchTerm } = useSelector((state: any) => state.course);
-  const { data, isLoading, refetch } = useSearchAllCoursesQuery({
+  const { data, isLoading } = useSearchAllCoursesQuery({
     page,
     priceFilter: priceFilter || undefined,
     sortByEnrollments,
@@ -18,11 +18,6 @@ const useFetchCourse = () => {
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-  };
-
-  const handleFilterChange = () => {
-    setPage(1);
-    refetch();
   };
 
   return {

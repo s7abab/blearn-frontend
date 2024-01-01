@@ -18,9 +18,9 @@ const CourseCard = ({ course }: Props) => {
         transition={{ duration: 0.5 }}
         whileHover={{ scale: 1.1 }}
       >
-        <div className="bg-slate-600 bg-opacity-20 py-1 shadow-md rounded-md shadow-[bg-slate-700] backdrop-blur border border-[#ffffff1d] cursor-pointer">
-          <div className="h-40 relative overflow-hidden m-3">
-            <div className="overflow-hidden">
+        <div className=" dark:bg-opacity-20  dark:shadow-lg  dark:bg-slate-600 dark:shadow-[bg-slate-700] dark:backdrop-blur-lg rounded-md cursor-pointer">
+          <div className="h-40 relative overflow-hidden rounded-lg">
+            <div>
               <CourseImage imgUrl={course?.thumbnail} />
             </div>
           </div>

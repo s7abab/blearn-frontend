@@ -4,7 +4,8 @@ import { applyFormData } from "@/app/data/apply-form-data";
 import { useInstructoApplicationMutation } from "@/redux/features/user/userApi";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import ValuationCard from "./ValuationCard";
+import ValuationCard from "./InstructorApplication";
+import { useSelector } from "react-redux";
 
 export interface DataState {
   [key: number]: number;
@@ -17,10 +18,13 @@ const ApplicationForm = () => {
     2: 0,
     3: 0,
   });
-  const [applyAsInstructor, { isLoading, isSuccess, error }] =
+  const router = useRouter();
+
+  const { user } = useSelector((state: any) => state.auth);
+
+  const [applyAsInstructor, { isSuccess, error }] =
     useInstructoApplicationMutation();
 
-  const router = useRouter();
   const handleNext = () => {
     const currentOption = data[step + 1];
     // Check if the user has selected an option for the current step
@@ -56,8 +60,7 @@ const ApplicationForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Application sent successfully");
-      router.push("/");
+      router.push("/become-an-instructor/application");
     }
     if (error) {
       if ("data" in error) {
@@ -68,6 +71,15 @@ const ApplicationForm = () => {
     }
     // eslint-disable-next-line
   }, [isSuccess, error]);
+
+  // if already applied then redirct to application status page
+  useEffect(() => {
+    if (user.applicationStatus === "pending") {
+      router.push("/become-an-instructor/application");
+    }
+    // eslint-disable-next-line
+  }, [user]);
+
   return (
     <ValuationCard
       currentData={currentData}

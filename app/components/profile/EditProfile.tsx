@@ -17,7 +17,7 @@ interface Props  {
   user: { name: string; email: string; avatar: string; _id: string };
 };
 
-const ProfileInfo = ({ user }: Props) => {
+const EditProfile = ({ user }: Props) => {
   const [name, setName] = useState(user.name);
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -82,4 +82,4 @@ const ProfileInfo = ({ user }: Props) => {
   );
 };
 
-export default ProfileInfo;
+export default EditProfile;

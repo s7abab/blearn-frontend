@@ -9,7 +9,7 @@ export const styles = {
 
   // Title
   title:
-    "md:text-[25px] text-[18px] text-light-primary dark:text-dark-primary font-[500] font-Poppins text-center py-2",
+    "md:text-[25px] text-[18px] text-[#f72a4f] dark:text-dark-primary font-[500] font-Poppins text-center py-2",
 
   // bg color
   blue_gradient:

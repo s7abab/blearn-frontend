@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import { DataState } from "./ApplicationForm";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 interface Props {
   progress: number;
@@ -12,10 +10,9 @@ interface Props {
   handlePrev: () => void;
   handleNext: () => void;
   step: number;
-  isOpen?: boolean;
 }
 
-const ValuationCard = ({
+const InstructorApplication = ({
   progress,
   currentData,
   data,
@@ -23,14 +20,8 @@ const ValuationCard = ({
   handlePrev,
   handleNext,
   step,
-  isOpen,
 }: Props) => {
-  const router = useRouter();
-  useEffect(() => {
-    if (!isOpen) {
-      router.push("/my-learnings");
-    }
-  }, [isOpen, router]);
+
   return (
     <div className="flex justify-center items-center min-h-screen shadow-md">
       <motion.div
@@ -94,4 +85,4 @@ const ValuationCard = ({
   );
 };
 
-export default ValuationCard;
+export default InstructorApplication;

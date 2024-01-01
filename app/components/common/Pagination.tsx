@@ -32,7 +32,7 @@ const Pagination = ({
   return (
     <div className="flex items-center gap-2">
       <button
-        className="cursor-pointer bg-gray-800 p-2 rounded-full hover:bg-slate-700 font-Poppins shadow-md text-dark-primary "
+        className="cursor-pointer dark:bg-gray-800 bg-[#f72a4f] p-2 rounded-full hover:bg-slate-700 font-Poppins shadow-md text-dark-primary "
         onClick={handlePrevClick}
         disabled={isFirstPage || isLoading}
       >
@@ -43,7 +43,7 @@ const Pagination = ({
         Page {currentPage} of {totalPages}{" "}
       </span>
       <button
-        className="cursor-pointer bg-gray-800 p-2 rounded-full hover:bg-slate-700 font-Poppins text-dark-primary"
+        className="cursor-pointer dark:bg-gray-800 bg-[#f72a4f] p-2 rounded-full hover:bg-slate-700 font-Poppins text-dark-primary"
         onClick={handleNextClick}
         disabled={isLastPage || isLoading}
       >

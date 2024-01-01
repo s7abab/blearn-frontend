@@ -1,4 +1,3 @@
-import { errorMonitor } from "events";
 import { useState } from "react";
 
 const useGetS3Link = () => {
@@ -27,7 +26,6 @@ const useGetS3Link = () => {
       if (response.ok) {
         const data = await response.json();
         setS3Url(data);
-        console.log(data)
         setSuccess(true);
         return data;
       } else {

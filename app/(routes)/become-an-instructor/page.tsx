@@ -1,4 +1,4 @@
-import ApplicationForm from "@/app/components/instructor/ApplicationForm";
+import ApplicationForm from "@/app/components/instructor/application/ApplicationForm";
 
 const BecomeAnInstructorPage = () => {
   return (
