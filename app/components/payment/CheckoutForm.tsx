@@ -44,7 +44,7 @@ const CheckoutForm = () => {
   useEffect(() => {
     if (orderData) {
       setLoadUser(true);
-      redirect("/my-learnings");
+      redirect("/profile");
     }
     if (error) {
       if ("data" in error) {

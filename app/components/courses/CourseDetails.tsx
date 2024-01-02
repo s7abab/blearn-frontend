@@ -56,7 +56,7 @@ const CourseDetails = ({
     <div className="mb-10">
       <>
         {open && (
-          <CustomModal isOpen={open} onClose={handleEnrollment}>
+          <CustomModal top={30} isOpen={open} onClose={handleEnrollment}>
             <div className="w-full">
               {stripePromise && clientSecret && (
                 <Elements stripe={stripePromise} options={{ clientSecret }}>

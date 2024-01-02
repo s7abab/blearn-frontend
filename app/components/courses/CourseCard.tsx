@@ -1,4 +1,3 @@
-"use client";
 import { motion } from "framer-motion";
 import CourseImage from "./CourseImage";
 import { FaStar } from "react-icons/fa6";
@@ -8,8 +7,8 @@ interface Props {
   course: ICourseDetails;
   mylearning?: boolean;
 }
-
 const CourseCard = ({ course }: Props) => {
+  
   return (
     <div>
       <motion.div
@@ -35,7 +34,7 @@ const CourseCard = ({ course }: Props) => {
               </p>
               <p className="flex items-center gap-2">
                 Rating
-                <span className="font-semibold">...test</span>
+                <span className="font-semibold">{course?.rating?.average}</span>
                 <div className="text-yellow-500">
                   <FaStar />
                 </div>

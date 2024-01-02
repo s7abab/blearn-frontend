@@ -30,6 +30,7 @@ const Overview = ({
     <>
       {VideoPlayer && (
         <CustomModal
+          top={30}
           isOpen={videoPlayer}
           onClose={handleVideoPlayerModal}
           modalHeader="Preview Video"

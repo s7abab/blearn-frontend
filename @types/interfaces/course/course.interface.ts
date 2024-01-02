@@ -17,6 +17,10 @@ export interface ICourseDetails {
   reviews?: IReview[];
   modules: IModule[];
   duration: number;
+  rating: {
+    average: number;
+    count: number;
+  };
   totalLessons: number;
   enrolledUsers: [IEnrolledUser];
 }

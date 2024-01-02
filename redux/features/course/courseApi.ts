@@ -288,6 +288,15 @@ export const courseApi = courseServiceApi.injectEndpoints({
       }),
       providesTags: ["Feedback"],
     }),
+
+    // get enrolled users
+    getEnrolledUsers: builder.query({
+      query: (courseId: string) => ({
+        url: `${endpoints.course.user.get_enrolled_users}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -316,4 +325,5 @@ export const {
   useUpdateLessonMutation,
   useCreateFeedbackMutation,
   useGetFeedbacksQuery,
+  useGetEnrolledUsersQuery
 } = courseApi;

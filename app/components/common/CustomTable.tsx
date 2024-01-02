@@ -2,16 +2,17 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface Props  {
+interface Props {
   data: any[];
   tableFor: string;
   fields: string[];
   url: string;
-};
+  search?: boolean;
+}
 
 const ITEMS_PER_PAGE = 5;
 
-const CustomTable = ({ data, tableFor, fields, url }: Props) => {
+const CustomTable = ({ data, tableFor, fields, url, search = true }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
@@ -46,15 +47,17 @@ const CustomTable = ({ data, tableFor, fields, url }: Props) => {
   };
   return (
     <div className="overflow-x-auto">
-      <div className="">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className=" px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#091336] dark:text-dark-primary text-light-primary  dark:bg-[#040e2c] bg-gray-300"
-        />
-      </div>
+      {search && (
+        <div className="">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className=" px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#091336] dark:text-dark-primary text-light-primary  dark:bg-[#040e2c] bg-gray-300"
+          />
+        </div>
+      )}
       <table className="min-w-full shadow-md rounded-lg overflow-hidden mt-6">
         <thead className="dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336] dark:text-dark-primary bg-gray-300 shadow-2xl text-light-primary">
           <tr>

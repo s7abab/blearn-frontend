@@ -20,7 +20,7 @@ const FeedbackCard: React.FC<Props> = ({ feedback }) => {
               <FaStar
                 key={index}
                 className={`text-[18px] cursor-pointer ${
-                  index < 4 ? "text-yellow-400 " : "text-gray-400"
+                  index < feedback?.rating ? "text-yellow-400 " : "text-gray-400"
                 }`}
               />
             ))}

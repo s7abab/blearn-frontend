@@ -7,6 +7,7 @@ import { styles } from "@/app/styles/style";
 import { GiDuration } from "react-icons/gi";
 import { FaVideo } from "react-icons/fa6";
 import { FaPeopleGroup } from "react-icons/fa6";
+import EnrolledUsers from "./EnrolledUsers";
 
 const CourseDashboard = () => {
   const { course } = useSelector((state: any) => state.course);
@@ -18,7 +19,7 @@ const CourseDashboard = () => {
     return <Loader />;
   }
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="h-[500px]">
         <div className="flex gap-2 mt-5">
           <div className="bg-gradient-to-br from-[#0c214d] to-[#0b063f] p-4 rounded-md shadow-lg  w-1/3 flex px-4 items-center gap-3 font-Josefin">
@@ -40,6 +41,10 @@ const CourseDashboard = () => {
         <div>
           <h1 className={styles.title}>Revenue</h1>
           <CourseRevenueChart data={data?.revenue} />
+        </div>
+        <div>
+          <h1 className={styles.title}>Enrolled Users</h1>
+          <EnrolledUsers courseId={course?._id} />
         </div>
       </div>
     </div>
