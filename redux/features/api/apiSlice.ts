@@ -55,7 +55,7 @@ export const userServiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_AUTH_SRV_URL,
   }),
-  tagTypes: ["User", "Users", "Instructor", "Instructors"],
+  tagTypes: ["User", "Users", "Instructor", "Instructors", "Applications"],
   endpoints: (builder) => ({
     // get current user
     loadCurrentUser: builder.query({

@@ -177,7 +177,7 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["User", "Instructor"],
     }),
-
+    // applications
     instructoApplication: builder.mutation({
       query: (data) => ({
         url: endpoints.user.instructor_application,
@@ -185,6 +185,33 @@ export const userApi = userServiceApi.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
+    }),
+
+    getApplications: builder.query({
+      query: () => ({
+        url: endpoints.user.admin.get_applications,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+
+    getApplication: builder.query({
+      query: (userId) => ({
+        url: `${endpoints.user.admin.get_application}/${userId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+      providesTags: ["Applications"],
+    }),
+
+    changeStatusOfApplication: builder.mutation({
+      query: ({ userId, status }) => ({
+        url: endpoints.user.admin.change_status_of_application,
+        method: "PUT",
+        body: { userId, status },
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Applications"],
     }),
   }),
 });
@@ -204,4 +231,7 @@ export const {
   useBlockUserMutation,
   useInstructoApplicationMutation,
   useUpdateBankdetailsMutation,
+  useGetApplicationsQuery,
+  useGetApplicationQuery,
+  useChangeStatusOfApplicationMutation,
 } = userApi;

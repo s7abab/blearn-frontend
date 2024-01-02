@@ -1,4 +1,3 @@
-import { create } from "domain";
 
 const endpoints = {
   user: {
@@ -18,6 +17,10 @@ const endpoints = {
       get_single_user: "/api/v1/user/single-user",
       get_single_instructor: "/api/v1/user/single-instructor",
       block_user: "/api/v1/user/block-user",
+      get_applications: "/api/v1/user/get-applications",
+      get_application: "/api/v1/user/get-application",
+      change_status_of_application:
+        "/api/v1/user/change_status_of_applications",
     },
   },
   course: {

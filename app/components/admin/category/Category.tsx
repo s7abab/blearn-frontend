@@ -55,7 +55,7 @@ const Category = () => {
         <table className="w-full text-sm text-left rtl:text-right text-gray-400 mt-5">
           <thead className="dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336] dark:text-dark-primary bg-gray-300 shadow-2xl text-light-primary">
             <tr>
-              <th scope="col" className="px-4 py-3 w-1/4">
+              <th scope="col" className="px-4 py-4 w-1/4">
                 Si No
               </th>
               <th scope="col" className="px-4 py-3">

@@ -8,22 +8,23 @@ import { MdCategory } from "react-icons/md";
 import { MdPeopleAlt } from "react-icons/md";
 
 export const adminItems = [
-    { title: "Dashboard", url: "/admin/dashboard", icon: <MdDashboard /> },
-    { title: "Courses", url: "/admin/courses", icon: <FaVideo /> },
-    {
-      title: "Instructors",
-      url: "/admin/instructors",
-      icon: <FaChalkboardTeacher />,
-    },
-    { title: "Users", url: "/admin/users", icon: <FaPeopleGroup /> },
-    { title: "Payments", url: "/admin/payments", icon: <MdPayments /> },
-    { title: "Category", url: "/admin/category", icon: <MdCategory /> },
-  ];
-  
- export const instructorItems = [
-    { title: "Dashboard", url: "/instructor/dashboard", icon: <MdDashboard /> },
-    { title: "Courses", url: "/instructor/courses", icon: <FaVideo /> },
-    { title: "Community", url: "/instructor/community", icon: <IoChatbox /> },
-    { title: "Payments", url: "/instructor/payments", icon: <MdPayments /> },
-    { title: "Profile", url: "/instructor/profile", icon: <MdPeopleAlt /> },
-  ];
+  { title: "Dashboard", url: "/admin/dashboard", icon: <MdDashboard /> },
+  { title: "Courses", url: "/admin/courses", icon: <FaVideo /> },
+  { title: "Applications", url: "/admin/applications", icon: <MdCategory /> },
+  {
+    title: "Instructors",
+    url: "/admin/instructors",
+    icon: <FaChalkboardTeacher />,
+  },
+  { title: "Users", url: "/admin/users", icon: <FaPeopleGroup /> },
+  { title: "Payments", url: "/admin/payments", icon: <MdPayments /> },
+  { title: "Category", url: "/admin/category", icon: <MdCategory /> },
+];
+
+export const instructorItems = [
+  { title: "Dashboard", url: "/instructor/dashboard", icon: <MdDashboard /> },
+  { title: "Courses", url: "/instructor/courses", icon: <FaVideo /> },
+  { title: "Community", url: "/instructor/community", icon: <IoChatbox /> },
+  { title: "Payments", url: "/instructor/payments", icon: <MdPayments /> },
+  { title: "Profile", url: "/instructor/profile", icon: <MdPeopleAlt /> },
+];

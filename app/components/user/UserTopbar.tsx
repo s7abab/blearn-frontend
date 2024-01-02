@@ -12,13 +12,6 @@ const UserTopbar = () => {
       >
         <MdOndemandVideo /> My Learnings
       </Link>
-      <Link
-        href={"/wishlist"}
-        className="p-2 border flex justify-end items-center gap-1 font-Poppins cursor-pointer hover:bg-gray-900 rounded-md"
-      >
-        <AiOutlineLike />
-        Wishlist
-      </Link>
     </div>
   );
 };
