@@ -23,12 +23,13 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
     }),
 
     createOrder: builder.mutation({
-      query: ({ courseId, payment_info }) => ({
+      query: ({ courseId, payment_info, instructorId }) => ({
         url: endpoints.payment.create_order,
         method: "POST",
         body: {
           courseId,
           payment_info,
+          instructorId,
         },
         credentials: "include" as const,
       }),

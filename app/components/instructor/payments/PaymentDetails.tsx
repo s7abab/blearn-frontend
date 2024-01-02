@@ -28,11 +28,17 @@ const PaymentDetails = ({
   const [withdrawMoney, { isSuccess, data, error }] =
     useWithdrawMoneyMutation();
   const { data: withdrawalsData } = useGetWithdrawalsQuery(user._id);
-  const withdrawals = withdrawalsData?.withdrawals
+  const withdrawals = withdrawalsData?.withdrawals;
 
   const handleWithdraw = async () => {
-    await withdrawMoney({});
-    handleConfirmModal();
+    if (user?.bankDetails) {
+      await withdrawMoney({});
+      handleConfirmModal();
+    } else {
+      handleBankModal();
+      toast.error("Please add bank details");
+      handleConfirmModal();
+    }
   };
   useEffect(() => {
     if (isSuccess) {
@@ -68,7 +74,7 @@ const PaymentDetails = ({
         <h2 className="text-2xl font-semibold mb-4 flex ">
           <MdAccountBalanceWallet /> Total Balance
         </h2>
-        <p className="ml-2 text-3xl font-bold">₹{withdrawals?.balance}</p>
+        <p className="ml-2 text-3xl font-bold">${withdrawals?.balance}</p>
         <div className="flex justify-center gap-3">
           <button onClick={handleConfirmModal} className={styles.blue_btn}>
             Withdraw

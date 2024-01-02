@@ -10,7 +10,7 @@ interface Props {}
 
 const BankDetails = (props: Props) => {
   const { user } = useSelector((state: any) => state.auth);
-  
+
   const [bankDetails, setBankDetails] = useState<IBankDetails>({
     name: user?.bankDetails?.name,
     accountNumber: user?.bankDetails?.accountNumber,
@@ -18,7 +18,7 @@ const BankDetails = (props: Props) => {
   });
   const [errorMsg, setErrorMsg] = useState("");
 
-  const [updateBankDetails, { data, isLoading, isSuccess }] =
+  const [updateBankDetails, { data, isSuccess }] =
     useUpdateBankdetailsMutation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,6 @@ const BankDetails = (props: Props) => {
       setErrorMsg(validation.message || "Validation failed");
     } else {
       setErrorMsg("");
-      console.log("Bank details are valid:", bankDetails);
     }
     updateBankDetails({ bankDetails });
   };
@@ -40,8 +39,6 @@ const BankDetails = (props: Props) => {
     if (isSuccess) {
       if (data) {
         toast.success(data.message);
-      } else {
-        toast.success("Bank details updated successfully");
       }
     }
   }, [isSuccess, data]);

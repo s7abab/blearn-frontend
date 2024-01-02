@@ -37,7 +37,11 @@ const CheckoutForm = () => {
       setIsloading(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       setIsloading(false);
-      createOrder({ courseId: course._id, payment_info: paymentIntent });
+      createOrder({
+        courseId: course._id,
+        payment_info: paymentIntent,
+        instructorId: course.instructorId,
+      });
     }
   };
 
@@ -73,7 +77,7 @@ const CheckoutForm = () => {
         className="w-full bg-gray-900 text-white font-semibold py-2 px-4 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
         <span id="button-text">
-          {isLoading ? "Paying..." : `Pay ₹${course?.discountPrice}`}
+          {isLoading ? "Paying..." : `Pay $${course?.discountPrice}`}
         </span>
       </button>
       {message && (
