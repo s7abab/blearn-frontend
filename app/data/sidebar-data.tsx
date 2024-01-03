@@ -6,11 +6,12 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { MdPayments } from "react-icons/md";
 import { MdCategory } from "react-icons/md";
 import { MdPeopleAlt } from "react-icons/md";
+import { FaWpforms } from "react-icons/fa";
 
 export const adminItems = [
   { title: "Dashboard", url: "/admin/dashboard", icon: <MdDashboard /> },
   { title: "Courses", url: "/admin/courses", icon: <FaVideo /> },
-  { title: "Applications", url: "/admin/applications", icon: <MdCategory /> },
+  { title: "Requests", url: "/admin/applications", icon: <FaWpforms /> },
   {
     title: "Instructors",
     url: "/admin/instructors",

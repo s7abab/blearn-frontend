@@ -1,4 +1,5 @@
 "use client";
+import { styles } from "@/app/styles/style";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -54,12 +55,12 @@ const CustomTable = ({ data, tableFor, fields, url, search = true }: Props) => {
             placeholder="Search..."
             value={searchTerm}
             onChange={handleSearch}
-            className=" px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#091336] dark:text-dark-primary text-light-primary  dark:bg-[#040e2c] bg-gray-300"
+            className={`px-3 py-2  rounded-md ${styles.gray}`}
           />
         </div>
       )}
-      <table className="min-w-full shadow-md rounded-lg overflow-hidden mt-6">
-        <thead className="dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336] dark:text-dark-primary bg-gray-300 shadow-2xl text-light-primary">
+      <table className={`min-w-full shadow-md rounded-lg overflow-hidden mt-6 text-${styles.black}`}>
+        <thead className={styles.gray}>
           <tr>
             <th className="py-3 px-4 lg:py-4 lg:px-6">no</th>
             {fields.map((header, index) => (
@@ -69,11 +70,11 @@ const CustomTable = ({ data, tableFor, fields, url, search = true }: Props) => {
             ))}
           </tr>
         </thead>
-        <tbody className="bg-gray-100 dark:text-dark-primary bg-gradient-to-br dark:from-[#05081b] dark:to-[#050d2e] shadow-2xl ">
+        <tbody className=" ">
           {currentItems.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className="border-b border-[#101f3d] cursor-pointer"
+              className="border-b dark:border-gray-800 cursor-pointer"
             >
               <td className="py-3 px-4 lg:py-4 lg:px-6 text-center">
                 {rowIndex + 1}

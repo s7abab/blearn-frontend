@@ -14,7 +14,10 @@ const Sidebar = ({ isAdmin }: Props) => {
               className="hover:bg-gray-400 dark:hover:bg-[#183356] hover:rounded-md pt-2 w-full h-10 text-center hover:border-10 font-Poppins"
               key={index}
             >
-              <Link href={item.url}>{item.title}</Link>
+              <div className="flex items-center px-10 gap-3">
+                {item.icon}
+                <Link href={item.url}>{item.title}</Link>
+              </div>
             </div>
           ))
         : instructorItems.map((item, index) => (
