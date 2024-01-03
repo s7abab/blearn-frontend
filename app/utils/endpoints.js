@@ -20,6 +20,8 @@ const endpoints = {
       get_application: "/api/v1/user/get-application",
       change_status_of_application:
         "/api/v1/user/change_status_of_applications",
+      // data for dashboard
+      get_users_data_for_admin: "/api/v1/user/get-users-data-for-Admin",
     },
   },
   course: {
@@ -70,13 +72,17 @@ const endpoints = {
     analytics: {
       // dashboard data
       get_revenue_of_course: "api/v1/payment/analytics/revenue",
-      total_revenue_of_instructor: "/api/v1/payment/analytics/total-revenue-of-instructor",
-      total_revenue_of_admin: "/api/v1/payment/analytics/total-revenue-of-admin",
+      total_revenue_of_instructor:
+        "/api/v1/payment/analytics/total-revenue-of-instructor",
+      total_revenue_of_admin:
+        "/api/v1/payment/analytics/total-revenue-of-admin",
     },
     withdraw_money: "/api/v1/payment/withdrawals/withdraw-money",
     get_withdrawals: "/api/v1/payment/withdrawals/get-withdrawals",
-    update_withdrawal_status: "/api/v1/payment/withdrawals/update-withdrawal-status",
-    get_pending_withdrawals: "/api/v1/payment/withdrawals/get-pending-withdrawals",
+    update_withdrawal_status:
+      "/api/v1/payment/withdrawals/update-withdrawal-status",
+    get_pending_withdrawals:
+      "/api/v1/payment/withdrawals/get-pending-withdrawals",
   },
 
   valuation: {

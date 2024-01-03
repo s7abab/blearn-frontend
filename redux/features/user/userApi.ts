@@ -213,6 +213,15 @@ export const userApi = userServiceApi.injectEndpoints({
       }),
       invalidatesTags: ["Applications"],
     }),
+
+    // users data for admin dashboard
+    usersDataForAdmin: builder.query({
+      query: () => ({
+        url: endpoints.user.admin.get_users_data_for_admin,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -234,4 +243,5 @@ export const {
   useGetApplicationsQuery,
   useGetApplicationQuery,
   useChangeStatusOfApplicationMutation,
+  useUsersDataForAdminQuery
 } = userApi;
