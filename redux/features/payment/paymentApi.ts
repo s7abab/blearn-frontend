@@ -35,10 +35,27 @@ export const paymentApi = paymentServiceApi.injectEndpoints({
       }),
     }),
 
-    // analytics
+    // course dashboard data
     getRevenueOfCourse: builder.query({
       query: ({ courseId }) => ({
         url: `${endpoints.payment.analytics.get_revenue_of_course}/${courseId}`,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+
+    // instructor total revenue
+    instructorTotalRevenue: builder.query({
+      query: () => ({
+        url: endpoints.payment.analytics.total_revenue_of_instructor,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
+    // admin total revenue
+    adminTotalRevenue: builder.query({
+      query: () => ({
+        url: endpoints.payment.analytics.total_revenue_of_admin,
         method: "GET",
         credentials: "include" as const,
       }),
@@ -93,4 +110,6 @@ export const {
   useGetWithdrawalsQuery,
   useUpdateWithdrawalStatusMutation,
   useGetPendingWithdrawalsQuery,
+  useInstructorTotalRevenueQuery,
+  useAdminTotalRevenueQuery
 } = paymentApi;

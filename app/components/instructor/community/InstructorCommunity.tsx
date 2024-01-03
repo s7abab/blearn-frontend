@@ -5,7 +5,10 @@ import CreateCommunity from "./CreateCommunity";
 import { IChatRoom } from "@/@types/interfaces/realtime/chat.interface";
 import { useRouter } from "next/navigation";
 
-const InstructorCommunity = () => {
+interface Props {
+  isCreate?: boolean;
+}
+const InstructorCommunity = ({ isCreate = true }: Props) => {
   const { data } = useGetCommunitiesForInstructorQuery({});
   const communities: IChatRoom[] = data?.chatRooms;
 
@@ -17,8 +20,8 @@ const InstructorCommunity = () => {
 
   return (
     <>
-      <CreateCommunity />
-      <div className="flex justify-center mt-5">
+      {isCreate && <CreateCommunity />}
+      <div className="flex flex-col gap-3 justify-center mt-5">
         {communities?.map((community) => (
           <div
             onClick={() => handleNavigate(community._id)}

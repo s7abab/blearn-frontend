@@ -297,6 +297,15 @@ export const courseApi = courseServiceApi.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
+    // course data for instructor dashboard
+    getCourseDataForInstructor: builder.query({
+      query: () => ({
+        url: endpoints.course.course_data_for_instructor_dashboard,
+        method: "GET",
+        credentials: "include" as const,
+      }),
+    }),
   }),
 });
 
@@ -325,5 +334,6 @@ export const {
   useUpdateLessonMutation,
   useCreateFeedbackMutation,
   useGetFeedbacksQuery,
-  useGetEnrolledUsersQuery
+  useGetEnrolledUsersQuery,
+  useGetCourseDataForInstructorQuery
 } = courseApi;
