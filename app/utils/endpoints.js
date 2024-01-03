@@ -20,6 +20,8 @@ const endpoints = {
       get_application: "/api/v1/user/get-application",
       change_status_of_application:
         "/api/v1/user/change_status_of_applications",
+      // data for dashboard
+      get_users_data_for_admin: "/api/v1/user/get-users-data-for-Admin",
     },
   },
   course: {
@@ -40,6 +42,8 @@ const endpoints = {
     update_lesson: "/api/v1/course/update-lesson",
     track_lesson: "/api/v1/course/track-lesson",
     get_progression: "/api/v1/course/get-progression",
+    // data for dashboard
+    course_data_for_instructor_dashboard: "/api/v1/course/get-course-data",
 
     category: {
       add_category: "/api/v1/course/category/create-category",
@@ -66,12 +70,19 @@ const endpoints = {
     create_payment_intent: "/api/v1/payment/new-payment",
     create_order: "/api/v1/payment/create-order",
     analytics: {
-      get_revenue_of_course: "api/v1/analytics/revenue",
+      // dashboard data
+      get_revenue_of_course: "api/v1/payment/analytics/revenue",
+      total_revenue_of_instructor:
+        "/api/v1/payment/analytics/total-revenue-of-instructor",
+      total_revenue_of_admin:
+        "/api/v1/payment/analytics/total-revenue-of-admin",
     },
-    withdraw_money: "/api/v1/withdrawals/withdraw-money",
-    get_withdrawals: "/api/v1/withdrawals/get-withdrawals",
-    update_withdrawal_status: "/api/v1/withdrawals/update-withdrawal-status",
-    get_pending_withdrawals: "/api/v1/withdrawals/get-pending-withdrawals",
+    withdraw_money: "/api/v1/payment/withdrawals/withdraw-money",
+    get_withdrawals: "/api/v1/payment/withdrawals/get-withdrawals",
+    update_withdrawal_status:
+      "/api/v1/payment/withdrawals/update-withdrawal-status",
+    get_pending_withdrawals:
+      "/api/v1/payment/withdrawals/get-pending-withdrawals",
   },
 
   valuation: {
