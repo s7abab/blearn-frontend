@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${josefin.variable} max-w-screen min-h-screen overflow-x-hidden pl-5 pr-5 bg-gray-50 ${styles.blue_gradient}`}
+        className={`${poppins.variable} ${josefin.variable} max-w-screen min-h-screen overflow-x-hidden pl-5 pr-5 bg-gray-50 ${styles.blue_gradient} `}
       >
         <Provider store={store}>
           <SessionProvider>

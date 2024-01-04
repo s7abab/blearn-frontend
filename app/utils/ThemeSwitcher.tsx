@@ -19,11 +19,10 @@ const ThemeSwitcher = (props: Props) => {
   }
 
   return (
-    <div className="flex justify-center items-center mx-4">
+    <div className="flex justify-center items-center mx-4 text-gray-600">
       {theme === "light" ? (
         <BiMoon
           className="cursor-pointer"
-          fill="black"
           size={25}
           onClick={() => setTheme("dark")}
         />
