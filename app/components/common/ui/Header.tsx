@@ -7,10 +7,13 @@ import ProfileImage from "../../profile/ProfileImage";
 import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Cookies from "js-cookie";
 import Search from "../Search";
+import { FaGripLines } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const Header = () => {
   const [token, setToken] = useState<any>("");
   const { user } = useSelector((state: any) => state.auth);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let cookie = Cookies.get("token");
@@ -18,6 +21,17 @@ const Header = () => {
   }, []);
   return (
     <>
+      {/* navbar open */}
+      {open && (
+        <div className="flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-950 bg-white opacity-95 z-50">
+          <div className="flex flex-col justify-center items-center gap-6 h-screen w-screen text-2xl ">
+            <NavItems />
+            <div className="mr-5">
+          <ThemeSwitcher />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="sticky top-0 bg-gray-100  bg-gradient-to-b dark:from-[#0c1625] dark:to-[#0a1321] backdrop-blur-lg duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
         <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
@@ -43,30 +57,18 @@ const Header = () => {
               </Link>
             )}
             <button
+              onClick={() => setOpen(!open)}
               data-collapse-toggle="navbar-cta"
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-[30px] md:hidden"
               aria-controls="navbar-cta"
               aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
+              {open ? <IoClose />  :<FaGripLines /> }
             </button>
           </div>
+
+          {/* navbar close */}
           <div
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-cta"

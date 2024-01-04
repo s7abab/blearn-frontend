@@ -9,7 +9,6 @@ export default function InstructorLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <>
       <Heading
@@ -19,10 +18,10 @@ export default function InstructorLayout({
       />
       <Header />
       <div className="grid grid-cols-12">
-        <div className="col-span-2 hidden md:block">
+        <div className="md:col-span-1 md:block col-span-1">
           <Sidebar isAdmin={true} />
         </div>
-        <div className="col-span-12 md:col-span-10">{children}</div>
+        <div className="col-span-11 md:col-span-11 ">{children}</div>
       </div>
     </>
   );
