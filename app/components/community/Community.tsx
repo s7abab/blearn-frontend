@@ -5,6 +5,7 @@ import EmojiPicker from "emoji-picker-react";
 import uploadImage from "@/app/utils/upload-image";
 import { IMessage } from "@/@types/interfaces/realtime/chat.interface";
 import { useParams } from "next/navigation";
+import { SOCKET } from "@/app/utils/socket-connection";
 import CommunityInput from "./CommunityInput";
 import ChatCard from "./ChatCard";
 import { SOCKET_EVENTS } from "@/@types/enums/socketEvents.enum";
@@ -13,7 +14,6 @@ import ImagePreview from "./ImagePreview";
 import BackButton from "../common/BackButton";
 import { useGetMessagesQuery } from "@/redux/features/realtime/realtimeApi";
 import Loader from "../common/spinners/Loader";
-import { io } from 'socket.io-client';
 
 const Community: React.FC = () => {
   const { id } = useParams<any>();
@@ -22,9 +22,6 @@ const Community: React.FC = () => {
   const [messageInput, setMessageInput] = useState<string>("");
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-
-  const SOCKET_URL = "wss://www.mintapp.online";
-  const SOCKET = io(SOCKET_URL);
 
   const { user } = useSelector((state: any) => state.auth);
   const { data: messagesD, isLoading } = useGetMessagesQuery(id);
@@ -85,7 +82,7 @@ const Community: React.FC = () => {
     if (SOCKET && roomId.trim() !== "") {
       SOCKET.emit(SOCKET_EVENTS.JOIN_ROOM, roomId);
     }
-  }, [roomId,SOCKET]);
+  }, [roomId]);
 
   // scroll to bottom
   const chatEndRef = useRef<HTMLDivElement>(null);
