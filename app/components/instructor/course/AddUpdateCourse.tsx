@@ -17,7 +17,7 @@ import useFileUpload from "@/app/hooks/useS3Upload";
 interface Props {
   course?: ICourseDetails;
   edit?: boolean;
-};
+}
 const AddUpdateCourse = ({ course, edit }: Props) => {
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
@@ -66,15 +66,16 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
       setImage(e.target.files[0]);
     }
   };
-// upload image
+  // upload image
   const handleImageUpload = async () => {
     try {
       const imageUrl = await uploadFile(image);
       if (imageUrl) {
-        setCourseDetails({
-          ...courseDetails,
+        // Update the state using a callback function
+        setCourseDetails((prevDetails) => ({
+          ...prevDetails,
           thumbnail: imageUrl,
-        });
+        }));
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -99,11 +100,11 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
       toast.error(error.message);
     }
   };
-// publish course
+  // publish course
   const handlePublish = () => {
     AddCourse(courseDetails as ICourseDetails);
   };
-// edit course
+  // edit course
   const handleEdit = async () => {
     await EditCourse({ ...courseDetails, _id: course?._id });
   };
