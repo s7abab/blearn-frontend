@@ -1,15 +1,19 @@
 import endpoints from "@/app/utils/endpoints";
-import {  userLoggerIn, userRegistration } from "./userSlice";
+import { userLoggerIn, userRegistration } from "./userSlice";
 import { userServiceApi } from "../api/apiSlice";
-import cookie from "js-cookie"
+import cookie from "js-cookie";
 import toast from "react-hot-toast";
 
-type RegistrationResponse = {
+interface RegistrationResponse {
   message: string;
   activationToken: string;
-};
+}
 
-type registrationData = {};
+interface registrationData {}
+
+// Set the expiration time for 7 days from the current date
+var expirationDate = new Date();
+expirationDate.setDate(expirationDate.getDate() + 7);
 
 export const userApi = userServiceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -52,7 +56,10 @@ export const userApi = userServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          cookie.set("access_token", result.data.token);
+          // Set the cookie with an expiration of 7 days
+          cookie.set("access_token", result.data.token, {
+            expires: expirationDate,
+          });
           dispatch(
             userLoggerIn({
               token: result.data.token,
@@ -75,7 +82,10 @@ export const userApi = userServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          cookie.set("access_token", result.data.token);
+          // Set the cookie with an expiration of 7 days
+          cookie.set("access_token", result.data.token, {
+            expires: expirationDate,
+          });
           dispatch(
             userLoggerIn({
               token: result.data.token,
@@ -246,5 +256,5 @@ export const {
   useGetApplicationsQuery,
   useGetApplicationQuery,
   useChangeStatusOfApplicationMutation,
-  useUsersDataForAdminQuery
+  useUsersDataForAdminQuery,
 } = userApi;
