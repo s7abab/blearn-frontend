@@ -7,11 +7,13 @@ const protectedRoute = ["/profile"];
 
 export default function Middleware(req: any) {
   const cookies = parse(req.headers.get("Cookie") || "");
-  const userToken = cookies.token;
+  const userToken = cookies.access_token;
+
   let jwt: any = {};
   if (userToken) {
     jwt = jwtDecode(userToken);
   }
+
   // admin protected routes
   if (jwt.role !== Roles.ADMIN && req.nextUrl.pathname.startsWith("/admin")) {
     const absoluteUrl = new URL("/login", req.nextUrl.origin);

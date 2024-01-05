@@ -1,7 +1,8 @@
 import endpoints from "@/app/utils/endpoints";
-import { userLoggedOut, userLoggerIn, userRegistration } from "./userSlice";
-import toast from "react-hot-toast";
+import {  userLoggerIn, userRegistration } from "./userSlice";
 import { userServiceApi } from "../api/apiSlice";
+import cookie from "js-cookie"
+import toast from "react-hot-toast";
 
 type RegistrationResponse = {
   message: string;
@@ -51,6 +52,7 @@ export const userApi = userServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          cookie.set("access_token", result.data.token);
           dispatch(
             userLoggerIn({
               token: result.data.token,
@@ -73,6 +75,7 @@ export const userApi = userServiceApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+          cookie.set("access_token", result.data.token);
           dispatch(
             userLoggerIn({
               token: result.data.token,
