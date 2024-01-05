@@ -17,7 +17,7 @@ const useGetS3Link = () => {
 
     try {
       const response = await fetch(
-        `https://www.mintapp.online/api/v1/upload?fileName=${fileName}`,
+        `${process.env.NEXT_PUBLIC_CLOUD_SRV_URL}/api/v1/upload?fileName=${fileName}`,
         {
           method: "GET",
         }
