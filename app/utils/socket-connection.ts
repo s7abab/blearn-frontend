@@ -1,3 +1,4 @@
-import io from "socket.io-client";
+import socketIO from "socket.io-client";
 
-export const SOCKET = io("wss://www.mintapp.online");
+const ENDPOINT = "wss://www.mintapp.online" || "";
+export const SOCKET = socketIO(ENDPOINT, { transports: ["websocket"] });
