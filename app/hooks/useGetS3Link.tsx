@@ -17,7 +17,7 @@ const useGetS3Link = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8005/api/v1/get-url?fileName=${fileName}`,
+        `https://www.mintapp.online/api/v1/upload?fileName=${fileName}`,
         {
           method: "GET",
         }
