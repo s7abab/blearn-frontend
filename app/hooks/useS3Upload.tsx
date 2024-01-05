@@ -18,10 +18,13 @@ const useFileUpload = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("http://localhost:8005/api/v1/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_CLOUD_SRV_URL}/api/v1/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
