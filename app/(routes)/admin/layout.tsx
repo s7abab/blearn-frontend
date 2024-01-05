@@ -18,10 +18,10 @@ export default function InstructorLayout({
       />
       <Header />
       <div className="grid grid-cols-12">
-        <div className="md:col-span-1 md:block col-span-1">
+        <div className="md:col-span-2 col-span-1">
           <Sidebar isAdmin={true} />
         </div>
-        <div className="col-span-11 md:col-span-11 ">{children}</div>
+        <div className="col-span-11 md:col-span-10 ">{children}</div>
       </div>
     </>
   );
