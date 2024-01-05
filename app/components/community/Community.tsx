@@ -5,7 +5,7 @@ import EmojiPicker from "emoji-picker-react";
 import uploadImage from "@/app/utils/upload-image";
 import { IMessage } from "@/@types/interfaces/realtime/chat.interface";
 import { useParams } from "next/navigation";
-import SOCKET from "@/app/utils/socket-connection";
+import { SOCKET } from "@/app/utils/socket-connection";
 import CommunityInput from "./CommunityInput";
 import ChatCard from "./ChatCard";
 import { SOCKET_EVENTS } from "@/@types/enums/socketEvents.enum";
