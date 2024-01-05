@@ -1,4 +1,4 @@
 import socketIO from "socket.io-client";
 
-const ENDPOINT = `${process.env.NEXT_PUBLIC_REALTIME_SRV_URL}/socket.io/` || "";
+const ENDPOINT = "wss://www.mintapp.online" || "";
 export const SOCKET = socketIO(ENDPOINT, { transports: ["websocket"] });
