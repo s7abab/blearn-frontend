@@ -10,7 +10,6 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { ThemeProvider } from "./utils/theme-provider";
 import { styles } from "./styles/style";
 import { useEffect } from "react";
-import { SOCKET } from "./utils/socket-connection";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -48,9 +47,6 @@ export default function RootLayout({
 }
 
 const Custom = ({ children }: any) => {
-  useEffect(() => {
-    SOCKET.on("connection", () => {});
-  }, []);
   const session = useSession();
   return session.status === "loading" ? <Loader /> : children;
 };
