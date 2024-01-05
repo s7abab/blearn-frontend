@@ -1,12 +1,11 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import EmojiPicker from "emoji-picker-react";
 import uploadImage from "@/app/utils/upload-image";
 import { IMessage } from "@/@types/interfaces/realtime/chat.interface";
 import { useParams } from "next/navigation";
-import { io, Socket } from "socket.io-client";
+import { SOCKET } from "@/app/utils/socket-connection";
 import CommunityInput from "./CommunityInput";
 import ChatCard from "./ChatCard";
 import { SOCKET_EVENTS } from "@/@types/enums/socketEvents.enum";
@@ -24,28 +23,22 @@ const Community: React.FC = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-  const socketRef = useRef<Socket | null>();
-
   const { user } = useSelector((state: any) => state.auth);
-  const { data: messagesData, isLoading } = useGetMessagesQuery(id);
-
+  const { data: messagesD, isLoading } = useGetMessagesQuery(id);
+  const messagesData = messagesD?.messages;
   // Update messages state when data changes
   useEffect(() => {
-    if (messagesData?.messages?.length > 0) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        ...messagesData.messages,
-      ]);
+    if (messagesData?.length > 0) {
+      setMessages((prevMessages) => [...prevMessages, ...messagesData]);
     }
   }, [messagesData]);
-
   // send image
   const sendImage = async () => {
-    if (socketRef.current && selectedImage) {
+    if (SOCKET && selectedImage) {
       const downloadURL = await uploadImage(selectedImage);
-      socketRef.current.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
+      SOCKET.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
         chatRoomId: id,
-        senderId: user?._id,
+        senderId: user._id,
         messageType: "image",
         fileUrl: downloadURL,
         timestamp: Date.now(),
@@ -56,14 +49,14 @@ const Community: React.FC = () => {
   };
 
   // send msg
-  const sendMessage = (e: React.FormEvent) => {
+  const sendMessage = (e: any) => {
     e.preventDefault();
     setShowEmojiPicker(false);
-    if (socketRef.current && messageInput.trim() !== "") {
-      socketRef.current.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
+    if (SOCKET && messageInput.trim() !== "") {
+      SOCKET.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
         chatRoomId: id,
         content: messageInput,
-        senderId: user?._id,
+        senderId: user._id,
         messageInput: "text",
         timestamp: Date.now(),
       });
@@ -77,7 +70,6 @@ const Community: React.FC = () => {
     const { emoji } = emojiObject;
     setMessageInput((prevMessageInput) => prevMessageInput + emoji);
   };
-
   // image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -85,46 +77,42 @@ const Community: React.FC = () => {
       setSelectedImage(file);
     }
   };
-
   // join room
   useEffect(() => {
-    if (socketRef.current && roomId.trim() !== "") {
-      socketRef.current.emit(SOCKET_EVENTS.JOIN_ROOM, roomId);
+    if (SOCKET && roomId.trim() !== "") {
+      SOCKET.emit(SOCKET_EVENTS.JOIN_ROOM, roomId);
     }
   }, [roomId]);
 
   // scroll to bottom
   const chatEndRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    scrollToBottom(chatEndRef.current);
+    const handleScrollToBottom = () => {
+      scrollToBottom(chatEndRef.current);
+    };
+    handleScrollToBottom();
   }, [messages]);
 
   // show messages
   useEffect(() => {
-    if (socketRef.current) {
+    if (SOCKET) {
       const messageHandler = (message: IMessage) => {
         setMessages((prevMessages) => [...prevMessages, message]);
       };
-      socketRef.current.on(SOCKET_EVENTS.MESSAGE, messageHandler);
+      SOCKET.on(SOCKET_EVENTS.MESSAGE, messageHandler);
 
       return () => {
-        socketRef.current?.off(SOCKET_EVENTS.MESSAGE, messageHandler);
+        SOCKET.off(SOCKET_EVENTS.MESSAGE, messageHandler);
       };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  //to accept the incoming
-  useEffect(() => {
-    socketRef.current = io("wss://www.mintapp.online");
-  }, [socketRef]);
+    // eslint-disable-next-line
+  }, [SOCKET]);
 
   if (isLoading) {
     return <Loader />;
   }
-
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col h-screen justify-between ">
       {user?.role === "user" ? (
         <BackButton location="/my-learnings" />
       ) : (
@@ -133,7 +121,7 @@ const Community: React.FC = () => {
       <div className="p-4 border-b border-gray-300 flex justify-center">
         <h1>Community</h1>
       </div>
-      <ul className="flex-1 overflow-y-auto px-4 py-2">
+      <ul className="flex-1 overflow-y-auto px-4 py-2 ">
         <ChatCard messages={messages} user={user} />
         <div ref={chatEndRef}></div>
       </ul>
