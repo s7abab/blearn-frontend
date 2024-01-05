@@ -13,9 +13,9 @@ import useFileUpload from "@/app/hooks/useS3Upload";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "@/redux/features/user/userSlice";
 
-interface Props  {
+interface Props {
   user: { name: string; email: string; avatar: string; _id: string };
-};
+}
 
 const EditProfile = ({ user }: Props) => {
   const [name, setName] = useState(user.name);
@@ -28,7 +28,7 @@ const EditProfile = ({ user }: Props) => {
   const logoutHandler = async () => {
     await logout(user._id);
     dispatch(userLoggedOut());
-    Cookies.remove("token");
+    Cookies.remove("access_token");
     await signOut();
     toast.success("Logout successfull");
   };

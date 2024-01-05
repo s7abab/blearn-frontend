@@ -16,7 +16,7 @@ const Header = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    let cookie = Cookies.get("token");
+    let cookie = Cookies.get("access_token");
     setToken(cookie);
   }, []);
   return (
