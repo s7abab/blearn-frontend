@@ -106,7 +106,7 @@ const endpoints = {
 
   cloud: {
     upload: "/api/v1/upload",
-    get_url: "/api/v1/get-url",
+    get_url: "/api/v1/upload",
   },
 };
 
