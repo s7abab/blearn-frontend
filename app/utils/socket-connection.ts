@@ -1,5 +1,3 @@
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 
-const SOCKET = io("wss://www.mintapp.online");
-
-export default SOCKET;
+export const SOCKET = io("wss://www.mintapp.online");
