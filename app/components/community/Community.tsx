@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import EmojiPicker from 'emoji-picker-react';
-import uploadImage from '@/app/utils/upload-image';
-import { IMessage } from '@/@types/interfaces/realtime/chat.interface';
-import { useParams } from 'next/navigation';
-import { io, Socket } from 'socket.io-client';
-import CommunityInput from './CommunityInput';
-import ChatCard from './ChatCard';
-import { SOCKET_EVENTS } from '@/@types/enums/socketEvents.enum';
-import scrollToBottom from '@/app/utils/scroll-to-bottom';
-import ImagePreview from './ImagePreview';
-import BackButton from '../common/BackButton';
-import { useGetMessagesQuery } from '@/redux/features/realtime/realtimeApi';
-import Loader from '../common/spinners/Loader';
+import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import EmojiPicker from "emoji-picker-react";
+import uploadImage from "@/app/utils/upload-image";
+import { IMessage } from "@/@types/interfaces/realtime/chat.interface";
+import { useParams } from "next/navigation";
+import { io, Socket } from "socket.io-client";
+import CommunityInput from "./CommunityInput";
+import ChatCard from "./ChatCard";
+import { SOCKET_EVENTS } from "@/@types/enums/socketEvents.enum";
+import scrollToBottom from "@/app/utils/scroll-to-bottom";
+import ImagePreview from "./ImagePreview";
+import BackButton from "../common/BackButton";
+import { useGetMessagesQuery } from "@/redux/features/realtime/realtimeApi";
+import Loader from "../common/spinners/Loader";
 
 const Community: React.FC = () => {
   const { id } = useParams<any>();
   const [roomId, setRoomId] = useState<string>(id);
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [messageInput, setMessageInput] = useState<string>('');
+  const [messageInput, setMessageInput] = useState<string>("");
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -32,7 +32,10 @@ const Community: React.FC = () => {
   // Update messages state when data changes
   useEffect(() => {
     if (messagesData?.messages?.length > 0) {
-      setMessages((prevMessages) => [...prevMessages, ...messagesData.messages]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        ...messagesData.messages,
+      ]);
     }
   }, [messagesData]);
 
@@ -43,7 +46,7 @@ const Community: React.FC = () => {
       socketRef.current.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
         chatRoomId: id,
         senderId: user?._id,
-        messageType: 'image',
+        messageType: "image",
         fileUrl: downloadURL,
         timestamp: Date.now(),
       });
@@ -56,15 +59,15 @@ const Community: React.FC = () => {
   const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     setShowEmojiPicker(false);
-    if (socketRef.current && messageInput.trim() !== '') {
+    if (socketRef.current && messageInput.trim() !== "") {
       socketRef.current.emit(SOCKET_EVENTS.CHAT_MESSAGE, roomId, {
         chatRoomId: id,
         content: messageInput,
         senderId: user?._id,
-        messageInput: 'text',
+        messageInput: "text",
         timestamp: Date.now(),
       });
-      setMessageInput('');
+      setMessageInput("");
       setSelectedImage(null);
     }
   };
@@ -85,7 +88,7 @@ const Community: React.FC = () => {
 
   // join room
   useEffect(() => {
-    if (socketRef.current && roomId.trim() !== '') {
+    if (socketRef.current && roomId.trim() !== "") {
       socketRef.current.emit(SOCKET_EVENTS.JOIN_ROOM, roomId);
     }
   }, [roomId]);
@@ -111,13 +114,18 @@ const Community: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //to accept the incoming
+  useEffect(() => {
+    socketRef.current = io("wss://www.mintapp.online");
+  }, [socketRef]);
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
     <div className="flex flex-col h-screen justify-between">
-      {user?.role === 'user' ? (
+      {user?.role === "user" ? (
         <BackButton location="/my-learnings" />
       ) : (
         <BackButton location="/instructor/community" />
