@@ -250,6 +250,16 @@ export const courseApi = courseServiceApi.injectEndpoints({
       invalidatesTags: ["Modules", "InstructorCourse"],
     }),
 
+    deleteLesson: builder.mutation({
+      query: (data) => ({
+        url: endpoints.course.delete_lesson,
+        method: "DELETE",
+        body: data,
+        credentials: "include" as const,
+      }),
+      invalidatesTags: ["Modules", "InstructorCourse"],
+    }),
+
     trackLesson: builder.mutation({
       query: (data: ILessonProgressTrackData) => ({
         url: endpoints.course.track_lesson,
@@ -335,5 +345,6 @@ export const {
   useCreateFeedbackMutation,
   useGetFeedbacksQuery,
   useGetEnrolledUsersQuery,
-  useGetCourseDataForInstructorQuery
+  useGetCourseDataForInstructorQuery,
+  useDeleteLessonMutation,
 } = courseApi;

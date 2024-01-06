@@ -38,8 +38,10 @@ const endpoints = {
     get_modules: "/api/v1/course/get-modules",
     edit_module: "/api/v1/course/edit-module",
     delete_module: "/api/v1/course/delete-module",
+    // lesson
     add_lesson: "/api/v1/course/add-lesson",
     update_lesson: "/api/v1/course/update-lesson",
+    delete_lesson: "/api/v1/course/delete-lesson",
     track_lesson: "/api/v1/course/track-lesson",
     get_progression: "/api/v1/course/get-progression",
     // data for dashboard
