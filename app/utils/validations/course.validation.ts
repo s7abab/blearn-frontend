@@ -1,10 +1,11 @@
-import { IPrice } from "@/@types/interfaces/course/course.interface";
 import toast from "react-hot-toast";
-import validator from "validator"
+import validator from "validator";
 
-export const validateCourseName = ( name : string) => {
+export const validateCourseName = (name: string) => {
   if (validator.isEmpty(name)) {
-    toast.error("Course name is required");
+    toast.error("Course title is required", {
+      position: "bottom-center",
+    });
     return false;
   }
   if (name.trim().length <= 2) {
@@ -14,33 +15,49 @@ export const validateCourseName = ( name : string) => {
 
   return true;
 };
-export const validatePrice = ({ price, discountPrice }: IPrice) => {
+export const validatePrice = (price: number, discountPrice: number) => {
   if (price < 1) {
-    toast.error("Price should greaterthan 0");
+    toast.error("Price should greaterthan 0", {
+      position: "bottom-center",
+    });
+    return false;
+  }
+  if (price > 200) {
+    toast.error("Price should greaterthan 200$", {
+      position: "bottom-center",
+    });
     return false;
   }
   if (discountPrice < 1) {
-    toast.error("Price should greaterthan 0");
+    toast.error("Price should greaterthan 0", {
+      position: "bottom-center",
+    });
     return false;
   }
 
   const dPrice = discountPrice.toString();
-  const aPrice = price.toString()
+  const aPrice = price.toString();
   if (parseFloat(dPrice) > parseFloat(aPrice)) {
-    toast.error("Discount price should be less than the actual price");
+    toast.error("Discount price should be less than the actual price", {
+      position: "bottom-center",
+    });
     return false;
   }
 
   return true;
 };
 
-export const validateDiscription = (discription :string ) => {
-  if (discription.trim() === "") {
-    toast.error("Course discription is required");
+export const validateDiscription = (description: string) => {
+  if (description.trim() === "") {
+    toast.error("Course description is required", {
+      position: "bottom-center",
+    });
     return false;
   }
-  if (discription.trim().length <= 2) {
-    toast.error("Course discription should contain more than two letters");
+  if (description.trim().length <= 2) {
+    toast.error("Course description should contain more than two letters", {
+      position: "bottom-center",
+    });
     return false;
   }
 

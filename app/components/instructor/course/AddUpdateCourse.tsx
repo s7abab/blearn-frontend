@@ -13,6 +13,12 @@ import {
 } from "@/@types/interfaces/course/course.interface";
 import CourseForm from "./CourseForm";
 import useFileUpload from "@/app/hooks/useS3Upload";
+import {
+  validateCourseName,
+  validateDiscription,
+  validatePrice,
+} from "@/app/utils/validations/course.validation";
+import { validateCategoryName } from "@/app/utils/validations/category.validation";
 
 interface Props {
   course?: ICourseDetails;
@@ -102,6 +108,9 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   };
   // publish course
   const handlePublish = () => {
+    validateCourseName(courseDetails.title);
+    validateDiscription(courseDetails.description);
+    validatePrice(courseDetails.price, courseDetails.discountPrice);
     AddCourse(courseDetails as ICourseDetails);
   };
   // edit course

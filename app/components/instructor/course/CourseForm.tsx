@@ -32,7 +32,6 @@ const CourseForm = ({
   return (
     <>
       <div className="mt-5">
-        <h1 className="text-3xl font-semibold mb-4 ">Course Details</h1>
         <div className="mb-4">
           <label htmlFor="title" className="text-lg font-Poppins">
             Title
