@@ -29,21 +29,24 @@ const LessonCrud = ({ edit, lesson, lessonIndex, moduleId }: Props) => {
     type: lesson?.type || "",
     title: lesson?.title || "",
     url: lesson?.url || "",
-    duration: lesson?.duration || 1,
+    duration: lesson?.duration || 60,
   };
   const [lessonDetails, setLessonDetails] = useState<ILesson>(intitalState);
+  const [duration, setDuration] = useState<string>("");
   const [uploadLesson, { isSuccess, error }] = useAddLessonMutation();
+  console.log(lessonDetails);
   // upload to s3
   const { loading: uploading, uploadFile } = useFileUpload();
   const [
     updateLesson,
     { isSuccess: updateSuccess, error: updateError, isLoading: updateLoading },
   ] = useUpdateLessonMutation();
-  console.log(lessonDetails);
+
   const handleModal = () => {
     setOpen(!open);
     setSelectedOption("");
   };
+
   // update lesson
   const handleUpdateLesson = async () => {
     await updateLesson(lessonDetails);
@@ -51,7 +54,8 @@ const LessonCrud = ({ edit, lesson, lessonIndex, moduleId }: Props) => {
     setLessonDetails(intitalState);
     handleModal();
   };
-  // updload lesson
+
+  // upload lesson
   const handleUploadLesson = async () => {
     if (edit) {
       handleUpdateLesson();
@@ -78,32 +82,41 @@ const LessonCrud = ({ edit, lesson, lessonIndex, moduleId }: Props) => {
     });
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
-      setFile(e.target.files[0]);
-    }
-  };
+      const selectedFile = e.target.files[0];
 
-  const handleFileUpload = async () => {
-    try {
-      const videoUrl = await uploadFile(file);
-      if (videoUrl) {
+      try {
+        // Upload file to get video URL
+        const videoUrl = await uploadFile(selectedFile);
+
+        // Initialize duration to 60 seconds
+        let videoDuration = 60;
+
+        // Check if the file is a video
+        if (selectedFile.type.startsWith("video")) {
+          // Load the selected video to get its duration
+          const selectedVideo = document.createElement("video");
+          selectedVideo.src = URL.createObjectURL(selectedFile);
+          await new Promise((resolve) => {
+            selectedVideo.addEventListener("loadedmetadata", () => {
+              // Set duration when metadata is loaded
+              videoDuration = selectedVideo.duration;
+              resolve(null);
+            });
+          });
+        }
+        // Update lessonDetails with video URL and duration
         setLessonDetails({
           ...lessonDetails,
-          url: videoUrl,
+          duration: videoDuration,
+          url: videoUrl || "", // If videoUrl is null/undefined, set an empty string
         });
+      } catch (error: any) {
+        toast.error(error.message);
       }
-    } catch (error: any) {
-      toast.error(error.message);
     }
   };
-
-  useEffect(() => {
-    if (file) {
-      handleFileUpload();
-    }
-    //eslint-disable-next-line
-  }, [file]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -116,6 +129,7 @@ const LessonCrud = ({ edit, lesson, lessonIndex, moduleId }: Props) => {
       }
     }
   }, [isSuccess, error]);
+
   // update lesson toast
   useEffect(() => {
     if (updateSuccess) {
@@ -128,6 +142,7 @@ const LessonCrud = ({ edit, lesson, lessonIndex, moduleId }: Props) => {
       }
     }
   }, [updateSuccess, updateError]);
+
   return (
     <LessonInput
       handleFileChange={handleFileChange}
