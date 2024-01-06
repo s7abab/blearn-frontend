@@ -6,6 +6,7 @@ import avatar3 from "../../../public/assets/avatar3.jpg";
 import avatar4 from "../../../public/assets/avatar4.jpg";
 import avatar5 from "../../../public/assets/avatar5.jpg";
 import { MdVerifiedUser } from "react-icons/md";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -40,12 +41,18 @@ const Hero = () => {
         </h1>
       </div>
       <div className="flex justify-center gap-2">
-        <button className={`dark:bg-gradient-to-tr dark:from-purple-900 dark:to-purple-500 px-5 py-3 rounded-full bg-[#f72a4f] text-gray-50`}>
+        <Link
+          href={"/courses"}
+          className={`dark:bg-gradient-to-tr dark:from-purple-900 dark:to-purple-500 px-5 py-3 rounded-full bg-[#f72a4f] text-gray-50`}
+        >
           EXPLORE MORE
-        </button>
-        <button className="px-7 py-3 rounded-full border-[1.5px] dark:border-purple-500 border-[#f72a4f] ">
+        </Link>
+        <Link
+          href={"/courses"}
+          className="px-7 py-3 rounded-full border-[1.5px] dark:border-purple-500 border-[#f72a4f] "
+        >
           <FaArrowRight />
-        </button>
+        </Link>
       </div>
       <div className="flex flex-col items-center gap-1 w-full mt-4">
         <h1 className="font-Josefin text-gray-600">

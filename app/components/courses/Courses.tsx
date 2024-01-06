@@ -6,6 +6,7 @@ import SortCourse from "@/app/components/common/SortCourse";
 import Pagination from "@/app/components/common/Pagination";
 import useFetchCourse from "@/app/hooks/useFetchCourse";
 import { useRouter } from "next/navigation";
+import Search from "../common/Search";
 
 const Courses = () => {
   const {
@@ -26,6 +27,10 @@ const Courses = () => {
   };
   return (
     <>
+      <Search
+        placeholder="Search a course"
+        inputStyle="p-2 rounded-full dark:bg-gray-800 bg-slate-100 dark:text-gray-100 mt-5"
+      />
       <SortCourse
         priceFilter={priceFilter}
         sortByEnrollments={sortByEnrollments}
