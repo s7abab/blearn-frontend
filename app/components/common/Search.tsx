@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm } from "@/redux/features/course/courseSlice";
+import { useDebounce } from "@/app/hooks/useDebounceHook";
 
 interface Props {
   inputStyle: string;
@@ -12,16 +13,22 @@ const Search = ({ inputStyle, placeholder }: Props) => {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state: any) => state.course.searchTerm);
 
+  const [inputValue, setInputValue] = useState<string>("");
+  const debouncedSearchTerm = useDebounce(inputValue, 300);
+
+  useEffect(() => {
+    dispatch(setSearchTerm(debouncedSearchTerm));
+  }, [debouncedSearchTerm, dispatch]);
+
   const handleSearchTerm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = e.target.value;
-    dispatch(setSearchTerm(newSearchTerm));
+    setInputValue(e.target.value);
   };
 
   return (
     <div>
       <input
         type="text"
-        value={searchTerm}
+        value={inputValue}
         onChange={handleSearchTerm}
         placeholder={placeholder}
         className={inputStyle}
