@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import LessonCrud from "../../instructor/lesson/LessonCrud";
 import { useDeleteLessonMutation } from "@/redux/features/course/courseApi";
 import toast from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
 
 interface LessonComponentProps {
   lessons: ILesson[];
@@ -68,16 +69,17 @@ const LessonsComponent = ({
             handleLesson(lesson, idx);
           }}
         >
-          <div className="flex justify-between items-center">
             <LessonCard lesson={lesson} index={idx} />
-            <button
-              className="p-2"
-              disabled={isLoading}
-              onClick={() => handleDelete(idx)}
-            >
-              Delete
-            </button>
-          </div>
+            {edit && (
+              <button
+                className="p-2 flex gap-1 items-center"
+                disabled={isLoading}
+                onClick={() => handleDelete(idx)}
+              >
+                <MdDelete />
+                Delete
+              </button>
+            )}
         </div>
       ))}
       {edit && <LessonCrud edit={false} moduleId={moduleId} />}

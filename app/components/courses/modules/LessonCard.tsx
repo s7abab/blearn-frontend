@@ -22,8 +22,8 @@ const LessonCard = ({ lesson, index }: Props) => {
   return (
     <div className="flex gap-4 items-center mt-3 justify-between cursor-pointer">
       <div
-        className={`flex gap-3 items-center p-2 hover:bg-gray-700 w-full rounded-md ${
-          lesson._id === activeLessonId ? "bg-gray-700" : ""
+        className={`flex gap-3 items-center p-2 dark:hover:bg-gray-700 hover:bg-gray-300 w-full rounded-md ${
+          lesson._id === activeLessonId ? "dark:bg-gray-700 bg-gray-300" : ""
         }`}
       >
         {lesson.type === "video" ? (

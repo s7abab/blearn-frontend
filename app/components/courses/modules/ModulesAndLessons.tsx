@@ -14,7 +14,7 @@ const ModulesAndLessons = ({ module, edit }: Props) => {
   const lessons: ILesson[] = module?.lessons as ILesson[];
 
   return (
-    <div className=" dark:bg-inherit p-5 rounded-md font-Poppins text-md dark:hover:from-[#373739] dark:hover:to-[#414144] dark:text-dark-primary bg-gray-400">
+    <div className=" dark:bg-inherit p-5 rounded-md font-Poppins text-md dark:hover:from-[#373739] dark:hover:to-[#414144] dark:text-dark-primary bg-gray-100">
       {/* render modules */}
       <ModuleComponent
         module={module}

@@ -41,7 +41,7 @@ const Overview = ({
       <p className="text-center px-14 md:px-36 md:mt-4 text-gray-600 md:block hidden">
         {course?.description}
       </p>
-      <div className=" md:flex md:justify-center  md:gap-6 mt-10 shadow-lg md:pb-14">
+      <div className=" md:flex md:justify-center  md:gap-6 mt-10 md:pb-14">
         <div className="flex flex-col w-full md:w-1/3 dark:border-2 dark:border-gray-800">
           <div className="relative w-full h-48">
             <CourseImage imgUrl={course?.thumbnail} />
@@ -64,7 +64,7 @@ const Overview = ({
             ) : (
               <button
                 onClick={handleEnrollment}
-                className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer"
+                className="w-full bg-gradient-to-br bg-gray-300 text-gray-900 font-Poppins h-10 rounded-sm cursor-pointer"
               >
                 Enroll Now
               </button>
@@ -86,16 +86,15 @@ const Overview = ({
           </div>
           <div
             onClick={handleVideoPlayerModal}
-            className="bg-gray-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
+            className="bg-gray-300 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
           >
             <CiPlay1 className="text-orange-700 font-bold" />
             <p className="font-Poppins">Watch Preview</p>
           </div>
           <div
-            onClick={handleVideoPlayerModal}
-            className=" bg-gray-400 hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
+            className=" bg-[#f72a4f] hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
           >
-            <p className="font-Poppins font-bold">${course?.discountPrice}</p>
+            <p className="font-Poppins font-bold text-gray-50">${course?.discountPrice}</p>
             <p className="line-through font-Josefin text-sm">
               ${course?.price}
             </p>
