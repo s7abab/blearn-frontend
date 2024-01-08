@@ -18,7 +18,7 @@ const CoursesSection = () => {
         A broad selection of courses
       </h1>
       <div className="flex justify-center">
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {courses?.map((course, index) => (
             <div key={index} onClick={() => ViewCourseDetailsPage(course?._id)}>
               <div className="min-w-[300px]">

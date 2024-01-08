@@ -42,7 +42,8 @@ const Courses = () => {
       ) : (
         <div className="min-h-1/2">
           <h1 className={styles.title}>Courses</h1>
-          <div className="mt-5 grid grid-cols-1 400px:grid-cols-2 600px:grid-cols-3 800px:grid-cols-3 lg:grid-cols-4 gap-5">
+
+          <div className="mt-5 grid grid-cols-1 400px:mx-[35px] 600px:grid-cols-2 600px:mx-[30px] 800px:grid-cols-3 800px:mx-0 900px:grid-cols-4 gap-8 ">
             {courses?.map((course, index) => (
               <div
                 key={index}
