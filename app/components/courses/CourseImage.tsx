@@ -20,7 +20,9 @@ const CourseImage = ({ imgUrl }: Props) => {
   return (
     <>
       {loading ? (
+        <div className="flex justify-center items-center h-full w-full">
         <SmallLoader />
+        </div>
       ) : (
         <Image src={s3Url} layout="fill" objectFit="cover" alt="Course image" />
       )}

@@ -10,6 +10,7 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { ThemeProvider } from "./utils/theme-provider";
 import { styles } from "./styles/style";
 import { useEffect } from "react";
+import Footer from "./components/common/ui/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
               <Custom>{children}</Custom>
+              <Footer />
               <Toaster position="top-center" reverseOrder={false} />
             </ThemeProvider>
           </SessionProvider>

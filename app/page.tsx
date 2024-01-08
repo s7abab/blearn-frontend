@@ -1,10 +1,10 @@
-import React from "react";
-import Hero from "./components/home/Hero";
+import HeroSection from "./components/home/Hero";
 import Heading from "./utils/Heading";
 import Header from "./components/common/ui/Header";
+import CoursesSection from "./components/home/CoursesSection";
+import FeedbackSection from "./components/home/FeedbackSection";
 
-type Props = {};
-const page = (props: Props) => {
+const page = () => {
   return (
     <>
       <Heading
@@ -13,7 +13,9 @@ const page = (props: Props) => {
         keywords="development,arts,finance"
       />
       <Header />
-      <Hero />
+      <HeroSection />
+      <CoursesSection />
+      <FeedbackSection />
     </>
   );
 };

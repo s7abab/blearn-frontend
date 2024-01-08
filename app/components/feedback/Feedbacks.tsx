@@ -1,5 +1,4 @@
 "use client";
-
 import { useSelector } from "react-redux";
 import FeedbackInput from "./FeedbackInput";
 import { useGetFeedbacksQuery } from "@/redux/features/course/courseApi";
