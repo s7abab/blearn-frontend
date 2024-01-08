@@ -16,7 +16,7 @@ const Feedbacks = ({ input }: Props) => {
       {input && <FeedbackInput />}
       <div className="mt-5 grid sm:grid-cols-2 gap-5 md:grid-cols-3">
         {feedbacks?.map((feedback: any) => (
-          <FeedbackCard key={feedback._id} feedback={feedback} />
+          <FeedbackCard url="no-url" key={feedback._id} feedback={feedback} />
         ))}
       </div>
     </>
