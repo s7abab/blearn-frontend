@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         dark: {
-          primary: "#e8eaeb"
+          primary: "#e8eaeb",
         },
         light: {
           primary: "#0b1014",
@@ -32,6 +32,7 @@ const config: Config = {
         "1200px": "1200px",
         "1300px": "1300px",
         "1500px": "1500px",
+        "900px": "900px",
         "800px": "800px",
         "600px": "600px",
         "400px": "400px",

@@ -1,6 +1,6 @@
 interface IFeedback {
-  courseId: Object;
-  userId: {avatar:string};
+  courseId: string;
+  userId: {avatar:any};
   rating: number;
   comment: string;
 }

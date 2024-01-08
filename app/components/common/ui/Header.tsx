@@ -22,16 +22,16 @@ const Header = () => {
     <>
       {/* navbar open */}
       {open && (
-        <div className="flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-950 bg-white opacity-95 z-50">
+        <div className="flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-950 bg-white opacity-95 z-50 ">
           <div className="flex flex-col justify-center items-center gap-6 h-screen w-screen text-2xl ">
             <NavItems />
             <div className="mr-5">
-          <ThemeSwitcher />
+              <ThemeSwitcher />
             </div>
           </div>
         </div>
       )}
-      <div className="sticky top-0 bg-gray-100  bg-gradient-to-b dark:from-[#0c1625] dark:to-[#0a1321] backdrop-blur-lg duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50">
+      <div className="sticky top-2 bg-gray-50 shadow-md  bg-gradient-to-b dark:from-[#0c1625] dark:to-[#0a1321] backdrop-blur-lg duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50 dark:hover:shadow-sm dark:hover:shadow-purple-500">
         <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             href={"/"}
@@ -44,13 +44,13 @@ const Header = () => {
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {token ? (
               <Link href={"/profile"}>
-                <div className="w-[40px] h-[40px] relative overflow-hidden rounded-full">
+                <div className="w-[35px] h-[35px] relative overflow-hidden rounded-full">
                   <ProfileImage avatar={user?.avatar} />
                 </div>
               </Link>
             ) : (
               <Link href={"/login"}>
-                <div className="w-[40px] h-[40px] relative overflow-hidden rounded-full">
+                <div className="w-[35px] h-[35px] relative overflow-hidden rounded-full">
                   <ProfileImage avatar={user?.avatar} />
                 </div>
               </Link>
@@ -63,7 +63,7 @@ const Header = () => {
               aria-controls="navbar-cta"
               aria-expanded="false"
             >
-              {open ? <IoClose />  :<FaGripLines /> }
+              {open ? <IoClose /> : <FaGripLines />}
             </button>
           </div>
 
