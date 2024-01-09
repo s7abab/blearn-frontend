@@ -42,14 +42,14 @@ const Overview = ({
         {course?.description}
       </p>
       <div className=" md:flex md:justify-center  md:gap-6 mt-10 md:pb-14">
-        <div className="flex flex-col w-full md:w-1/3 dark:border-2 dark:border-gray-800">
+        <div className="flex flex-col w-full md:w-1/3 ">
           <div className="relative w-full h-48">
             <CourseImage imgUrl={course?.thumbnail} />
           </div>
           <div className="md:flex ">
             {isEnrolled ? (
               <Link
-                className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer flex items-center justify-center"
+                className={`w-full dark:bg-gradient-to-tr rounded-full font-Poppins h-10 mt-2 cursor-pointer flex items-center justify-center ${styles.purple_gradient}`}
                 href={"/my-learnings"}
               >
                 Go to Course
@@ -57,14 +57,14 @@ const Overview = ({
             ) : instructorCourse ? (
               <Link
                 href={"/instructor/courses"}
-                className="w-full bg-gradient-to-br from-[#0b3559] to-[#040e2c] text-white font-Poppins h-10 rounded-sm cursor-pointer flex items-center justify-center"
+                className={`w-full dark:bg-gradient-to-tr rounded-full font-Poppins h-10 mt-2 cursor-pointer flex items-center justify-center ${styles.purple_gradient}`}
               >
                 Go to Course
               </Link>
             ) : (
               <button
                 onClick={handleEnrollment}
-                className="w-full bg-gradient-to-br bg-gray-300 text-gray-900 font-Poppins h-10 rounded-sm cursor-pointer"
+                className={`w-full dark:bg-gradient-to-tr rounded-full font-Poppins h-10 mt-2 cursor-pointer flex items-center justify-center ${styles.purple_gradient}`}
               >
                 Enroll Now
               </button>
@@ -72,15 +72,15 @@ const Overview = ({
           </div>
         </div>
         <div className="flex flex-col md:gap-2 mt-5 md:mt-0">
-          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
+          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br  h-10 rounded-sm flex items-center gap-2 p-2 font-Josefin text-sm">
             <MdOutlinePlayLesson className="text-blue-700 font-bold" />
             Get {course?.totalLessons} lessons
           </div>
-          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
+          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br  h-10 rounded-sm flex items-center gap-2 p-2 font-Josefin text-sm">
             <CiChat1 className="text-green-700 font-bold" />
             <p>Active community</p>
           </div>
-          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br dark:from-[#040e2c] dark:to-[#091336]  h-10 rounded-sm flex items-center gap-2 p-2 font-Poppins text-sm">
+          <div className="md:w-[300px] bg-gray-300 dark:bg-gradient-to-br  h-10 rounded-sm flex items-center gap-2 p-2 font-Josefin text-sm">
             <FaPeopleGroup className="text-orange-700 font-bold" />
             {course?.enrolledUsers?.length} enrolls
           </div>
@@ -91,10 +91,10 @@ const Overview = ({
             <CiPlay1 className="text-orange-700 font-bold" />
             <p className="font-Poppins">Watch Preview</p>
           </div>
-          <div
-            className=" bg-[#f72a4f] hover:bg-gray-400 dark:bg-gray-900 md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100"
-          >
-            <p className="font-Poppins font-bold text-gray-50">${course?.discountPrice}</p>
+          <div className= {`${styles.purple_gradient} md:w-[300px] text-center h-10 align-middle cursor-pointer flex justify-center items-center gap-2 dark:hover:bg-gray-800 duration-100`}>
+            <p className="font-Poppins font-bold text-gray-50">
+              ${course?.discountPrice}
+            </p>
             <p className="line-through font-Josefin text-sm">
               ${course?.price}
             </p>
