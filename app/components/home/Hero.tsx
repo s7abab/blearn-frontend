@@ -43,7 +43,7 @@ const Hero = () => {
       <div className="flex justify-center gap-2">
         <Link
           href={"/courses"}
-          className={`dark:bg-gradient-to-tr dark:from-purple-900 dark:to-purple-500 px-5 py-3 rounded-full bg-[#f72a4f] text-gray-50`}
+          className={`dark:bg-gradient-to-tr dark:from-purple-900 dark:to-purple-500 px-5 py-3 rounded-full bg-gradient-to-tr from-[#971b32] to-[#fd2e54] text-gray-50`}
         >
           EXPLORE MORE
         </Link>
