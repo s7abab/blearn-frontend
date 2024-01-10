@@ -32,6 +32,7 @@ const WithdrawalsForAdmin = ({ withdrawals }: Props) => {
         </CustomModal>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        <h1 className={styles.title}>Payments</h1>
         {withdrawals?.map((bank) => (
           <div key={bank.id} className={styles.blue_btn}>
             <h2 className="text-lg font-semibold mb-2">{bank.name}</h2>
