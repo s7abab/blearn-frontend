@@ -18,26 +18,31 @@ const SortCourse = ({
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => {
     setOpen(!open);
-  }
+  };
   return (
     <>
       <div>
-        <button onClick={handleOpen} className="z-20 fixed bottom-5 right-5 bg-gradient-to-tr from-gray-800 to-gray-700 hover:scale-105 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-blue-600 transition duration-300">
+        <button
+          onClick={handleOpen}
+          className="z-20 bg-gray-700 hover:scale-105 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-gray-500 transition duration-300"
+        >
           <FaFilter className="text-2xl" />
         </button>
       </div>
       <>
         {open && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }} className="fixed w-[200px] h-48 z-10 right-10 bottom-[70px] bg-gradient-to-tr from-gray-900 to-gray-950 flex flex-col gap-4 justify-start items-start rounded-md shadow-md border-2 border-gray-700 p-4 text-white font-poppins">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute left-0 top-[85px] h-screen w-[200px] z-10 bg-white dark:bg-gray-900 flex flex-col gap-4 justify-start items-start rounded-md shadow-lg p-4  font-poppins"
+          >
             <label className="flex items-center">
               Price
               <select
                 value={priceFilter}
                 onChange={(e) => onPriceFilterChange(e.target.value)}
-                className="ml-2 p-1 rounded border border-gray-600 bg-gray-800 text-white"
+                className="ml-2 p-1 rounded border border-gray-600   font-Poppins"
               >
                 <option value="">All</option>
                 <option value="low">Lowest Price</option>

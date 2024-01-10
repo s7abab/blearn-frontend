@@ -27,16 +27,18 @@ const Courses = () => {
   };
   return (
     <>
-      <Search
-        placeholder="Search a course"
-        inputStyle="p-2 rounded-full dark:bg-gray-800 bg-slate-100 dark:text-gray-100 mt-5"
-      />
-      <SortCourse
-        priceFilter={priceFilter}
-        sortByEnrollments={sortByEnrollments}
-        onPriceFilterChange={(value) => setPriceFilter(value)}
-        onSortByEnrollmentsChange={(value) => setSortByEnrollments(value)}
-      />
+      <div className="flex items-center gap-3 mt-5">
+        <Search
+          placeholder="Search a course"
+          inputStyle="p-2 text-center rounded-full dark:bg-gray-800 bg-slate-100 dark:text-gray-100 "
+        />
+        <SortCourse
+          priceFilter={priceFilter}
+          sortByEnrollments={sortByEnrollments}
+          onPriceFilterChange={(value) => setPriceFilter(value)}
+          onSortByEnrollmentsChange={(value) => setSortByEnrollments(value)}
+        />
+      </div>
       {isLoading ? (
         <Loader />
       ) : (

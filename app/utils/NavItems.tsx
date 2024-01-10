@@ -22,10 +22,11 @@ const NavItems = () => {
     },
     {
       name: "Teach",
-      url:
-        user.role === "instructor"
+      url: user
+        ? user.role === "instructor"
           ? "/instructor/courses"
-          : "/become-an-instructor",
+          : "/become-an-instructor"
+        : "/login",
     },
   ];
   return (
