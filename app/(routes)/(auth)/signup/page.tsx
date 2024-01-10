@@ -154,7 +154,7 @@ const Signup = () => {
             </button>
           </div>
           <div className="flex justify-center items-center mt-3">
-            <div>
+            {/* <div>
               <FcGoogle
                 onClick={() => {
                   signIn("google");
@@ -162,7 +162,7 @@ const Signup = () => {
                 className="cursor-pointer"
                 size={30}
               />
-            </div>
+            </div> */}
           </div>
           <h5 className="text-sm mt-3 text-center">
             Already have an account? <Link href={"/login"}>Login</Link>
