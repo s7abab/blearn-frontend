@@ -15,9 +15,7 @@ import { schema } from "@/app/utils/validations/login.validation";
 import BackButton from "@/app/components/common/BackButton";
 import { useSelector } from "react-redux";
 
-type Props = {};
-
-const Login = (props: Props) => {
+const Login = () => {
   const [login, { isSuccess, error }] = useLoginMutation();
   const router = useRouter();
 
@@ -128,7 +126,7 @@ const Login = (props: Props) => {
             </button>
           </div>
           <div className="flex justify-center  items-center mt-3">
-            <div>
+            {/* <div>
               <FcGoogle
                 className="cursor-pointer"
                 size={30}
@@ -136,7 +134,7 @@ const Login = (props: Props) => {
                   signIn("google");
                 }}
               />
-            </div>
+            </div> */}
           </div>
           <h5 className="text-sm mt-3 text-center">
             Not have an account? <Link href={"/signup"}>Sign up</Link>
