@@ -8,6 +8,7 @@ import ThemeSwitcher from "@/app/utils/ThemeSwitcher";
 import Cookies from "js-cookie";
 import { FaGripLines } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [token, setToken] = useState<any>("");
@@ -22,14 +23,24 @@ const Header = () => {
     <>
       {/* navbar open */}
       {open && (
-        <div className="flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-950 bg-white opacity-95 z-50 ">
-          <div className="flex flex-col justify-center items-center gap-6 h-screen w-screen text-2xl ">
+        <motion.div
+          className={`flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-900 bg-white z-50`}
+          initial={{ opacity: 0, x: 1 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <motion.div
+            className="flex flex-col justify-center items-center gap-6 h-screen w-screen text-2xl"
+            initial={{ y: 50 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <NavItems />
             <div className="mr-5">
               <ThemeSwitcher />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
       <div className="sticky top-2 bg-gray-50 shadow-md  bg-gradient-to-b dark:from-[#0c1625] dark:to-[#0a1321] backdrop-blur-lg duration-300 dark:text-gray-50 text-gray-950 border-none rounded-xl z-50 dark:hover:shadow-sm dark:hover:shadow-purple-500">
         <div className=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">

@@ -26,7 +26,7 @@ const ProfileImage = ({ avatar }: Props) => {
           {avatar ? (
             <Image alt="Profile" src={s3Url} layout="fill" objectFit="cover" />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-white shadow-lg">
+            <div className="absolute inset-0 flex items-center justify-center text-gray-800 dark:text-white shadow-lg">
               <CgProfile size={100} />
             </div>
           )}

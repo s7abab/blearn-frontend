@@ -13,23 +13,23 @@ const LessonOverview = () => {
   return (
     <>
       <div
-        className={`flex justify-evenly items-center cursor-pointer font-Poppins h-[50px] bg-gray-900 rounded-md text-dark-primary mt-4 mb-4`}
+        className={`flex justify-evenly items-center cursor-pointer font-Poppins h-[50px] bg-gray-900 rounded-md text-dark-primary md:mt-4 mb-4`}
       >
         <button
           onClick={() => handleTabChange("overview")}
-          className={tab === "overview" ? "text-[#00d4ff]" : ""}
+          className={tab === "overview" ? "text-[#00d4ff] text-sm" : ""}
         >
           Overview
         </button>
         <button
           onClick={() => handleTabChange("feedback")}
-          className={tab === "feedback" ? "text-[#00d4ff]" : ""}
+          className={tab === "feedback" ? "text-[#00d4ff] text-sm" : ""}
         >
           Feedback
         </button>
         <button
           onClick={() => handleTabChange("community")}
-          className={tab === "community" ? "text-[#00d4ff]" : ""}
+          className={tab === "community" ? "text-[#00d4ff] text-sm" : ""}
         >
           Community
         </button>

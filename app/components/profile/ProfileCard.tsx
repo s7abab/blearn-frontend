@@ -1,11 +1,10 @@
-import React from "react";
 import UserTopbar from "../user/UserTopbar";
 import { styles } from "@/app/styles/style";
 import ProfileImage from "./ProfileImage";
 import SmallLoader from "../common/spinners/SmallLoader";
 import { CiEdit } from "react-icons/ci";
 
-type Props = {
+interface Props  {
   user: any;
   handleUpdateUser: () => void;
   isAdmin?: boolean;
@@ -34,7 +33,7 @@ const ProfileCard = ({
         {uploading ? <SmallLoader /> : <ProfileImage avatar={user?.avatar} />}
         <label
           htmlFor="fileInput"
-          className="cursor-pointer absolute bottom-1 left-[50%] translate-x-[-50%] text-gray-100 font-semibold"
+          className="cursor-pointer absolute bottom-1 left-[50%] translate-x-[-50%] text-gray-100 font-semibold bg-gray-600 px-1 text-sm font-Josefin rounded-full"
         >
           {isAdmin ? "" : "Change"}
         </label>
