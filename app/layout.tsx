@@ -9,7 +9,6 @@ import Loader from "./components/common/spinners/Loader";
 import { SessionProvider, useSession } from "next-auth/react";
 import { ThemeProvider } from "./utils/theme-provider";
 import { styles } from "./styles/style";
-import { useEffect } from "react";
 import Footer from "./components/common/ui/Footer";
 
 const poppins = Poppins({

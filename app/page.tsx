@@ -6,7 +6,7 @@ import FeedbackSection from "./components/home/FeedbackSection";
 
 const page = () => {
   return (
-    <>
+    <div className="min-h-screen">
       <Heading
         title="BLeaner"
         description="BLeaner is online learning platform"
@@ -16,7 +16,7 @@ const page = () => {
       <HeroSection />
       <CoursesSection />
       <FeedbackSection />
-    </>
+    </div>
   );
 };
 
