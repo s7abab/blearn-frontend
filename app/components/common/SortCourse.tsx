@@ -24,7 +24,7 @@ const SortCourse = ({
       <div>
         <button
           onClick={handleOpen}
-          className="z-20 bg-gray-700 hover:scale-105 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-gray-500 transition duration-300"
+          className="z-20 dark:bg-gray-700 hover:scale-105 dark:text-white text-gray-900 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-gray-500"
         >
           <FaFilter className="text-2xl" />
         </button>

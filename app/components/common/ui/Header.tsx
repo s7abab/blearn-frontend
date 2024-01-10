@@ -24,8 +24,8 @@ const Header = () => {
       {/* navbar open */}
       {open && (
         <motion.div
-          className="flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-950 bg-white opacity-95 z-50"
-          initial={{ opacity: 0, x:1}}
+          className={`flex-col md:hidden w-full h-screen items-center justify-center top-0 left-0 absolute dark:bg-gray-900 bg-white z-50`}
+          initial={{ opacity: 0, x: 1 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
