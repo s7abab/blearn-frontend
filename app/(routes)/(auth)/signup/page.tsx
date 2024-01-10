@@ -71,7 +71,11 @@ const Signup = () => {
         });
       }
     }
-  }, [sessionData, user, sessionSuccess, socialAuth, router]);
+    if(sessionSuccess){
+      toast.success("Login Successfully")
+    }
+    // eslint-disable-next-line
+  }, [sessionData, user]);
 
   useEffect(() => {
     if (user) {
