@@ -18,11 +18,10 @@ const VideoPlayer = ({ url, height, handleProgress }: Props) => {
     // eslint-disable-next-line
   }, [url]);
   return (
-    <div className="relative p-2">
+    <div className="relative md:p-2">
       <ReactPlayer
         url={s3Url}
         controls={true}
-        playing
         stopOnUnmount
         width={"100%"}
         height={height}

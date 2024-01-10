@@ -5,7 +5,7 @@ import { IoIosDocument } from "react-icons/io";
 import LessonOverview from "../LessonOverview";
 import { styles } from "@/app/styles/style";
 
-type Props = {
+interface Props {
   lessons: ILesson[];
   lessonCount: number;
   handleProgress: (state: { played: number }) => void;
@@ -14,7 +14,7 @@ type Props = {
   totalLessons: number;
   activeLesson: number;
   currentLesson: ILesson;
-};
+}
 const OngoingLesson = ({
   lessons,
   lessonCount,
@@ -26,7 +26,7 @@ const OngoingLesson = ({
   currentLesson,
 }: Props) => {
   return (
-    <div className="md:w-2/3 rounded-md p-5">
+    <div className="md:w-2/3 rounded-md md:p-5">
       {lessons?.[lessonCount]?.type === "video" ? (
         <VideoPlayer
           handleProgress={handleProgress}
@@ -46,38 +46,38 @@ const OngoingLesson = ({
           )}
         </div>
       )}
-      <div className="flex justify-between mt-2">
-        <button
-          className={`${styles.blue_btn} ${
-            lessonCount > 0 ? "" : "cursor-not-allowed"
-          }`}
-          onClick={() => {
-            handlePrev();
-          }}
-        >
-          Prev Lesson
-        </button>
-        <button
-          className={`${styles.blue_btn} ${
-            lessonCount > totalLessons - 2 ? "cursor-not-allowed" : ""
-          }`}
-          onClick={() => {
-            handleNext();
-          }}
-          disabled={activeLesson > totalLessons - 2}
-        >
-          Next Lesson
-        </button>
+        <div className="flex justify-between mt-2">
+          <button
+            className={`${styles.purple_gradient} rounded-full p-2 ${
+              lessonCount > 0 ? "" : "cursor-not-allowed"
+            }`}
+            onClick={() => {
+              handlePrev();
+            }}
+          >
+            Prev Lesson
+          </button>
+          <button
+            className={`${styles.purple_gradient} rounded-full p-2 ${
+              lessonCount > totalLessons - 2 ? "cursor-not-allowed" : ""
+            }`}
+            onClick={() => {
+              handleNext();
+            }}
+            disabled={activeLesson > totalLessons - 2}
+          >
+            Next Lesson
+          </button>
+        </div>
+        <div className="mt-4">
+          <h1 className="font-Poppins text-lg md:text-xl mb-2 font-semibold">
+            {currentLesson?.title}
+          </h1>
+        </div>
+        <div>
+          <LessonOverview />
+        </div>
       </div>
-      <div className="mt-4">
-        <h1 className="font-Poppins text-xl font-semibold">
-          {currentLesson?.title}
-        </h1>
-      </div>
-      <div>
-        <LessonOverview />
-      </div>
-    </div>
   );
 };
 

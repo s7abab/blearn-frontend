@@ -1,17 +1,14 @@
 "use client";
 import CourseDetailsPage from "@/app/components/courses/CourseDetailsPage";
 import { useParams } from "next/navigation";
-import React from "react";
 
-type Props = {};
-
-const SingleCoursePage = (props: Props) => {
+const SingleCoursePage = () => {
   const params = useParams();
   const courseId = params?.courseid as string;
 
   return (
     <>
-      <div className="h-full">
+      <div className="min-h-screen">
         <CourseDetailsPage courseId={courseId} />
       </div>
     </>
