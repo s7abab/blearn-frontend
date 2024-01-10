@@ -46,7 +46,7 @@ const MyLearnings = ({ user }: Props) => {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col fixed translate-y-[20%] items-center w-screen gap-2 h-screen">
+              <div className="flex flex-col justify-center items-center w-screen gap-2 h-screen">
                 <h1 className="font-Josefin text-lg">
                   No purchased courses yet
                 </h1>
