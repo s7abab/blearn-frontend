@@ -7,9 +7,7 @@ import { useParams } from "next/navigation";
 import AddUpdateCourse from "./AddUpdateCourse";
 import CourseContents from "./CourseContents";
 
-type Props = {};
-
-const CourseOverview = (props: Props) => {
+const CourseOverview = () => {
   const { courseId } = useParams<any>();
   const [tab, setTab] = useState<string>("overview");
   const { data: course } =
