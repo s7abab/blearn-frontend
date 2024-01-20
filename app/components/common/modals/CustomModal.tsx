@@ -8,9 +8,16 @@ interface Props {
   onClose: () => void;
   children: React.ReactNode;
   modalHeader?: string;
+  courseSide?: boolean;
 }
 
-const CustomModal = ({ isOpen, onClose, children, modalHeader }: Props) => {
+const CustomModal = ({
+  isOpen,
+  onClose,
+  children,
+  modalHeader,
+  courseSide,
+}: Props) => {
   if (!isOpen) {
     return null;
   }
@@ -20,7 +27,13 @@ const CustomModal = ({ isOpen, onClose, children, modalHeader }: Props) => {
         className="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-[1000]"
         onClick={onClose}
       ></div>
-      <div className="w-full h-screen absolute flex items-center justify-center">
+      <div
+        className={`${
+          courseSide
+            ? "w-full h-screen absolute flex items-center justify-center"
+            : ""
+        }`}
+      >
         <motion.div
           key="modal"
           initial={{ opacity: 0 }}

@@ -10,7 +10,7 @@ const AlertBox: React.FC<AlertBoxProps> = ({ content }) => {
   return (
     <>
       {open && (
-        <div className="fixed bottom-1 right-1  border border-blue-700 text-blue-700 px-4 py-2 shadow-md w-[350px]">
+        <div className="border border-blue-700 text-blue-700 flex justify-center items-center h-[50px] w-full shadow-md">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <FaInfoCircle size={25} />
@@ -18,7 +18,7 @@ const AlertBox: React.FC<AlertBoxProps> = ({ content }) => {
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="text-sm font-semibold focus:outline-none"
+              className="text-sm font-semibold focus:outline-none ml-3"
             >
               Dismiss
             </button>

@@ -38,12 +38,6 @@ const Modules = () => {
       )}
 
       <div>
-        {course?.totalLessons < 5 && (
-          <AlertBox
-            content={`Minimum 5 lessons are required to list this course`}
-          />
-        )}
-
         <button
           onClick={handleOpen}
           className="bg-gradient-to-br from-[#0c214d] to-[#051536] p-3 rounded-md shadow-lg font-Josefin hover:from-[#11295d] hover:to-[#0c214d] text-dark-primary  cursor-pointer border-r-2 border-r-gray-100"
@@ -58,6 +52,11 @@ const Modules = () => {
           ))}
         </div>
       </div>
+      {course?.totalLessons < 5 && (
+            <AlertBox
+              content={`Minimum 5 lessons are required to list this course`}
+            />
+        )}
     </>
   );
 };
