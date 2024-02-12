@@ -4,7 +4,7 @@ import FeedbackCard from "../feedback/FeedbackCard";
 
 const FeedbackSection = () => {
   return (
-    <div className="mt-[80px]">
+    <div className="mt-[80px]]">
       <h1 className="font-Poppins text-center font-thin 1000px:text-[30px] 800px:text-[35px] 400px:text-[25px] cursor-pointer 400px:mt-4 text-gray-600">
         How learners like you are achieving their goals
       </h1>
