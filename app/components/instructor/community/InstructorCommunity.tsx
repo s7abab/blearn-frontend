@@ -21,7 +21,7 @@ const InstructorCommunity = ({ isCreate = true }: Props) => {
   return (
     <>
       {isCreate && <CreateCommunity />}
-      <div className="flex flex-col gap-3 justify-center mt-5">
+      <div className="flex flex-col gap-3 justify-center mt-5 min-h-screen">
         {communities?.map((community) => (
           <div
             onClick={() => handleNavigate(community._id)}

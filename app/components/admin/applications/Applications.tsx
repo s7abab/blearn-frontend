@@ -17,12 +17,14 @@ const Applications = () => {
     }));
   }
   return (
-    <CustomTable
-      data={applications}
-      tableFor={"courses"}
-      fields={["name", "email", "status"]}
-      url="applications"
-    />
+    <div className="min-h-screen">
+      <CustomTable
+        data={applications}
+        tableFor={"courses"}
+        fields={["name", "email", "status"]}
+        url="applications"
+      />
+    </div>
   );
 };
 
