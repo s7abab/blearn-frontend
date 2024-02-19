@@ -19,9 +19,10 @@ const InstructorCommunity = ({ isCreate = true }: Props) => {
   };
 
   return (
-    <>
+    <div className="min-h-screen">
+
       {isCreate && <CreateCommunity />}
-      <div className="flex flex-col gap-3 justify-center mt-5 min-h-screen">
+      <div className="flex flex-col gap-3 justify-center mt-5">
         {communities?.map((community) => (
           <div
             onClick={() => handleNavigate(community._id)}
@@ -32,7 +33,7 @@ const InstructorCommunity = ({ isCreate = true }: Props) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
