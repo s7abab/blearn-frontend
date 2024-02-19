@@ -15,7 +15,7 @@ import CourseForm from "./CourseForm";
 import useFileUpload from "@/app/hooks/useS3Upload";
 import {
   validateCourseName,
-  validateDiscription,
+  validateDescription,
   validatePrice,
 } from "@/app/utils/validations/course.validation";
 import { validateCategoryName } from "@/app/utils/validations/category.validation";
@@ -109,7 +109,7 @@ const AddUpdateCourse = ({ course, edit }: Props) => {
   // publish course
   const handlePublish = () => {
     validateCourseName(courseDetails.title);
-    validateDiscription(courseDetails.description);
+    validateDescription(courseDetails.description);
     validatePrice(courseDetails.price, courseDetails.discountPrice);
     AddCourse(courseDetails as ICourseDetails);
   };

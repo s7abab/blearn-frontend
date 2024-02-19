@@ -52,7 +52,7 @@ const PaymentDetails = ({
     }
   }, [isSuccess, error, data]);
   return (
-    <div className="mx-auto p-6">
+    <div className="mx-auto p-6 min-h-screen">
       <CustomModal
         onClose={handleBankModal}
         isOpen={bankModalOpen}

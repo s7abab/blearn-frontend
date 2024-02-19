@@ -15,29 +15,28 @@ export const validateCourseName = (name: string) => {
 
   return true;
 };
-export const validatePrice = (price: number, discountPrice: number) => {
-  if (price < 1) {
-    toast.error("Price should greaterthan 0", {
+
+export const validatePrice = (price: any, discountPrice: any) => {
+  if (parseInt(price) < 1) {
+    toast.error("Price should be greater than 0", {
       position: "bottom-center",
     });
     return false;
   }
-  if (price > 200) {
-    toast.error("Price should greaterthan 200$", {
+  if (parseInt(price) > 200) {
+    toast.error("Price should be less than or equal to 200", {
       position: "bottom-center",
     });
     return false;
   }
-  if (discountPrice < 1) {
-    toast.error("Price should greaterthan 0", {
+  if (parseInt(discountPrice) < 1) {
+    toast.error("Discount price should be greater than 0", {
       position: "bottom-center",
     });
     return false;
   }
 
-  const dPrice = discountPrice.toString();
-  const aPrice = price.toString();
-  if (parseFloat(dPrice) > parseFloat(aPrice)) {
+  if (parseInt(discountPrice) >= parseInt(price)) {
     toast.error("Discount price should be less than the actual price", {
       position: "bottom-center",
     });
@@ -47,7 +46,7 @@ export const validatePrice = (price: number, discountPrice: number) => {
   return true;
 };
 
-export const validateDiscription = (description: string) => {
+export const validateDescription = (description: string) => {
   if (description.trim() === "") {
     toast.error("Course description is required", {
       position: "bottom-center",
