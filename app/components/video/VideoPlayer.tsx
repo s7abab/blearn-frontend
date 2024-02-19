@@ -3,10 +3,14 @@ import useGetS3Link from "@/app/hooks/useGetS3Link";
 import { useEffect } from "react";
 import ReactPlayer from "react-player";
 
-type Props = {
+interface Props {
   url: string;
   height: string;
   handleProgress?: (state: { played: number }) => void;
+}
+// disable right button
+const disableContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+  event.preventDefault();
 };
 
 const VideoPlayer = ({ url, height, handleProgress }: Props) => {
@@ -18,7 +22,7 @@ const VideoPlayer = ({ url, height, handleProgress }: Props) => {
     // eslint-disable-next-line
   }, [url]);
   return (
-    <div className="relative md:p-2">
+    <div className="relative md:p-2 " onContextMenu={disableContextMenu}>
       <ReactPlayer
         url={s3Url}
         controls={true}
@@ -26,6 +30,13 @@ const VideoPlayer = ({ url, height, handleProgress }: Props) => {
         width={"100%"}
         height={height}
         onProgress={handleProgress}
+        config={{
+          file: {
+            attributes: {
+              controlsList: "nodownload", // remove download button
+            },
+          },
+        }}
       />
     </div>
   );
